@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-08-28T19:01:23.514160",
+  "stage": "static_processing",
+  "factors_processed": [
+    "dem_mosaic",
+    "slope",
+    "fault_distance"
+  ],
+  "status": "complete",
+  "output_directory": "data/processed",
+  "files": {
+    "dem_mosaic": "data/processed/static/dem_mosaic.tif",
+    "slope": "data/processed/static/slope.tif",
+    "slope_clipped": "data/processed/static/slope_clipped.tif",
+    "fault_distance": "data/processed/static/fault_distance.tif",
+    "fault_distance_clipped": "data/processed/static/fault_distance_clipped.tif"
+  }
+}

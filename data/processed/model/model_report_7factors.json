@@ -1,0 +1,27 @@
+{
+  "model_type": "XGBoost with 7 factors",
+  "factors": [
+    "slope",
+    "elevation",
+    "fault_distance",
+    "aspect",
+    "curvature",
+    "twi",
+    "lithology"
+  ],
+  "metrics": {
+    "accuracy": 0.9174,
+    "precision": 0.9157745909917189,
+    "recall": 0.9172567266841999,
+    "f1_score": 0.9165150596321002
+  },
+  "feature_importance": {
+    "slope": 0.11568953096866608,
+    "elevation": 0.0838085263967514,
+    "fault_distance": 0.0007787143695168197,
+    "aspect": 0.01189018040895462,
+    "curvature": 0.1713644415140152,
+    "twi": 0.09636186063289642,
+    "lithology": 0.5201067328453064
+  }
+}

@@ -1,0 +1,87 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Large GIS Rasters & GeoTIFFs (exceeds GitHub 100MB file limit, >8.6 GB total)
+*.tif
+*.tiff
+*.geotif
+*.geotiff
+*.nc
+*.h5
+*.hdf
+data/processed/dem/
+data/processed/factors/
+data/processed/labels/
+data/processed/results/
+data/processed/static/
+data/raw/dem/
+
+# Keep data directory structure and metadata
+!data/**/.gitkeep
+!data/**/*.json
+!data/**/*.csv
+!data/**/*.geojson
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/

@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Incident - NER Landslide System</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Report Incident - NER Landslide System</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+  <!-- Bootstrap 5 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap Icons CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Bootstrap 5 CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+  <!-- OpenLayers 9 CSS CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css">
+    <!-- Bootstrap Icons CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+
+  <!-- Shared Government GIS Theme CSS -->
+  <link rel="stylesheet" href="../css/style.css?v=4">
+</head>
+<body class="bg-light">
+    <!-- OpenLayers 9 CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css"
+    />
+
+  <!-- TOP HEADER -->
+  <header class="gov-header navbar navbar-expand-lg">
+    <div class="container-fluid px-3 px-lg-4">
+      
+      <!-- Brand & Emblem -->
+      <a class="gov-brand-container me-3 me-lg-4" href="../index.html">
+        <div class="gov-emblem d-flex align-items-center justify-content-center">
+          <i class="bi bi-shield-fill-check text-primary fs-4"></i>
+        </div>
+        <div>
+          <div class="gov-title-main">NER LANDSLIDE RISK MONITORING SYSTEM</div>
+          <div class="gov-title-sub">North Eastern Regional GIS & Early Warning Portal</div>
+        </div>
+      </a>
+    <!-- Shared Government GIS Theme CSS -->
+    <link rel="stylesheet" href="../css/style.css?v=4" />
+  </head>
+  <body class="bg-light">
+    <!-- TOP HEADER -->
+    <header class="gov-header navbar navbar-expand-lg">
+      <div class="container-fluid px-3 px-lg-4">
+        <!-- Brand & Emblem -->
+        <a class="gov-brand-container me-3 me-lg-4" href="../index.html">
+          <div
+            class="gov-emblem d-flex align-items-center justify-content-center"
+          >
+            <i class="bi bi-shield-fill-check text-primary fs-4"></i>
+          </div>
+          <div>
+            <div class="gov-title-main">
+              NER LANDSLIDE RISK MONITORING SYSTEM
+            </div>
+            <div class="gov-title-sub">
+              North Eastern Regional GIS & Early Warning Portal
+            </div>
+          </div>
+        </a>
+
+      <!-- Mobile Toggle -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#govNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <!-- Mobile Toggle -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#govNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+      <!-- Navigation & Actions -->
+      <div class="collapse navbar-collapse" id="govNavbar">
+        <ul class="navbar-nav gov-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="risk-map.html">Risk Map</a></li>
+          
+          <!-- Authority-Only Links -->
+          <li class="nav-item auth-only-link d-none"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+          <li class="nav-item auth-only-link d-none"><a class="nav-link" href="verification.html">Verification</a></li>
+          <li class="nav-item auth-only-link d-none"><a class="nav-link" href="alerts.html">Alert Control</a></li>
+          <li class="nav-item auth-only-link d-none"><a class="nav-link" href="alert-history.html">Alert History</a></li>
+        <!-- Navigation & Actions -->
+        <div class="collapse navbar-collapse" id="govNavbar">
+          <ul class="navbar-nav gov-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="risk-map.html">Risk Map</a>
+            </li>
+
+          <!-- Public-Only Links -->
+          <li class="nav-item public-only-link"><a class="nav-link active" href="report.html">Report Incident</a></li>
+          <li class="nav-item"><a class="nav-link" href="forecast.html">Forecast</a></li>
+        </ul>
+            <!-- Authority-Only Links -->
+            <li class="nav-item auth-only-link d-none">
+              <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item auth-only-link d-none">
+              <a class="nav-link" href="verification.html">Verification</a>
+            </li>
+            <li class="nav-item auth-only-link d-none">
+              <a class="nav-link" href="alerts.html">Alert Control</a>
+            </li>
+            <li class="nav-item auth-only-link d-none">
+              <a class="nav-link" href="alert-history.html">Alert History</a>
+            </li>
+
+        <!-- Right Side Controls -->
+        <div class="d-flex align-items-center gap-3">
+          <div id="auth-nav-action-container">
+            <button class="btn btn-gov-auth" id="btn-authority-login">
+              Authority Login
+            </button>
+            <!-- Public-Only Links -->
+            <li class="nav-item public-only-link">
+              <a class="nav-link active" href="report.html">Report Incident</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="forecast.html">Forecast</a>
+            </li>
+          </ul>
+
+          <!-- Right Side Controls -->
+          <div class="d-flex align-items-center gap-3">
+            <div id="auth-nav-action-container">
+              <button class="btn btn-gov-auth" id="btn-authority-login">
+                Authority Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="container py-4">
+    
+    <div class="row justify-content-center">
+      <div class="col-lg-9">
+        
+        <!-- Header Banner -->
+        <div class="bg-white p-4 rounded shadow-sm border mb-4 border-left-navy" style="border-left: 4px solid var(--gov-navy) !important;">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+            <div>
+              <span class="badge bg-warning text-dark mb-2"><i class="bi bi-shield-exclamation me-1"></i> Public Hazard Reporting Portal</span>
+              <h3 class="fw-extrabold text-navy mb-1">SUBMIT FIELD INCIDENT / LANDSLIDE REPORT</h3>
+              <p class="text-secondary small mb-0">Help state disaster authorities identify active slope failures, rockfalls, and road blockages across North Eastern India.</p>
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <!-- Header Banner -->
+          <div
+            class="bg-white p-4 rounded shadow-sm border mb-4 border-left-navy"
+            style="border-left: 4px solid var(--gov-navy) !important"
+          >
+            <div
+              class="d-flex align-items-center justify-content-between flex-wrap gap-2"
+            >
+              <div>
+                <span class="badge bg-warning text-dark mb-2"
+                  ><i class="bi bi-shield-exclamation me-1"></i> Public Hazard
+                  Reporting Portal</span
+                >
+                <h3 class="fw-extrabold text-navy mb-1">
+                  SUBMIT FIELD INCIDENT / LANDSLIDE REPORT
+                </h3>
+                <p class="text-secondary small mb-0">
+                  Help state disaster authorities identify active slope
+                  failures, rockfalls, and road blockages across North Eastern
+                  India.
+                </p>
+              </div>
+              <span class="badge bg-light text-muted border"
+                >Prototype Verification Workflow</span
+              >
+            </div>
+            <span class="badge bg-light text-muted border">Prototype Verification Workflow</span>
+          </div>
+        </div>
+
+        <!-- Reporting Form Card -->
+        <div class="card border-0 shadow-sm rounded p-4 bg-white mb-4">
+          <form id="incident-report-form">
+            
+            <!-- Step 1: Select Incident Category -->
+            <div class="mb-4">
+              <label class="form-label fw-bold text-navy mb-2"><i class="bi bi-1-circle-fill text-primary me-1"></i> Select Hazard Category:</label>
+              <input type="hidden" id="selected-incident-type" value="Landslide">
+          <!-- Reporting Form Card -->
+          <div class="card border-0 shadow-sm rounded p-4 bg-white mb-4">
+            <form id="incident-report-form">
+              <!-- Step 1: Select Incident Category -->
+              <div class="mb-4">
+                <label class="form-label fw-bold text-navy mb-2"
+                  ><i class="bi bi-1-circle-fill text-primary me-1"></i> Select
+                  Hazard Category:</label
+                >
+                <input
+                  type="hidden"
+                  id="selected-incident-type"
+                  value="Landslide"
+                />
+
+              <div class="incident-grid">
+                <div class="incident-type-card selected" onclick="selectIncidentType('Landslide', this)">
+                  <div class="fw-semibold text-navy">Landslide</div>
+                </div>
+                <div class="incident-grid">
+                  <div
+                    class="incident-type-card selected"
+                    onclick="selectIncidentType('Landslide', this)"
+                  >
+                    <div class="fw-semibold text-navy">Landslide</div>
+                  </div>
+
+                <div class="incident-type-card" onclick="selectIncidentType('Crack in Slope', this)">
+                  <div class="fw-semibold text-navy">Slope Crack</div>
+                </div>
+                  <div
+                    class="incident-type-card"
+                    onclick="selectIncidentType('Crack in Slope', this)"
+                  >
+                    <div class="fw-semibold text-navy">Slope Crack</div>
+                  </div>
+
+                <div class="incident-type-card" onclick="selectIncidentType('Ground Movement', this)">
+                  <div class="fw-semibold text-navy">Ground Creep</div>
+                </div>
+                  <div
+                    class="incident-type-card"
+                    onclick="selectIncidentType('Ground Movement', this)"
+                  >
+                    <div class="fw-semibold text-navy">Ground Creep</div>
+                  </div>
+
+                <div class="incident-type-card" onclick="selectIncidentType('Road Blockage', this)">
+                  <div class="fw-semibold text-navy">Road Blocked</div>
+                </div>
+                  <div
+                    class="incident-type-card"
+                    onclick="selectIncidentType('Road Blockage', this)"
+                  >
+                    <div class="fw-semibold text-navy">Road Blocked</div>
+                  </div>
+
+                <div class="incident-type-card" onclick="selectIncidentType('Rockfall', this)">
+                  <div class="fw-semibold text-navy">Rockfall</div>
+                </div>
+                  <div
+                    class="incident-type-card"
+                    onclick="selectIncidentType('Rockfall', this)"
+                  >
+                    <div class="fw-semibold text-navy">Rockfall</div>
+                  </div>
+
+                <div class="incident-type-card" onclick="selectIncidentType('Flash Flood', this)">
+                  <div class="fw-semibold text-navy">Flash Flood</div>
+                  <div
+                    class="incident-type-card"
+                    onclick="selectIncidentType('Flash Flood', this)"
+                  >
+                    <div class="fw-semibold text-navy">Flash Flood</div>
+                  </div>
+
+                  <div
+                    class="incident-type-card"
+                    onclick="selectIncidentType('Other', this)"
+                  >
+                    <div class="fw-semibold text-navy">Other</div>
+                  </div>
+                </div>
+
+                <div class="incident-type-card" onclick="selectIncidentType('Other', this)">
+                  <div class="fw-semibold text-navy">Other</div>
+                <!-- Other Hazard Custom Specification Input -->
+                <div id="other-hazard-container" class="mt-2 d-none">
+                  <input
+                    type="text"
+                    id="other-hazard-input"
+                    class="form-control form-control-sm"
+                    placeholder="Specify other hazard observed (e.g. Mudslide, Soil Erosion, Pipe Burst)..."
+                  />
+                </div>
+              </div>
+
+              <!-- Other Hazard Custom Specification Input -->
+              <div id="other-hazard-container" class="mt-2 d-none">
+                <input type="text" id="other-hazard-input" class="form-control form-control-sm" placeholder="Specify other hazard observed (e.g. Mudslide, Soil Erosion, Pipe Burst)...">
+              </div>
+            </div>
+              <!-- Step 2: Location Inputs & Picker -->
+              <div class="mb-4">
+                <label class="form-label fw-bold text-navy mb-2"
+                  ><i class="bi bi-2-circle-fill text-primary me-1"></i>
+                  Location & Coordinates:</label
+                >
+
+            <!-- Step 2: Location Inputs & Picker -->
+            <div class="mb-4">
+              <label class="form-label fw-bold text-navy mb-2"><i class="bi bi-2-circle-fill text-primary me-1"></i> Location & Coordinates:</label>
+              
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <label class="form-label small text-muted">State:</label>
+                  <select id="report-state" class="form-select form-select-sm" required>
+                    <option value="Arunachal Pradesh" selected>Arunachal Pradesh</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Tripura">Tripura</option>
+                  </select>
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label small text-muted">State:</label>
+                    <select
+                      id="report-state"
+                      class="form-select form-select-sm"
+                      required
+                    >
+                      <option value="Arunachal Pradesh" selected>
+                        Arunachal Pradesh
+                      </option>
+                      <option value="Mizoram">Mizoram</option>
+                      <option value="Sikkim">Sikkim</option>
+                      <option value="Meghalaya">Meghalaya</option>
+                      <option value="Nagaland">Nagaland</option>
+                      <option value="Assam">Assam</option>
+                      <option value="Manipur">Manipur</option>
+                      <option value="Tripura">Tripura</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label small text-muted"
+                      >District / Sector Name:</label
+                    >
+                    <input
+                      type="text"
+                      id="report-district"
+                      class="form-control form-select-sm"
+                      placeholder="e.g. Tawang Sector 4"
+                      value="Tawang Sector"
+                      required
+                    />
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label small text-muted"
+                      >Latitude (°N):</label
+                    >
+                    <input
+                      type="number"
+                      step="0.0001"
+                      id="report-lat"
+                      class="form-control form-select-sm"
+                      value="27.5861"
+                      required
+                    />
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label small text-muted"
+                      >Longitude (°E):</label
+                    >
+                    <input
+                      type="number"
+                      step="0.0001"
+                      id="report-lon"
+                      class="form-control form-select-sm"
+                      value="91.8594"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label small text-muted">District / Sector Name:</label>
+                  <input type="text" id="report-district" class="form-control form-select-sm" placeholder="e.g. Tawang Sector 4" value="Tawang Sector" required>
+                <!-- Location Helpers -->
+                <div class="d-flex gap-2">
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary btn-sm fw-bold"
+                    onclick="getUserCurrentGPSLocation()"
+                  >
+                    <i class="bi bi-crosshair me-1"></i> Use Current GPS
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btn-sm fw-bold"
+                    data-bs-toggle="modal"
+                    data-bs-target="#locationPickerModal"
+                  >
+                    <i class="bi bi-map me-1"></i> Select Location on Map
+                  </button>
+                </div>
+              </div>
+
+                <div class="col-md-6">
+                  <label class="form-label small text-muted">Latitude (°N):</label>
+                  <input type="number" step="0.0001" id="report-lat" class="form-control form-select-sm" value="27.5861" required>
+              <!-- Step 3: Media Upload -->
+              <div class="mb-4">
+                <label class="form-label fw-bold text-navy mb-2"
+                  ><i class="bi bi-3-circle-fill text-primary me-1"></i> Upload
+                  Evidence Photo / Video:</label
+                >
+
+                <div
+                  class="upload-dropzone"
+                  onclick="document.getElementById('input-image-file').click()"
+                >
+                  <i class="bi bi-cloud-arrow-up text-primary fs-2"></i>
+                  <div class="fw-bold text-navy mt-1">
+                    Click to Upload Photo or Drag & Drop File
+                  </div>
+                  <div class="small text-muted">
+                    Supports JPG, PNG, WEBP (Max 10MB)
+                  </div>
+                  <input
+                    type="file"
+                    id="input-image-file"
+                    accept="image/*"
+                    class="d-none"
+                    onchange="previewSelectedImage(this)"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label small text-muted">Longitude (°E):</label>
+                  <input type="number" step="0.0001" id="report-lon" class="form-control form-select-sm" value="91.8594" required>
+                <!-- Image Preview Box -->
+                <div id="image-preview-container" class="mt-3 d-none">
+                  <div
+                    class="d-flex align-items-center gap-3 bg-light p-2 rounded border"
+                  >
+                    <img
+                      id="image-preview-thumb"
+                      src="#"
+                      class="image-preview-box"
+                      style="width: 100px; height: 75px"
+                      alt="Preview"
+                    />
+                    <div class="flex-grow-1">
+                      <div class="fw-bold small text-navy">
+                        Photo Attached Successfully
+                      </div>
+                      <div class="small text-muted">
+                        Ready for authority verification
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-danger"
+                      onclick="clearSelectedImage()"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Location Helpers -->
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-outline-primary btn-sm fw-bold" onclick="getUserCurrentGPSLocation()">
+                  <i class="bi bi-crosshair me-1"></i> Use Current GPS
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm fw-bold" data-bs-toggle="modal" data-bs-target="#locationPickerModal">
+                  <i class="bi bi-map me-1"></i> Select Location on Map
+                </button>
+              <!-- Step 4: Incident Description -->
+              <div class="mb-4">
+                <label class="form-label fw-bold text-navy mb-1"
+                  ><i class="bi bi-4-circle-fill text-primary me-1"></i>
+                  Incident Description & Details:</label
+                >
+                <textarea
+                  id="report-description"
+                  class="form-control"
+                  rows="3"
+                  placeholder="Describe the slope failure, road obstruction, or visible soil cracking..."
+                  required
+                >
+Recent rainfall caused rockfall debris blocking NH-229. Local traffic halted.</textarea
+                >
+              </div>
+            </div>
+
+            <!-- Step 3: Media Upload -->
+            <div class="mb-4">
+              <label class="form-label fw-bold text-navy mb-2"><i class="bi bi-3-circle-fill text-primary me-1"></i> Upload Evidence Photo / Video:</label>
+              
+              <div class="upload-dropzone" onclick="document.getElementById('input-image-file').click();">
+                <i class="bi bi-cloud-arrow-up text-primary fs-2"></i>
+                <div class="fw-bold text-navy mt-1">Click to Upload Photo or Drag & Drop File</div>
+                <div class="small text-muted">Supports JPG, PNG, WEBP (Max 10MB)</div>
+                <input type="file" id="input-image-file" accept="image/*" class="d-none" onchange="previewSelectedImage(this)">
+              </div>
+              <!-- Step 5: Reporter Contact Details -->
+              <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-navy"
+                    >Reporter Full Name:</label
+                  >
+                  <input
+                    type="text"
+                    id="report-author-name"
+                    class="form-control form-select-sm"
+                    value="Dorjee Norbu"
+                    required
+                  />
+                </div>
+
+              <!-- Image Preview Box -->
+              <div id="image-preview-container" class="mt-3 d-none">
+                <div class="d-flex align-items-center gap-3 bg-light p-2 rounded border">
+                  <img id="image-preview-thumb" src="#" class="image-preview-box" style="width: 100px; height: 75px;" alt="Preview">
+                  <div class="flex-grow-1">
+                    <div class="fw-bold small text-navy">Photo Attached Successfully</div>
+                    <div class="small text-muted">Ready for authority verification</div>
+                  </div>
+                  <button type="button" class="btn btn-sm btn-outline-danger" onclick="clearSelectedImage()"><i class="bi bi-trash"></i></button>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-navy"
+                    >Phone / Contact Number:</label
+                  >
+                  <input
+                    type="tel"
+                    id="report-author-phone"
+                    class="form-control form-select-sm"
+                    value="+91 94360 12345"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4: Incident Description -->
+            <div class="mb-4">
+              <label class="form-label fw-bold text-navy mb-1"><i class="bi bi-4-circle-fill text-primary me-1"></i> Incident Description & Details:</label>
+              <textarea id="report-description" class="form-control" rows="3" placeholder="Describe the slope failure, road obstruction, or visible soil cracking..." required>Recent rainfall caused rockfall debris blocking NH-229. Local traffic halted.</textarea>
+            </div>
+
+            <!-- Step 5: Reporter Contact Details -->
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-navy">Reporter Full Name:</label>
+                <input type="text" id="report-author-name" class="form-control form-select-sm" value="Dorjee Norbu" required>
+              <div class="alert alert-info p-3 small mb-4">
+                <i class="bi bi-info-circle-fill me-1"></i>
+                <strong>Prototype Mode:</strong> Submitted reports will be
+                immediately stored in system state as
+                <span class="badge-pending-report">PENDING VERIFICATION</span>
+                and displayed on the interactive GIS Risk Map.
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-navy">Phone / Contact Number:</label>
+                <input type="tel" id="report-author-phone" class="form-control form-select-sm" value="+91 94360 12345" required>
+              <!-- Submit Button -->
+              <div class="d-grid">
+                <button
+                  type="submit"
+                  class="btn btn-navy py-2 fw-bold shadow-sm"
+                  style="
+                    background-color: var(--gov-navy);
+                    color: white;
+                    border: none;
+                  "
+                >
+                  <i class="bi bi-send-fill me-2"></i> SUBMIT REPORT FOR
+                  VERIFICATION
+                </button>
+              </div>
+            </div>
+
+            <div class="alert alert-info p-3 small mb-4">
+              <i class="bi bi-info-circle-fill me-1"></i> <strong>Prototype Mode:</strong> Submitted reports will be immediately stored in system state as <span class="badge-pending-report">PENDING VERIFICATION</span> and displayed on the interactive GIS Risk Map.
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-navy py-2 fw-bold shadow-sm" style="background-color: var(--gov-navy); color: white; border: none;">
+                <i class="bi bi-send-fill me-2"></i> SUBMIT REPORT FOR VERIFICATION
+              </button>
+            </div>
+
+          </form>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </main>
+
+  </main>
+    <!-- SUCCESS CONFIRMATION MODAL -->
+    <div
+      class="modal fade"
+      id="reportSuccessModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title fw-bold">
+              <i class="bi bi-check-circle-fill me-2"></i> Report Submitted
+              Successfully
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body p-4 text-center">
+            <div class="fs-1 text-success mb-2">📍</div>
+            <h5 class="fw-extrabold text-navy mb-1" id="success-report-id">
+              REP-2026-001
+            </h5>
+            <p class="small text-muted mb-3">
+              Status:
+              <span class="badge-pending-report">PENDING VERIFICATION</span>
+            </p>
+
+  <!-- SUCCESS CONFIRMATION MODAL -->
+  <div class="modal fade" id="reportSuccessModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title fw-bold"><i class="bi bi-check-circle-fill me-2"></i> Report Submitted Successfully</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4 text-center">
+          <div class="fs-1 text-success mb-2">📍</div>
+          <h5 class="fw-extrabold text-navy mb-1" id="success-report-id">REP-2026-001</h5>
+          <p class="small text-muted mb-3">Status: <span class="badge-pending-report">PENDING VERIFICATION</span></p>
+            <div class="bg-light p-3 rounded border text-start small mb-3">
+              <div>
+                Category: <strong id="success-report-type">Landslide</strong>
+              </div>
+              <div>
+                Location:
+                <strong id="success-report-coords"
+                  >27.5861° N, 91.8594° E</strong
+                >
+              </div>
+              <div>Timestamp: <strong>Just Now</strong></div>
+            </div>
+
+          <div class="bg-light p-3 rounded border text-start small mb-3">
+            <div>Category: <strong id="success-report-type">Landslide</strong></div>
+            <div>Location: <strong id="success-report-coords">27.5861° N, 91.8594° E</strong></div>
+            <div>Timestamp: <strong>Just Now</strong></div>
+            <p class="small text-secondary mb-0">
+              Your report is now visible on the OpenLayers map as a yellow
+              pending marker. Authority officers can review and verify this
+              incident.
+            </p>
+          </div>
+
+          <p class="small text-secondary mb-0">Your report is now visible on the OpenLayers map as a yellow pending marker. Authority officers can review and verify this incident.</p>
+          <div class="modal-footer bg-light">
+            <a
+              href="risk-map.html"
+              class="btn btn-navy text-white btn-sm fw-bold"
+              style="background-color: var(--gov-navy)"
+            >
+              <i class="bi bi-map me-1"></i> View Report on GIS Map
+            </a>
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer bg-light">
+          <a href="risk-map.html" class="btn btn-navy text-white btn-sm fw-bold" style="background-color: var(--gov-navy);">
+            <i class="bi bi-map me-1"></i> View Report on GIS Map
+          </a>
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCATION PICKER MAP MODAL -->
+  <div class="modal fade" id="locationPickerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-navy text-white" style="background-color: var(--gov-navy);">
+          <h5 class="modal-title fw-bold"><i class="bi bi-geo-alt-fill me-2"></i> Click Map to Select Coordinates</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-3">
+          <div class="alert alert-warning p-2 small mb-2">
+            <i class="bi bi-hand-index-thumb me-1"></i> Click anywhere on the map to automatically set Latitude and Longitude.
+    <!-- LOCATION PICKER MAP MODAL -->
+    <div
+      class="modal fade"
+      id="locationPickerModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div
+            class="modal-header bg-navy text-white"
+            style="background-color: var(--gov-navy)"
+          >
+            <h5 class="modal-title fw-bold">
+              <i class="bi bi-geo-alt-fill me-2"></i> Click Map to Select
+              Coordinates
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div id="picker-map" style="height: 320px; width: 100%; background-color: #cbd5e1;" class="rounded border"></div>
+          <div class="modal-body p-3">
+            <div class="alert alert-warning p-2 small mb-2">
+              <i class="bi bi-hand-index-thumb me-1"></i> Click anywhere on the
+              map to automatically set Latitude and Longitude.
+            </div>
+            <div
+              id="picker-map"
+              style="height: 320px; width: 100%; background-color: #cbd5e1"
+              class="rounded border"
+            ></div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary btn-sm fw-bold"
+              data-bs-dismiss="modal"
+            >
+              Confirm Selection
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-sm fw-bold" data-bs-dismiss="modal">Confirm Selection</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ol@v9.1.0/dist/ol.js"></script>
+  <script src="../js/data.js?v=4"></script>
+  <script src="../js/main.js?v=4"></script>
+</body>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ol@v9.1.0/dist/ol.js"></script>
+    <script src="../js/model_data.js"></script>
+    <script src="../js/data.js?v=4"></script>
+    <script src="../js/main.js?v=4"></script>
+  </body>
+</html>

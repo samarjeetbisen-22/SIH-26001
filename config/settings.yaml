@@ -1,0 +1,24 @@
+project:
+  name: landslide-risk-prototype
+  region: Noney/Manipur
+  aoi_name: noney_aoi
+
+aoi:
+  file: data/raw/aoi/noney_aoi.geojson
+
+# Test period first - then expand
+dates:
+  start: "2023-06-01"
+  end: "2023-06-30"
+
+paths:
+  raw: data/raw
+  dem: data/raw/dem
+  faults: data/raw/faults
+  lithology: data/raw/lithology
+  rainfall: data/raw/rainfall
+  smap_soil: data/raw/smap/soil
+  smap_snow: data/raw/smap/snow
+  gsi: data/raw/landslides/gsi
+  isro: data/raw/landslides/isro
+  processed: data/processed

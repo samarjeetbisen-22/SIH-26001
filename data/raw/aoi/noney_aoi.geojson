@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "noney_aoi",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "Noney_AOI", "description": "Noney/Manipur region", "area_km2": 9.9999999999999995e-07 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 94.5, 24.0 ], [ 94.5, 25.0 ], [ 93.5, 25.0 ], [ 93.5, 24.0 ], [ 94.5, 24.0 ] ] ] } }
+]
+}

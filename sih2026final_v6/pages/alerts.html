@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emergency Alert Control Center - NER Landslide System</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Shared Government GIS Theme CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body class="bg-light">
+    <!-- TOP HEADER -->
+    <header class="gov-header navbar navbar-expand-lg">
+      <div class="container-fluid px-3 px-lg-4">
+        <!-- Brand & Emblem -->
+        <a class="gov-brand-container me-3 me-lg-4" href="../index.html">
+          <div
+            class="gov-emblem d-flex align-items-center justify-content-center"
+          >
+            <i class="bi bi-shield-fill-check text-primary fs-4"></i>
+          </div>
+          <div>
+            <div class="gov-title-main">
+              NER LANDSLIDE RISK MONITORING SYSTEM
+            </div>
+            <div class="gov-title-sub">
+              North Eastern Regional GIS & Early Warning Portal
+            </div>
+          </div>
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#govNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation & Actions -->
+        <div class="collapse navbar-collapse" id="govNavbar">
+          <ul class="navbar-nav gov-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="risk-map.html">Risk Map</a>
+            </li>
+
+            <!-- Authority-Only Links -->
+            <li class="nav-item auth-only-link d-none">
+              <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item auth-only-link d-none">
+              <a class="nav-link" href="verification.html">Verification</a>
+            </li>
+            <li class="nav-item auth-only-link d-none">
+              <a class="nav-link active" href="alerts.html">Alert Control</a>
+            </li>
+            <li class="nav-item auth-only-link d-none">
+              <a class="nav-link" href="alert-history.html">Alert History</a>
+            </li>
+
+            <!-- Public-Only Links -->
+            <li class="nav-item public-only-link">
+              <a class="nav-link" href="report.html">Report Incident</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="forecast.html">Forecast</a>
+            </li>
+          </ul>
+
+          <!-- Right Side Controls -->
+          <div class="d-flex align-items-center gap-3">
+            <div id="auth-nav-action-container">
+              <button class="btn btn-gov-auth" id="btn-authority-login">
+                Authority Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN ALERT CONTROL CONTAINER -->
+    <main class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <!-- Header Banner -->
+          <div
+            class="bg-white p-4 rounded shadow-sm border mb-4 border-left-navy"
+            style="border-left: 4px solid var(--risk-severe) !important"
+          >
+            <div
+              class="d-flex align-items-center justify-content-between flex-wrap gap-2"
+            >
+              <div>
+                <span class="badge bg-danger text-white mb-2"
+                  ><i class="bi bi-broadcast me-1"></i> Authority Emergency
+                  Dispatch Command</span
+                >
+                <h3 class="fw-extrabold text-navy mb-1">
+                  EMERGENCY ALERT CONTROL CENTER
+                </h3>
+                <p class="text-secondary small mb-0">
+                  Configure multi-channel warning broadcasts for affected
+                  districts, road corridors, and hill villages.
+                </p>
+              </div>
+              <a
+                href="alert-history.html"
+                class="btn btn-outline-navy btn-sm fw-bold"
+              >
+                <i class="bi bi-clock-history me-1"></i> View Alert History
+                Archive
+              </a>
+            </div>
+          </div>
+
+          <!-- Alert Dispatch Form Card -->
+          <div class="card border-0 shadow-sm rounded p-4 bg-white mb-4">
+            
+            <!-- AI MODEL DIRECT TRIGGER PANEL -->
+            <div class="card p-3 mb-4 border-0 shadow-sm rounded border-start border-4 border-success" style="background-color: #f0fdf4;">
+              <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="badge bg-success text-white py-1 px-2"><i class="bi bi-cpu-fill me-1"></i>Autonomous AI Model Direct Trigger</span>
+                  <strong class="text-navy small">NASA LHASA v2 + 30m XGBoost Early Warning</strong>
+                </div>
+                <div class="form-check form-switch mb-0">
+                  <input class="form-check-input" type="checkbox" id="toggle-auto-model-dispatch" checked onchange="toggleAutonomousAlertMode(this)">
+                  <label class="form-check-label small fw-bold text-navy" for="toggle-auto-model-dispatch">Auto-Dispatch on Severe / Warning Breach</label>
+                </div>
+              </div>
+              <p class="small text-muted mb-2" style="font-size: 0.78rem;">
+                Eliminates operational latency by allowing the trained 30m susceptibility model and 7-day decaying ARI nowcasting engine to trigger geofenced multi-channel emergency directives directly.
+              </p>
+              
+              <!-- Quick Auto-Fill Cards from Live Model State -->
+              <div class="row g-2" id="model-prediction-quick-grid">
+                <div class="col-sm-6 col-lg-3">
+                  <div class="p-2 border rounded bg-white shadow-xs">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <strong class="small text-navy">Sikkim</strong>
+                      <span class="badge bg-danger" style="font-size: 0.65rem;">Severe (L4)</span>
+                    </div>
+                    <div class="text-muted" style="font-size: 0.7rem;">Live ARI: <strong>118.3 mm</strong> • NH-10</div>
+                    <button type="button" class="btn btn-outline-danger btn-sm w-100 mt-2 py-0 fw-bold" style="font-size: 0.7rem;" onclick="fillAlertFromModelPrediction('sikkim')">
+                      <i class="bi bi-lightning-charge-fill me-1"></i>Auto-Fill from Model
+                    </button>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="p-2 border rounded bg-white shadow-xs">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <strong class="small text-navy">Nagaland</strong>
+                      <span class="badge bg-warning text-dark" style="font-size: 0.65rem;">Warning (L3)</span>
+                    </div>
+                    <div class="text-muted" style="font-size: 0.7rem;">Live ARI: <strong>72.9 mm</strong> • NH-29</div>
+                    <button type="button" class="btn btn-outline-warning text-dark btn-sm w-100 mt-2 py-0 fw-bold" style="font-size: 0.7rem;" onclick="fillAlertFromModelPrediction('nagaland')">
+                      <i class="bi bi-lightning-charge-fill me-1"></i>Auto-Fill from Model
+                    </button>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="p-2 border rounded bg-white shadow-xs">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <strong class="small text-navy">Meghalaya</strong>
+                      <span class="badge bg-info text-dark" style="font-size: 0.65rem;">Advisory (L1)</span>
+                    </div>
+                    <div class="text-muted" style="font-size: 0.7rem;">Live ARI: <strong>15.1 mm</strong> • NH-6</div>
+                    <button type="button" class="btn btn-outline-info text-dark btn-sm w-100 mt-2 py-0 fw-bold" style="font-size: 0.7rem;" onclick="fillAlertFromModelPrediction('meghalaya')">
+                      <i class="bi bi-lightning-charge-fill me-1"></i>Auto-Fill from Model
+                    </button>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="p-2 border rounded bg-white shadow-xs">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <strong class="small text-navy">Assam</strong>
+                      <span class="badge bg-success" style="font-size: 0.65rem;">Safe (L0)</span>
+                    </div>
+                    <div class="text-muted" style="font-size: 0.7rem;">Live ARI: <strong>18.8 mm</strong> • NH-27</div>
+                    <button type="button" class="btn btn-outline-success btn-sm w-100 mt-2 py-0 fw-bold" style="font-size: 0.7rem;" onclick="fillAlertFromModelPrediction('assam')">
+                      <i class="bi bi-lightning-charge-fill me-1"></i>Auto-Fill from Model
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 1: Target Location & Zone Selection -->
+            <div class="mb-4">
+              <label class="form-label fw-bold text-navy mb-2"
+                >1. Target Hazard Area & Population Sector:</label
+              >
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label small text-muted"
+                    >Target Sector / District:</label
+                  >
+                  <select
+                    id="alert-select-district"
+                    class="form-select"
+                    onchange="updateTargetAreaMetadata()"
+                  >
+                    <option value="gangtok" selected>
+                      Gangtok Urban Belt & NH-10 Corridor (Sikkim)
+                    </option>
+                    <option value="kohima">
+                      Kohima Phesama Sinking Sector (Nagaland)
+                    </option>
+                    <option value="shillong">
+                      Shillong Plateau & NH-6 Route (Meghalaya)
+                    </option>
+                    <option value="haflong">
+                      Dima Hasao Hills / Haflong (Assam)
+                    </option>
+                    <option value="tawang">
+                      Tawang District (Arunachal Pradesh)
+                    </option>
+                    <option value="aizawl">
+                      Aizawl Ridge & Slopes (Mizoram)
+                    </option>
+                    <option value="guwahati">
+                      Guwahati Hill Slopes (Assam)
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="target-area-summary-card">
+                    <div
+                      class="d-flex justify-content-between align-items-center mb-1"
+                    >
+                      <span class="fw-bold text-navy" id="meta-target-name"
+                        >Gangtok Urban Belt</span
+                      >
+                      <span
+                        class="risk-level-badge badge-risk-severe"
+                        id="meta-risk-badge"
+                        >Severe Risk</span
+                      >
+                    </div>
+                    <div class="small text-muted mb-1">
+                      Affected Slopes/Villages:
+                      <strong id="meta-villages">Dikchu, 9th Mile, Singtam</strong>
+                    </div>
+                    <div class="small text-muted mb-1">
+                      Road Corridor:
+                      <strong id="meta-roads"
+                        >NH-10 Siliguri-Gangtok Lifeline</strong
+                      >
+                    </div>
+                    <div class="small text-muted mb-1">
+                      Estimated Exposure (Within Radius):
+                      <strong id="meta-population" class="text-danger"
+                        >42,000 Residents</strong
+                      >
+                    </div>
+                    <div id="meta-ml-insight" class="mt-2 pt-2 border-top small d-none">
+                      <!-- Populated dynamically by updateTargetAreaMetadata() in main.js -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Alert Category Selection -->
+            <div class="mb-4">
+              <label class="form-label fw-bold text-navy mb-2"
+                >2. Warning Severity & Directive Type:</label
+              >
+              <input
+                type="hidden"
+                id="selected-alert-type"
+                value="Severe Emergency Alert"
+              />
+
+              <div class="alert-type-grid">
+                <div
+                  class="alert-type-card selected"
+                  onclick="selectAlertCategory('Severe Emergency Alert', this)"
+                >
+                  <div class="fw-bold small text-navy">Severe Emergency</div>
+                  <div class="text-muted" style="font-size: 0.65rem;">Level 4 (Imminent Failure)</div>
+                </div>
+
+                <div
+                  class="alert-type-card"
+                  onclick="selectAlertCategory('High Risk Alert', this)"
+                >
+                  <div class="fw-bold small text-navy">High Risk Alert</div>
+                  <div class="text-muted" style="font-size: 0.65rem;">Level 3 (Accelerated Pore Pressure)</div>
+                </div>
+
+                <div
+                  class="alert-type-card"
+                  onclick="selectAlertCategory('Warning', this)"
+                >
+                  <div class="fw-bold small text-navy">Warning Watch</div>
+                  <div class="text-muted" style="font-size: 0.65rem;">Level 2 (Active Heavy Rain)</div>
+                </div>
+
+                <div
+                  class="alert-type-card"
+                  onclick="selectAlertCategory('Evacuation Advisory', this)"
+                >
+                  <div class="fw-bold small text-navy">Evacuation Directive</div>
+                  <div class="text-muted" style="font-size: 0.65rem;">Immediate Shelter Relocation</div>
+                </div>
+
+                <div
+                  class="alert-type-card"
+                  onclick="selectAlertCategory('Road Closure', this)"
+                >
+                  <div class="fw-bold small text-navy">Road Closure</div>
+                  <div class="text-muted" style="font-size: 0.65rem;">Corridor Traffic Prohibition</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3: Offline Geo-Fenced Radius & Delivery Channels -->
+            <div class="mb-4">
+              <label class="form-label fw-bold text-navy mb-2"
+                >3. Offline Geo-Fenced Radius & Delivery Channels (Online SMS + Offline CBS / Radio):</label
+              >
+
+              <!-- Radius Selector -->
+              <div class="p-3 bg-light rounded border mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                  <span class="small fw-bold text-navy"><i class="bi bi-bullseye text-danger me-1"></i>Offline Alert Broadcast Radius (Geo-Fencing Boundary):</span>
+                  <span class="badge bg-danger fs-6" id="display-radius-badge">15 km Radius</span>
+                </div>
+                <div class="d-flex gap-2 flex-wrap mb-2" id="geo-radius-btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary radius-btn" onclick="selectGeoRadius(5, this)">5 km (Immediate Slopes)</button>
+                  <button type="button" class="btn btn-sm btn-danger radius-btn active" onclick="selectGeoRadius(15, this)">15 km (Corridor & Towns)</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary radius-btn" onclick="selectGeoRadius(25, this)">25 km (Catchment Zone)</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary radius-btn" onclick="selectGeoRadius(50, this)">50 km (Regional Hill Belt)</button>
+                </div>
+                <input type="hidden" id="selected-geo-radius" value="15">
+                <div class="d-flex justify-content-between small text-muted font-monospace flex-wrap gap-2" id="radius-meta-info" style="font-size: 0.75rem;">
+                  <span><i class="bi bi-broadcast me-1 text-primary"></i>Cell Broadcast Coverage: <strong id="radius-towers">8 Cellular Towers</strong></span>
+                  <span><i class="bi bi-soundwave me-1 text-danger"></i>Offline LoRa Sirens: <strong id="radius-gateways">11 Gateways Ready</strong></span>
+                  <span><i class="bi bi-people me-1 text-success"></i>Estimated Reach: <strong id="radius-population">42,000 Residents</strong></span>
+                </div>
+              </div>
+
+              <!-- Channel Cards -->
+              <div class="channel-grid">
+                <label class="channel-card selected">
+                  <input
+                    type="checkbox"
+                    class="channel-chk"
+                    value="Cell Broadcast (CBS - Offline Handset Push)"
+                    checked
+                  />
+                  <div>
+                    <div class="fw-bold small text-navy"><i class="bi bi-phone-fill text-danger me-1"></i>Cell Broadcast (CBS)</div>
+                    <div class="text-muted" style="font-size: 0.68rem">
+                      Offline Push to all handsets in radius (Zero internet / numbers required)
+                    </div>
+                  </div>
+                </label>
+
+                <label class="channel-card selected">
+                  <input
+                    type="checkbox"
+                    class="channel-chk"
+                    value="LoRaWAN & VHF Radio Siren Mesh"
+                    checked
+                  />
+                  <div>
+                    <div class="fw-bold small text-navy"><i class="bi bi-broadcast text-primary me-1"></i>LoRa & VHF Radio Mesh</div>
+                    <div class="text-muted" style="font-size: 0.68rem">
+                      Triggers autonomous battery-backed village sirens during cellular blackout
+                    </div>
+                  </div>
+                </label>
+
+                <label class="channel-card selected">
+                  <input
+                    type="checkbox"
+                    class="channel-chk"
+                    value="Online Multilingual SMS"
+                    checked
+                  />
+                  <div>
+                    <div class="fw-bold small text-navy"><i class="bi bi-chat-left-text-fill text-success me-1"></i>Online Multi-Lingual SMS</div>
+                    <div class="text-muted" style="font-size: 0.68rem">
+                      Regional Script SMS to registered residents & panchayat heads
+                    </div>
+                  </div>
+                </label>
+
+                <label class="channel-card selected">
+                  <input
+                    type="checkbox"
+                    class="channel-chk"
+                    value="CAP-CP NDMA Gateway Push"
+                    checked
+                  />
+                  <div>
+                    <div class="fw-bold small text-navy"><i class="bi bi-shield-shaded text-warning me-1"></i>CAP-CP NDMA Gateway</div>
+                    <div class="text-muted" style="font-size: 0.68rem">
+                      Standard Indian NDMA / C-DOT national disaster integration XML
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Step 4: Multi-Lingual Regional Translation & SMS Content -->
+            <div class="mb-4">
+              <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+                <label class="form-label fw-bold text-navy mb-0">
+                  4. Regional Language Translation & SMS Broadcast Content:
+                </label>
+                <div class="d-flex align-items-center gap-1 flex-wrap">
+                  <span class="small text-muted me-1">Language:</span>
+                  <div class="btn-group btn-group-sm" role="group" id="lang-selector-group">
+                    <button type="button" class="btn btn-navy active" onclick="selectAlertLanguage('english', this)">English</button>
+                    <button type="button" class="btn btn-outline-navy" onclick="selectAlertLanguage('nepali', this)">नेपाली (Nepali)</button>
+                    <button type="button" class="btn btn-outline-navy" onclick="selectAlertLanguage('assamese', this)">অসমীয়া (Assamese)</button>
+                    <button type="button" class="btn btn-outline-navy" onclick="selectAlertLanguage('khasi', this)">Khasi</button>
+                    <button type="button" class="btn btn-outline-navy" onclick="selectAlertLanguage('nagamese', this)">Nagamese</button>
+                    <button type="button" class="btn btn-outline-navy" onclick="selectAlertLanguage('hindi', this)">हिंदी (Hindi)</button>
+                  </div>
+                  <input type="hidden" id="selected-alert-language" value="english">
+                </div>
+              </div>
+
+              <textarea
+                id="alert-message-text"
+                class="form-control font-monospace"
+                rows="3"
+                oninput="updateSmsCharCounter()"
+                placeholder="Enter emergency message text in regional language..."
+              >EMERGENCY DIRECTIVE: Extreme antecedent rainfall has breached critical slope saturation in East Sikkim along NH-10. Immediate landslide probability high near Dikchu and 9th Mile. Evacuate active slip zones immediately.</textarea>
+
+              <div class="d-flex justify-content-between align-items-center mt-2 small text-muted flex-wrap gap-2">
+                <span id="sms-char-counter"><i class="bi bi-chat-dots me-1"></i>176 chars • <strong>2 SMS parts</strong> (Standard GSM-7)</span>
+                <span>Active Broadcast Language: <strong class="text-primary" id="active-lang-badge">English</strong></span>
+              </div>
+            </div>
+
+            <!-- Step 5: Common Alerting Protocol (CAP-CP 1.2) XML Preview -->
+            <div class="mb-4">
+              <a class="d-flex justify-content-between align-items-center text-decoration-none text-navy p-2 bg-light rounded border" data-bs-toggle="collapse" href="#cap-preview-collapse" role="button" aria-expanded="false" onclick="refreshCapPreview()">
+                <span class="small fw-bold"><i class="bi bi-code-square text-primary me-2"></i>Inspect Standard CAP-CP v1.2 XML Protocol Payload (Indian NDMA / C-DOT Standard)</span>
+                <i class="bi bi-chevron-down small"></i>
+              </a>
+              <div class="collapse mt-2" id="cap-preview-collapse">
+                <pre class="bg-dark text-light p-3 rounded small font-monospace mb-0" id="cap-xml-preview" style="max-height: 220px; overflow-y: auto; font-size: 0.72rem; line-height: 1.4;"></pre>
+              </div>
+            </div>
+
+            <!-- Dispatch Button -->
+            <div class="d-grid">
+              <button
+                type="button"
+                class="btn btn-danger py-3 fw-extrabold shadow-lg"
+                onclick="triggerAlertConfirmationModal()"
+                style="letter-spacing: 0.03em"
+              >
+                <i class="bi bi-broadcast me-2 fs-5"></i> DISPATCH MULTI-CHANNEL EMERGENCY ALERT (ONLINE + OFFLINE)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ALERT DISPATCH CONFIRMATION MODAL -->
+    <div
+      class="modal fade"
+      id="alertConfirmModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title fw-bold">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirm
+              Emergency Broadcast
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body p-4">
+            <div class="alert alert-danger p-3 mb-3 small">
+              <i class="bi bi-info-circle-fill me-1"></i> You are about to queue
+              a simulated emergency alert broadcast to
+              <strong id="confirm-pop-count">14,850</strong> residents.
+            </div>
+
+            <div class="bg-light p-3 rounded border text-start small mb-3">
+              <div class="mb-1">
+                Target Area:
+                <strong id="confirm-target-area">Gangtok Urban Belt</strong>
+              </div>
+              <div class="mb-1">
+                Broadcast Radius:
+                <strong id="confirm-radius" class="text-primary">15 km Circle (8 CBS Towers, 11 LoRa Sirens)</strong>
+              </div>
+              <div class="mb-1">
+                Broadcast Language:
+                <strong id="confirm-language" class="text-success">ENGLISH</strong>
+              </div>
+              <div class="mb-1">
+                Severity Directive:
+                <strong id="confirm-alert-type" class="text-danger"
+                  >Severe Emergency Alert</strong
+                >
+              </div>
+              <div class="mb-1">
+                Delivery Channels: <strong id="confirm-channels">Cell Broadcast, LoRa Mesh, Online SMS</strong>
+              </div>
+              <div class="mt-2 border-top pt-2">
+                Broadcast Message:
+                <div id="confirm-message" class="text-dark fw-semibold mt-1 font-monospace" style="font-size: 0.8rem;">Message text...</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer bg-light">
+            <button
+              type="button"
+              class="btn btn-danger fw-bold"
+              onclick="executeEmergencyAlertDispatch()"
+            >
+              <i class="bi bi-check-lg me-1"></i> CONFIRM & DISPATCH
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DISPATCH SUCCESS MODAL -->
+    <div
+      class="modal fade"
+      id="alertSuccessModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title fw-bold">
+              <i class="bi bi-check-circle-fill me-2"></i> Multi-Channel Alert Dispatched
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body p-4 text-center">
+            <div class="fs-1 text-success mb-2">📡</div>
+            <h5 class="fw-extrabold text-navy mb-1" id="success-alert-id">
+              ALT-NER-2026-004
+            </h5>
+            <p class="small text-muted mb-3">
+              Target Coverage:
+              <strong id="success-alert-area">Gangtok Urban Belt (15 km Circle)</strong>
+            </p>
+
+            <div class="alert alert-success p-2 small mb-3">
+              <strong>OPERATIONAL TRANSMISSION:</strong> Alert queued and broadcasted across Cell Broadcast Service (CBS), LoRa siren mesh, and multi-lingual SMS gateway. Appended to immutable Alert History archive.
+            </div>
+          </div>
+          <div class="modal-footer bg-light">
+            <a
+              href="alert-history.html"
+              class="btn btn-navy text-white btn-sm fw-bold"
+              style="background-color: var(--gov-navy)"
+            >
+              <i class="bi bi-clock-history me-1"></i> View in Alert History Archive
+            </a>
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inline Auth Guard Script (Auto-seeds demo session if first visit) -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let sessionStr = localStorage.getItem("NER_AUTHORITY_SESSION");
+        if (!sessionStr) {
+          const demoSession = {
+            loggedIn: true,
+            user: "admin",
+            role: "NDMA Senior Operations Officer",
+            token: "AUTH-2026-DEMO",
+            loginTime: new Date().toISOString()
+          };
+          localStorage.setItem("NER_AUTHORITY_SESSION", JSON.stringify(demoSession));
+        }
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/model_data.js"></script>
+    <script src="../js/data.js"></script>
+    <script src="../js/weather_realtime.js?v=2"></script>
+    <script src="../js/alert_engine.js?v=2"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>

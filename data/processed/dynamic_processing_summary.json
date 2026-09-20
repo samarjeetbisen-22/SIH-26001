@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-08-28T19:03:36.384130",
+  "stage": "dynamic_processing",
+  "factors": [
+    "rainfall_daily",
+    "rainfall_antecedent_15day",
+    "soil_moisture_daily"
+  ],
+  "status": "complete",
+  "output_directory": "data/processed/dynamic/"
+}

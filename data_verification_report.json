@@ -1,0 +1,50 @@
+{
+  "timestamp": "2026-08-26T17:07:40.095668",
+  "total_datasets": 8,
+  "ready_datasets": 5,
+  "total_size_mb": 22438.87,
+  "datasets": {
+    "aoi": {
+      "ok": true,
+      "files": 1,
+      "size": 430
+    },
+    "srtm": {
+      "ok": true,
+      "files": 6,
+      "size": 155606412
+    },
+    "gem": {
+      "ok": true,
+      "files": 50,
+      "size": 232192817
+    },
+    "rainfall": {
+      "ok": true,
+      "files": 30,
+      "size": 257760
+    },
+    "smap": {
+      "ok": true,
+      "files": 241,
+      "size": 23140804684
+    },
+    "glim": {
+      "ok": false,
+      "files": 0,
+      "size": 0
+    },
+    "gsi": {
+      "ok": false,
+      "files": 0,
+      "size": 0
+    },
+    "isro": {
+      "ok": false,
+      "files": 0,
+      "size": 0
+    }
+  },
+  "essential_ready": true,
+  "full_model_ready": false
+}

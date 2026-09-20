@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Emergency Alert History & Audit Archive - NER Landslide System
+    </title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Shared Government GIS Theme CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body class="bg-light">
+    <!-- TOP HEADER -->
+    <header class="gov-header navbar navbar-expand-lg">
+      <div class="container-fluid px-3 px-lg-4">
+        <!-- Brand & Emblem -->
+        <a class="gov-brand-container me-3 me-lg-4" href="../index.html">
+          <div
+            class="gov-emblem d-flex align-items-center justify-content-center"
+          >
+            <i class="bi bi-shield-fill-check text-primary fs-4"></i>
+          </div>
+          <div>
+            <div class="gov-title-main">
+              NER LANDSLIDE RISK MONITORING SYSTEM
+            </div>
+            <div class="gov-title-sub">
+              North Eastern Regional GIS & Early Warning Portal
+            </div>
+          </div>
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#govNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation & Actions -->
+        <div class="collapse navbar-collapse" id="govNavbar">
+          <ul class="navbar-nav gov-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="risk-map.html">Risk Map</a>
+            </li>
+
+            <!-- Authority-Only Links -->
+            <li class="nav-item auth-only-link d-none">
+              <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item auth-only-link d-none">
+              <a class="nav-link" href="verification.html">Verification</a>
+            </li>
+            <li class="nav-item auth-only-link d-none">
+              <a class="nav-link" href="alerts.html">Alert Control</a>
+            </li>
+            <li class="nav-item auth-only-link d-none">
+              <a class="nav-link active" href="alert-history.html"
+                >Alert History</a
+              >
+            </li>
+
+            <!-- Public-Only Links -->
+            <li class="nav-item public-only-link">
+              <a class="nav-link" href="report.html">Report Incident</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="forecast.html">Forecast</a>
+            </li>
+          </ul>
+
+          <!-- Right Side Controls -->
+          <div class="d-flex align-items-center gap-3">
+            <div id="auth-nav-action-container">
+              <button class="btn btn-gov-auth" id="btn-authority-login">
+                Authority Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN ALERT HISTORY CONTAINER -->
+    <main class="container-fluid px-3 px-lg-4 py-4">
+      <!-- Top Action Banner -->
+      <div
+        class="bg-white p-3 p-lg-4 rounded shadow-sm border mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3 border-start border-4 border-primary"
+      >
+        <div>
+          <span class="badge bg-secondary text-white mb-2">
+            <i class="bi bi-archive-fill me-1"></i> Multi-Channel Dispatch
+            Archive
+          </span>
+          <h3 class="fw-extrabold text-navy mb-0">
+            EMERGENCY ALERT DISPATCH HISTORY
+          </h3>
+          <p class="text-secondary small mb-0">
+            Immutable audit log of all regional warning broadcasts, geofenced
+            offline radius alerts (CBS / LoRa mesh), multi-lingual SMS
+            transmissions, and autonomous AI model triggers.
+          </p>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <a
+            href="alerts.html"
+            class="btn btn-danger text-white btn-sm fw-bold shadow-sm"
+          >
+            <i class="bi bi-broadcast me-1"></i> Issue New Emergency Alert
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Summary Metric KPI Cards -->
+      <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-xl-3">
+          <div class="card border-0 shadow-sm rounded p-3 bg-white">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="text-muted small fw-bold">TOTAL BROADCASTS</span>
+              <i class="bi bi-broadcast-pin text-primary fs-5"></i>
+            </div>
+            <h3 class="fw-extrabold text-navy mb-0">4 Active Logs</h3>
+            <div class="small text-success mt-1" style="font-size: 0.75rem">
+              <i class="bi bi-check-circle me-1"></i>All channels confirmed
+              queued
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-xl-3">
+          <div class="card border-0 shadow-sm rounded p-3 bg-white">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="text-muted small fw-bold">AI MODEL TRIGGERED</span>
+              <i class="bi bi-cpu-fill text-success fs-5"></i>
+            </div>
+            <h3 class="fw-extrabold text-navy mb-0">2 Autonomous</h3>
+            <div class="small text-muted mt-1" style="font-size: 0.75rem">
+              Direct from LHASA v2 + 30m XGBoost
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-xl-3">
+          <div class="card border-0 shadow-sm rounded p-3 bg-white">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="text-muted small fw-bold">OFFLINE CHANNELS</span>
+              <i class="bi bi-phone-fill text-danger fs-5"></i>
+            </div>
+            <h3 class="fw-extrabold text-navy mb-0">CBS & LoRa Mesh</h3>
+            <div class="small text-danger mt-1" style="font-size: 0.75rem">
+              Zero-internet handset & siren broadcast
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-xl-3">
+          <div class="card border-0 shadow-sm rounded p-3 bg-white">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="text-muted small fw-bold">REGIONAL LANGUAGES</span>
+              <i class="bi bi-translate text-warning fs-5"></i>
+            </div>
+            <h3 class="fw-extrabold text-navy mb-0">6 Languages</h3>
+            <div class="small text-muted mt-1" style="font-size: 0.75rem">
+              Nepali • Assamese • Khasi • Nagamese
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN ALERT HISTORY TABLE CARD -->
+      <div class="card border-0 shadow-sm rounded overflow-hidden mb-4">
+        <div
+          class="card-header bg-white p-3 border-bottom d-flex justify-content-between align-items-center flex-wrap gap-2"
+        >
+          <h5 class="fw-bold text-navy mb-0">
+            <i class="bi bi-clock-history me-2 text-primary"></i> Dispatched
+            Alert Broadcast Log
+          </h5>
+          <span class="badge bg-light text-navy border font-monospace">
+            Standard: NDMA CAP-CP v1.2 Profile
+          </span>
+        </div>
+
+        <div class="table-responsive bg-white">
+          <table class="table table-hover table-gov-gis align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th style="min-width: 140px">Alert ID / Origin</th>
+                <th style="min-width: 110px">Timestamp</th>
+                <th style="min-width: 180px">Target Sector / Directive</th>
+                <th style="min-width: 160px">Offline Radius / Mesh</th>
+                <th style="min-width: 160px">Language & Channels</th>
+                <th style="min-width: 110px">Exposed Reach</th>
+                <th style="min-width: 130px">Action</th>
+              </tr>
+            </thead>
+            <tbody id="alert-history-table-body">
+              <!-- Populated dynamically by main.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- CAP-CP v1.2 PROTOCOL & MESSAGE INSPECTOR MODAL -->
+    <div
+      class="modal fade"
+      id="capProtocolModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow-lg">
+          <div
+            class="modal-header bg-navy text-white"
+            style="background-color: var(--gov-navy)"
+          >
+            <h5 class="modal-title fw-bold">
+              <i class="bi bi-code-square text-primary me-2"></i> Common
+              Alerting Protocol (CAP-CP v1.2) Payload
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body p-4">
+            <!-- Metadata Headers -->
+            <div class="row g-2 mb-3 small">
+              <div class="col-sm-6">
+                <strong>Alert Identifier:</strong>
+                <span
+                  id="cap-modal-alert-id"
+                  class="font-monospace text-primary"
+                  >--</span
+                >
+              </div>
+              <div class="col-sm-6">
+                <strong>Target Sector:</strong>
+                <span id="cap-modal-target" class="fw-bold">--</span>
+              </div>
+              <div class="col-sm-6">
+                <strong>Directive Category:</strong>
+                <span id="cap-modal-type" class="text-danger fw-bold">--</span>
+              </div>
+              <div class="col-sm-6">
+                <strong>Offline Radius:</strong>
+                <span id="cap-modal-radius" class="text-success fw-bold"
+                  >--</span
+                >
+              </div>
+              <div class="col-12">
+                <strong>Broadcast Language:</strong>
+                <span id="cap-modal-lang" class="badge bg-secondary">--</span>
+              </div>
+            </div>
+
+            <!-- Regional Language Message Box -->
+            <div class="mb-3">
+              <label class="fw-bold small text-navy mb-1"
+                >Regional Script Message Transmitted:</label
+              >
+              <div
+                class="p-3 bg-light rounded border small font-monospace text-dark"
+                id="cap-modal-msg"
+                style="line-height: 1.5"
+              ></div>
+            </div>
+
+            <!-- Standard CAP-CP 1.2 XML Document -->
+            <div class="mb-2 d-flex justify-content-between align-items-center">
+              <label class="fw-bold small text-navy mb-0"
+                >Indian NDMA / C-DOT CAP-CP v1.2 XML Payload:</label
+              >
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm py-0 px-2 fw-bold"
+                style="font-size: 0.72rem"
+                onclick="copyCapXmlToClipboard()"
+              >
+                <i class="bi bi-clipboard me-1"></i>Copy XML
+              </button>
+            </div>
+            <pre
+              class="bg-dark text-light p-3 rounded font-monospace small mb-0"
+              id="cap-modal-xml"
+              style="
+                max-height: 240px;
+                overflow-y: auto;
+                font-size: 0.72rem;
+                line-height: 1.4;
+              "
+            ></pre>
+          </div>
+          <div class="modal-footer bg-light">
+            <button
+              type="button"
+              class="btn btn-navy text-white btn-sm fw-bold"
+              style="background-color: var(--gov-navy)"
+              onclick="copyCapXmlToClipboard()"
+            >
+              <i class="bi bi-clipboard-check me-1"></i> Copy Payload XML
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inline Auth Guard Script (Auto-seeds demo session if first visit) -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let sessionStr = localStorage.getItem("NER_AUTHORITY_SESSION");
+        if (!sessionStr) {
+          const demoSession = {
+            loggedIn: true,
+            user: "admin",
+            role: "NDMA Senior Operations Officer",
+            token: "AUTH-2026-DEMO",
+            loginTime: new Date().toISOString(),
+          };
+          localStorage.setItem(
+            "NER_AUTHORITY_SESSION",
+            JSON.stringify(demoSession),
+          );
+        }
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/model_data.js"></script>
+    <script src="../js/data.js"></script>
+    <script src="../js/weather_realtime.js?v=2"></script>
+    <script src="../js/alert_engine.js?v=2"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>

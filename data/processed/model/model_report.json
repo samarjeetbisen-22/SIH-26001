@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-08-28T19:06:32.069071",
+  "stage": "model_training",
+  "model_type": "XGBClassifier",
+  "training_info": {
+    "samples": 10000,
+    "features": 3
+  },
+  "risk_map": {
+    "min": 0.01402275264263153,
+    "max": 0.9997301697731018,
+    "mean": 0.42478230595588684,
+    "median": 0.1288313865661621
+  }
+}

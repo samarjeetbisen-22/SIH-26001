@@ -1,0 +1,50 @@
+{
+  "sikkim": {
+    "label": "Sikkim",
+    "png": "images/susceptibility/sikkim_susceptibility.png",
+    "extent_wgs84": [
+      88.06994456478806,
+      27.192438268100553,
+      88.80572175935042,
+      27.552759250408
+    ],
+    "events": 172,
+    "test_auc_pct": 93.8
+  },
+  "nagaland": {
+    "label": "Nagaland",
+    "png": "images/susceptibility/nagaland_susceptibility.png",
+    "extent_wgs84": [
+      93.49200172506939,
+      25.08430072136166,
+      95.23588269776772,
+      27.0162967657917
+    ],
+    "events": 101,
+    "test_auc_pct": 93.63
+  },
+  "meghalaya": {
+    "label": "Meghalaya",
+    "png": "images/susceptibility/meghalaya_susceptibility.png",
+    "extent_wgs84": [
+      89.86889261716426,
+      24.96796769962031,
+      92.60411517913893,
+      26.23287712048873
+    ],
+    "events": 39,
+    "test_auc_pct": 95.07
+  },
+  "assam": {
+    "label": "Assam",
+    "png": "images/susceptibility/assam_susceptibility.png",
+    "extent_wgs84": [
+      88.86191809145146,
+      23.947743692065902,
+      95.06976828679845,
+      28.058380760291612
+    ],
+    "events": 105,
+    "test_auc_pct": 95.18
+  }
+}

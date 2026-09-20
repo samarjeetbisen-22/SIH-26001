@@ -1,0 +1,106 @@
+latitude,longitude,event_date,admin_division_name,landslide_category,landslide_trigger,fatality_count,injury_count,location_description,source,verification_status
+26.1699,91.7986,2007-07-19 00:00:00,Assam,landslide,rain,6.0,0.0,Guwahati,pan_ner_csv,reported
+25.2946,92.8339,2007-08-26 00:00:00,Assam,landslide,rain,0.0,0.0,Shillong Road at Kuliang in the Jaintia Hills,pan_ner_csv,reported
+26.1833,91.8,2007-09-13 00:00:00,Assam,landslide,rain,0.0,0.0,Guwahati,pan_ner_csv,reported
+24.75,93.4333,2007-10-21 00:00:00,Assam,landslide,rain,0.0,0.0,National Highway 53 at Nungba in Tamenglong district of Manipur,pan_ner_csv,reported
+24.9849,92.8411,2008-05-20 00:00:00,Assam,mudslide,mining,5.0,0.0,"A Cachar District village, near village of Srinager, Assam",pan_ner_csv,reported
+27.2298,94.0989,2008-06-15 00:00:00,Assam,landslide,downpour,17.0,0.0,"Lakhimpur district, Bihpuria, Assam",pan_ner_csv,reported
+27.163,94.0,2008-08-14 00:00:00,Assam,landslide,rain,0.0,0.0,"Kimin-Ziro road in Papum Pare district, road between Doimukh and Sagalee, Doimukh-Hoj road; Arunachal Pradesh",pan_ner_csv,reported
+26.3333,91.25,2008-10-29 00:00:00,Assam,landslide,downpour,7.0,0.0,"Kamrup, and Sonitpur, Assam",pan_ner_csv,reported
+27.2333,94.1167,2008-10-29 00:00:00,Assam,landslide,downpour,0.0,0.0,North Lakhimpur ,pan_ner_csv,reported
+25.5215,93.1645,2009-08-20 00:00:00,Assam,landslide,downpour,0.0,0.0,Lumding-Badarpur section in North Cachar Hills district,pan_ner_csv,reported
+24.9925,93.5,2009-08-20 00:00:00,Assam,landslide,downpour,0.0,0.0,"Tamei, Tamenglong district on Imphal-Tamenglong (IT) road",pan_ner_csv,reported
+25.1718,93.123,2009-08-27 00:00:00,Assam,landslide,downpour,0.0,0.0,between Mahur and Phaiding railway stations on Barail hills (Mahur and Barail hills located),pan_ner_csv,reported
+25.1553,93.028,2010-04-01 00:00:00,Assam,landslide,downpour,3.0,0.0,"Paglanala village, Dholai Block, near Dwarbandh locality of the district, Cachar district (could only find district) 45 km from Silchar, Assam",pan_ner_csv,reported
+26.1965,91.763,2010-04-20 00:00:00,Assam,landslide,downpour,0.0,0.0,"Kharghuli, Guwahati, Assam",pan_ner_csv,reported
+26.1978,91.7665,2010-04-20 00:00:00,Assam,landslide,downpour,0.0,0.0,"Raj Bhavan Guwahati, Assam",pan_ner_csv,reported
+24.6005,92.3814,2010-06-03 05:00:00,Assam,landslide,downpour,2.0,0.0,Rongpur village under Bhairabhnagar panchayat in Karimganj district,pan_ner_csv,reported
+25.2269,93.1658,2010-06-15 00:00:00,Assam,landslide,downpour,0.0,0.0,"rails between Mahur and Wadringdisa(?), Assam",pan_ner_csv,reported
+25.0633,92.8025,2010-06-16 00:00:00,Assam,landslide,downpour,0.0,0.0,"rails between Jatinga and Longrangjao(?), Assam",pan_ner_csv,reported
+25.0477,92.801,2010-07-25 00:00:00,Assam,landslide,downpour,0.0,0.0,"road between Halfong and Redzol(?) or Silchar, Assam",pan_ner_csv,reported
+24.9786,93.5027,2010-07-29 00:00:00,Assam,landslide,downpour,0.0,0.0,"Highway 53 at Tupul, Tamenglong district",pan_ner_csv,reported
+24.7505,93.4221,2010-08-27 16:30:00,Assam,landslide,downpour,0.0,0.0,"NH-53 at Nungba police station, Kambirong(?), Manipur",pan_ner_csv,reported
+24.7679,93.4108,2010-10-08 00:00:00,Assam,landslide,downpour,0.0,0.0,"Nungba, Tamenglong, Manipur",pan_ner_csv,reported
+25.5242,92.9914,2010-10-09 00:00:00,Assam,landslide,downpour,0.0,0.0,"road between Haflong and Lanka, Assam",pan_ner_csv,reported
+25.4749,93.1477,2010-10-09 00:00:00,Assam,landslide,downpour,0.0,0.0,"between Mahur and Maigrandisa(?) or Lumding, Assam",pan_ner_csv,reported
+25.1796,93.0083,2010-10-09 00:00:00,Assam,mudslide,downpour,1.0,0.0,"Haflong, Assam",pan_ner_csv,reported
+25.0672,93.4093,2011-05-22 00:00:00,Assam,landslide,downpour,0.0,0.0,"Kaiphundai(?)-Tousem(in Assam) road, Tamenglong district, Manipur",pan_ner_csv,reported
+25.0888,92.8551,2011-05-24 00:00:00,Assam,complex,downpour,0.0,0.0,"Silchar-Haflong rd., at Reko(Rekha )(?), near Harangajao, Barail Hills, Assam",pan_ner_csv,reported
+25.5125,93.3613,2011-06-29 00:00:00,Assam,landslide,downpour,0.0,0.0,"Portions of NH 39, Connectin Manipur with Assam via Nagaland",pan_ner_csv,reported
+26.5836,93.0038,2011-07-24 12:30:00,Assam,landslide,downpour,0.0,0.0,NH 37,pan_ner_csv,reported
+25.7713,93.8067,2011-08-13 08:00:00,Assam,mudslide,downpour,0.0,0.0,"Chumukedima, Dimapur",pan_ner_csv,reported
+24.808,93.117,2011-09-06 08:00:00,Assam,landslide,rain,3.0,0.0,NH 37 at Awang Khul ,pan_ner_csv,reported
+26.1548,91.7351,2011-09-23 00:00:00,Assam,landslide,downpour,4.0,0.0,"Maighuli, Guwahati, Meghalaya",pan_ner_csv,reported
+26.1475,91.7356,2012-06-02 00:00:00,Assam,landslide,downpour,0.0,0.0,"Guwahati, Assam",pan_ner_csv,reported
+25.3056,93.1265,2012-06-03 00:00:00,Assam,landslide,downpour,0.0,0.0,"between Maibang and Daotohaja, Assam",pan_ner_csv,reported
+25.1175,92.8573,2012-06-03 00:00:00,Assam,landslide,downpour,0.0,0.0," between Harangajao and Mailongdisa, Assa,",pan_ner_csv,reported
+25.1775,93.0123,2012-06-03 00:00:00,Assam,landslide,downpour,0.0,0.0,"between Haflong and  Bagetar, Assam",pan_ner_csv,reported
+25.0951,92.3567,2012-06-13 00:00:00,Assam,landslide,downpour,0.0,0.0,"NH44, Malidhor area,  Baleswar",pan_ner_csv,reported
+26.149,91.7351,2012-06-20 00:00:00,Assam,landslide,downpour,0.0,0.0,"Lalunggaon, Guwahati,  Assam",pan_ner_csv,reported
+26.1226,91.7162,2012-06-22 00:00:00,Assam,landslide,downpour,3.0,0.0,Lalunggaon near Gorchuk area,pan_ner_csv,reported
+26.1049,91.7369,2012-06-25 18:00:00,Assam,landslide,downpour,1.0,0.0,"Sonaighuli area near Kahilipara, Guwahati City, Assam",pan_ner_csv,reported
+26.1016,91.6906,2013-05-11 00:00:00,Assam,landslide,rain,0.0,0.0,"Boragaon, North Guwahati, Guwahati, Assam,",pan_ner_csv,reported
+26.1771,91.7599,2013-05-11 00:00:00,Assam,landslide,rain,0.0,1.0,"Sarania Hills, North Guwahati, Guwahati, Assam,",pan_ner_csv,reported
+26.1662,91.7138,2013-05-11 09:00:00,Assam,landslide,rain,0.0,0.0,"Nursery, North Guwahati, Guwahati, Assam,",pan_ner_csv,reported
+24.9926,93.4946,2013-05-12 00:00:00,Assam,mudslide,rain,0.0,0.0,"Khongsang, Tamenglong, Manipur,",pan_ner_csv,reported
+26.7103,94.693,2013-08-11 23:00:00,Assam,landslide,downpour,0.0,0.0,Kangtsung Village,pan_ner_csv,reported
+26.8727,94.9275,2013-08-16 00:00:00,Assam,landslide,rain,0.0,0.0,"Longlem, Nagaland",pan_ner_csv,reported
+24.7625,93.4341,2013-08-17 23:00:00,Assam,landslide,continuous_rain,0.0,0.0,The Imphal-Jiribam Section Of Nh-37 In Tamenglong District,pan_ner_csv,reported
+24.9829,93.5063,2013-09-01 00:00:00,Assam,mudslide,continuous_rain,0.0,0.0,"Tamenglong, Manipur",pan_ner_csv,reported
+26.1665,91.7049,2013-10-06 00:00:00,Assam,landslide,downpour,0.0,0.0,"Nilachal Hill, Guwahati, Assam",pan_ner_csv,reported
+26.1309,91.8383,2013-10-06 12:45:00,Assam,landslide,downpour,1.0,0.0,"Batahguli, Guwahati, Assam",pan_ner_csv,reported
+24.8669,92.3576,2014-05-09 23:00:00,Assam,landslide,rain,7.0,0.0,"Satgarakul Village, Karimganj, Assam State",pan_ner_csv,reported
+26.1844,91.7896,2014-06-26 23:00:00,Assam,landslide,continuous_rain,1.0,0.0,Bamunimaidam,pan_ner_csv,reported
+26.1407,91.7645,2014-06-26 23:00:00,Assam,landslide,continuous_rain,3.0,0.0,Narakasur,pan_ner_csv,reported
+26.1619,91.7697,2014-06-27 00:00:00,Assam,landslide,rain,3.0,0.0,"Bhangagarh, Assam",pan_ner_csv,reported
+26.1964,91.7652,2014-06-28 09:00:00,Assam,landslide,rain,0.0,0.0,"Kharghuli Hills, Assam",pan_ner_csv,reported
+26.1097,91.7747,2014-09-22 00:00:00,Assam,landslide,rain,1.0,0.0,Lalmati,pan_ner_csv,reported
+26.1001,91.6849,2014-09-22 00:00:00,Assam,landslide,rain,0.0,0.0,Pamohi,pan_ner_csv,reported
+26.1985,91.7998,2014-09-22 00:00:00,Assam,landslide,rain,0.0,0.0,Noonmati,pan_ner_csv,reported
+26.1314,91.7548,2014-09-22 00:00:00,Assam,landslide,rain,0.0,0.0,Dakhingaon,pan_ner_csv,reported
+26.159,91.8178,2014-09-22 00:00:00,Assam,landslide,rain,0.0,0.0,VIP Road,pan_ner_csv,reported
+26.1295,91.7056,2014-09-22 00:00:00,Assam,landslide,rain,0.0,0.0,Dhirenpara,pan_ner_csv,reported
+26.1044,91.7082,2014-09-22 00:00:00,Assam,landslide,rain,0.0,0.0,Garchuk,pan_ner_csv,reported
+26.1324,91.8342,2014-09-22 00:00:00,Assam,landslide,rain,0.0,1.0,Batahghuli,pan_ner_csv,reported
+25.7238,89.9032,2014-09-23 00:00:00,Assam,landslide,continuous_rain,1.0,0.0,Hatsingimari,pan_ner_csv,reported
+26.1468,91.6469,2015-02-14 00:00:00,Assam,landslide,mining,1.0,2.0,Kailashpur hill,pan_ner_csv,reported
+24.6108,92.562,2015-02-19 23:00:00,Assam,landslide,mining,2.0,1.0,,pan_ner_csv,reported
+25.0318,92.4584,2015-03-19 00:00:00,Assam,landslide,rain,0.0,0.0,Ratacherra,pan_ner_csv,reported
+24.7979,92.9974,2015-07-22 00:00:00,Assam,landslide,continuous_rain,5.0,0.0,Lakhipur,pan_ner_csv,reported
+26.1062,91.8717,2015-07-25 09:00:00,Assam,landslide,continuous_rain,2.0,0.0,,pan_ner_csv,reported
+26.1028,91.8806,2015-08-22 09:00:00,Assam,landslide,continuous_rain,0.0,0.0,Natonal Highway in Jorabat area,pan_ner_csv,reported
+26.49349035,91.72137514,2015-09-01 00:00:00,Assam,landslide,rain,2.0,0.0,Amingaon,pan_ner_csv,reported
+26.1868,91.6739,2015-09-01 00:00:00,Assam,rock_fall,rain,2.0,0.0,Maligaon,pan_ner_csv,reported
+26.1666,91.7042,2015-09-23 00:00:00,Assam,landslide,continuous_rain,0.0,0.0,Kamakhya Temple,pan_ner_csv,reported
+24.5204,92.7264,2016-05-18 08:00:00,Assam,landslide,continuous_rain,2.0,0.0,"Bilaipur, Hailakandi district, Assam, India",pan_ner_csv,reported
+24.5308,92.5121,2016-05-18 08:00:00,Assam,landslide,continuous_rain,1.0,0.0,"Ramchandi , Hailakandi District, Assam, India",pan_ner_csv,reported
+24.4638,92.4943,2016-05-18 08:00:00,Assam,landslide,continuous_rain,5.0,0.0,"Sonachirra, Karimganj district, Assam, India",pan_ner_csv,reported
+24.5202,92.7239,2016-05-18 08:00:00,Assam,landslide,continuous_rain,2.0,0.0,"Bilaipur, Hailakandi district, Assam, India",pan_ner_csv,reported
+26.1961,91.7825,2016-06-22 12:00:00,Assam,mudslide,downpour,1.0,0.0,"Piyali Phukan Nagar, Guwahati, India",pan_ner_csv,reported
+25.9611,91.3681,2016-07-07 00:00:00,Assam,landslide,continuous_rain,2.0,2.0,"Kamrup district, Assam, India",pan_ner_csv,reported
+26.1768,91.7702,2016-07-14 00:00:00,Assam,landslide,monsoon,1.0,0.0,"Pub Sarania hill, South Sarania, Guwahati, Assam, India",pan_ner_csv,reported
+26.1963,91.8074,2016-07-14 00:00:00,Assam,landslide,monsoon,1.0,0.0,"Noonmati Nijarapar area of the city, Guwahati, Assam, India",pan_ner_csv,reported
+26.1966,91.802,2016-07-20 00:00:00,Assam,landslide,rain,0.0,0.0,"Noonmati, Guwahati, Assam, India",pan_ner_csv,reported
+25.18145300000004,93.11810500000009,2017-04-04 00:00:00,Assam,landslide,rain,0.0,0.0,"Mahur, Assam, India",COOLR_citizen_report,unverified
+25.13222800000005,93.04681000000004,2017-04-04 00:00:00,Assam,landslide,rain,0.0,0.0,"N. Leikul, Assam, India",COOLR_citizen_report,unverified
+26.191688000000056,91.81007900000009,2016-12-15 00:00:00,Assam,landslide,unknown,1.0,0.0,"Noonmati Nijarapar, Assam, India",COOLR_citizen_report,unverified
+26.19037705300008,91.77306002000006,2017-07-10 00:00:00,Assam,landslide,continuous_rain,0.0,0.0,"Chandmari, Guwahati, Kamrup Metropolitan, Assam, 781003",COOLR_citizen_report,unverified
+26.14547804200004,91.79364785100006,2017-07-10 00:00:00,Assam,landslide,continuous_rain,0.0,0.0,"Dispur, Kamrup Metropolitan, Assam",COOLR_citizen_report,unverified
+26.10618080100005,91.85158906700008,2017-07-03 00:00:00,Assam,landslide,downpour,0.0,0.0,"Jorabat, Assam State, India",COOLR_citizen_report,unverified
+26.964378405000048,92.78260587300008,2017-06-18 20:00:00,Assam,landslide,monsoon,0.0,0.0,"Bhalukpong, Assam",COOLR_citizen_report,unverified
+26.20450453500007,91.87202792700003,2017-07-03 07:00:00,Assam,landslide,continuous_rain,1.0,0.0,"Panikhaiti, Kamrup Metropolitan, Assam State, India",COOLR_citizen_report,unverified
+25.11839800000007,92.85391300000003,2017-04-04 00:00:00,Assam,landslide,rain,0.0,0.0,"Harangajao, Assam, India",COOLR_citizen_report,unverified
+25.619192070000054,92.70947010300006,2017-04-29 19:00:00,Assam,landslide,continuous_rain,3.0,0.0,"Makhim (??), West Karbi Anglong, Assam",COOLR_citizen_report,unverified
+26.566362441000024,93.13195098400008,2017-07-09 00:00:00,Assam,landslide,continuous_rain,0.0,0.0,"Burapahar, Nagaon, Assam",COOLR_citizen_report,unverified
+26.10430759200005,91.86227823500008,2017-07-03 00:00:00,Assam,landslide,downpour,0.0,0.0,"Sonapur, Kamrup Metropolitan, Assam",COOLR_citizen_report,unverified
+25.195355000000063,93.17275800000004,2017-04-04 00:00:00,Assam,landslide,rain,0.0,0.0,"Phaiding, Assam, India",COOLR_citizen_report,unverified
+26.100356583000064,91.87351723100004,2017-07-03 00:00:00,Assam,landslide,downpour,0.0,0.0,"G S Road, Sonapur, Kamrup Metropolitan, Assam, 781141",COOLR_citizen_report,unverified
+26.181606000000045,91.77204200000006,2016-12-15 00:00:00,Assam,landslide,unknown,1.0,0.0,"Pub Sarania Hill, Guwahati, Assam, India",COOLR_citizen_report,unverified
+26.95147008000004,93.86686394100008,2017-07-10 00:00:00,Assam,landslide,continuous_rain,2.0,0.0,"Narayanpur, Lakhimpur, Assam, 784164",COOLR_citizen_report,unverified
+26.16066110900005,91.85294885300004,2017-04-05 00:00:00,Assam,landslide,continuous_rain,2.0,0.0,"Bonda, Guwahati, Assam, India",COOLR_citizen_report,unverified
+24.768609000000023,92.82118200000008,2016-09-01 00:00:00,Assam,landslide,flooding,4.0,0.0,"Silchar, Assam, India",COOLR_citizen_report,unverified
+25.48162300000007,93.14169200000003,2017-04-04 00:00:00,Assam,landslide,rain,0.0,0.0,,COOLR_citizen_report,unverified
+26.109731830000044,91.80317334400009,2017-07-06 00:00:00,Assam,landslide,continuous_rain,0.0,0.0,"Beltola, Assam State-Meghalaya State border, India",COOLR_citizen_report,unverified
+26.22247246700005,91.92053027500005,2017-07-03 00:00:00,Assam,landslide,continuous_rain,1.0,0.0,"Chandrapur, Kamrup Metropolitan, Assam",COOLR_citizen_report,unverified
+25.15246862700008,92.94670614200004,2017-06-04 00:00:00,Assam,landslide,continuous_rain,,,Dima Hasao district,COOLR_citizen_report,unverified
+25.19640994300005,93.13430584600007,2018-12-18 16:10:33,Assam,rock_fall,rain,0.0,0.0,Railway between Phiding and Mahur station in Badarpur.,COOLR_citizen_report,unverified

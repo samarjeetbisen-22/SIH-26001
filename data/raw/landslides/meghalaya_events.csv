@@ -1,0 +1,40 @@
+latitude,longitude,event_date,admin_division_name,landslide_category,landslide_trigger,fatality_count,injury_count,location_description,source,verification_status
+25.38,91.88,2007-07-26 00:00:00,Meghalaya,landslide,rain,0.0,0.0,Singtam,pan_ner_csv,reported
+25.5212,90.232,2007-07-27 00:00:00,Meghalaya,rock_fall,rain,8.0,0.0,Tura,pan_ner_csv,reported
+25.5576,91.8506,2007-08-26 00:00:00,Meghalaya,complex,rain,0.0,0.0,National Highway No 44 at Sonarpur in Meghalaya,pan_ner_csv,reported
+25.52,91.27,2007-09-11 00:00:00,Meghalaya,landslide,rain,0.0,0.0,"Assam-Agartala National Highway, Sonarpur in Jayantiya hills of Meghalaya",pan_ner_csv,reported
+25.3612,92.2845,2010-04-21 00:00:00,Meghalaya,landslide,downpour,0.0,0.0,Shillong-Jowai(Jwai)-Badarpur National Highway(NH 44) at Sunapur village in Jaintia Hills District,pan_ner_csv,reported
+25.3433,92.2897,2010-05-11 09:00:00,Meghalaya,landslide,downpour,0.0,0.0,"National highway 44 at Sunapur and Tongseng in Jaintia Hills district, eastern Meghalaya",pan_ner_csv,reported
+25.8833,91.2,2010-06-09 14:15:00,Meghalaya,landslide,downpour,0.0,0.0,"Ishok Chingphu(?), Bishnupur, Assam",pan_ner_csv,reported
+25.5728,91.885,2010-06-28 00:00:00,Meghalaya,landslide,downpour,1.0,0.0,"Police CID complex(?), Shillong, Meghalaya",pan_ner_csv,reported
+25.4916,91.2698,2010-06-28 00:00:00,Meghalaya,landslide,downpour,0.0,0.0,"Borsorsa(?), West Khasi Hills, Meghalaya",pan_ner_csv,reported
+25.5144,90.2167,2011-08-16 08:00:00,Meghalaya,landslide,downpour,6.0,0.0,"Garo Hills, Tura",pan_ner_csv,reported
+25.5498,92.0757,2012-06-13 00:00:00,Meghalaya,landslide,downpour,0.0,0.0,"NH44, Kuliang",pan_ner_csv,reported
+25.7354,90.3852,2014-09-21 00:00:00,Meghalaya,landslide,continuous_rain,0.0,0.0,National Highway 51,pan_ner_csv,reported
+25.5772,91.8666,2014-09-23 03:00:00,Meghalaya,landslide,continuous_rain,8.0,1.0,Mawbah under Mawprem area,pan_ner_csv,reported
+25.8143,90.5763,2014-09-24 00:00:00,Meghalaya,landslide,continuous_rain,0.0,0.0,Meghalaya,pan_ner_csv,reported
+25.9702,91.8587,2014-10-05 17:45:00,Meghalaya,landslide,rain,1.0,0.0,Jorabat-Umiam route,pan_ner_csv,reported
+25.5006,90.0896,2014-10-20 00:00:00,Meghalaya,landslide,rain,6.0,0.0,South West Garo Hills,pan_ner_csv,reported
+25.463,92.2121,2015-06-13 00:00:00,Meghalaya,landslide,continuous_rain,4.0,2.0,"Ratacherra village along the NH-44 connecting to Barak Valley in Assam and Tripura, Meghalaya, Mizoramon",pan_ner_csv,reported
+25.5084,90.2191,2015-06-16 00:00:00,Meghalaya,rock_fall,downpour,1.0,0.0,Akonggre,pan_ner_csv,reported
+25.5114,90.215,2015-06-16 06:15:00,Meghalaya,landslide,downpour,4.0,0.0,"Nakham Bazaar, Tura, Meghalaya",pan_ner_csv,reported
+25.5145,90.2023,2015-08-18 09:00:00,Meghalaya,landslide,continuous_rain,0.0,0.0,Tura Civil Hospital,pan_ner_csv,reported
+25.0728,92.3636,2015-08-19 00:00:00,Meghalaya,landslide,rain,0.0,0.0,National Highway at Kuliang,pan_ner_csv,reported
+25.1416,92.3807,2015-08-19 00:00:00,Meghalaya,landslide,rain,0.0,0.0,Tongseng,pan_ner_csv,reported
+25.2568,92.3825,2015-08-19 00:00:00,Meghalaya,landslide,rain,0.0,0.0,National Highway 44,pan_ner_csv,reported
+25.2193,90.5549,2015-08-19 09:00:00,Meghalaya,landslide,continuous_rain,0.0,0.0,NH-62 at Sibbari,pan_ner_csv,reported
+26.048,91.8695,2015-09-05 00:00:00,Meghalaya,landslide,unknown,0.0,0.0,Byrnihat,pan_ner_csv,reported
+25.9703,91.8584,2015-09-06 15:00:00,Meghalaya,landslide,unknown,0.0,0.0,"Umling, Meghalaya 793102, India",pan_ner_csv,reported
+25.583,91.893,2015-09-23 15:00:00,Meghalaya,landslide,downpour,2.0,1.0,"Shillong, Meghalaya, India",pan_ner_csv,reported
+25.203,90.5573,2016-07-19 00:00:00,Meghalaya,translational_slide,continuous_rain,0.0,0.0,"Rongthragittim Songittal village, near Sibbari, South Garo Hills District, Meghalaya, India",pan_ner_csv,reported
+26.09748244,91.8744337,2016-07-19 09:00:00,Meghalaya,landslide,unknown,0.0,1.0,"12th Mile area at Jorabat, Meghalaya, India",pan_ner_csv,reported
+25.67836832000006,91.92343430200005,2017-06-17 00:00:00,Meghalaya,landslide,continuous_rain,3.0,0.0,"Umiam, Ribhoi, Meghalaya",COOLR_citizen_report,unverified
+25.588227361000065,92.02269564300008,2019-07-09 12:37:24,Meghalaya,landslide,continuous_rain,,,"Mawiong, Mawryngkneng, East Khasi Hills, Meghalaya",COOLR_citizen_report,unverified
+25.51826286100004,91.96302939700008,2017-02-15 00:00:00,Meghalaya,landslide,mining,2.0,0.0,"Mawryngkneng, East Khasi Hills, Meghalaya",COOLR_citizen_report,unverified
+25.567284690000065,91.90642695500009,2019-07-09 12:37:24,Meghalaya,landslide,continuous_rain,,,"near Basic School, Nongshiliang, Malki",COOLR_citizen_report,unverified
+25.828600331000075,91.87671699700007,2017-07-06 19:00:00,Meghalaya,landslide,downpour,0.0,0.0,"Umsning, Ribhoi, Meghalaya State, India",COOLR_citizen_report,unverified
+25.53663703300004,91.98082794900006,2019-07-09 12:37:24,Meghalaya,landslide,continuous_rain,0.0,0.0,"Mawlynngad, Mawryngkneng, East Khasi Hills, Meghalaya",COOLR_citizen_report,unverified
+25.90723300000008,91.88189200000004,2017-05-26 17:00:00,Meghalaya,landslide,rain,0.0,3.0,"St Paul's Secondary School, Nongpoh",COOLR_citizen_report,unverified
+25.43807422300005,91.79904871600009,2017-06-17 00:00:00,Meghalaya,landslide,continuous_rain,1.0,2.0,"Khatarshnong Laitkroh, East Khasi Hills, Meghalaya",COOLR_citizen_report,unverified
+25.031902125000045,92.42257695000006,2018-04-28 11:00:00,Meghalaya,landslide,rain,0.0,0.0,"Road, Malidor, East Jaintia Hills, Meghalaya, India",COOLR_citizen_report,unverified
+25.82601444000005,91.87113066800003,2017-07-09 05:00:00,Meghalaya,landslide,continuous_rain,0.0,0.0,"Pahamrynnai, Ribhoi, Meghalaya",COOLR_citizen_report,unverified

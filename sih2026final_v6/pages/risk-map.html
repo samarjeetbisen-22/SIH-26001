@@ -1,0 +1,1366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GIS Risk Map - NER Landslide Portal</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- OpenLayers 9 CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css"
+    />
+
+    <!-- Shared Government GIS Theme CSS -->
+    <link rel="stylesheet" href="../css/style.css?v=11" />
+  </head>
+  <body>
+    <div class="gis-layout-wrapper">
+      <!-- TOP HEADER -->
+      <header class="gov-header navbar navbar-expand-lg">
+        <div class="container-fluid px-3 px-lg-4">
+          <!-- Brand & Emblem -->
+          <a class="gov-brand-container me-3 me-lg-4" href="../index.html">
+            <div
+              class="gov-emblem d-flex align-items-center justify-content-center"
+            >
+              <i class="bi bi-shield-fill-check text-primary fs-4"></i>
+            </div>
+            <div>
+              <div class="gov-title-main">
+                NER LANDSLIDE RISK MONITORING SYSTEM
+              </div>
+              <div class="gov-title-sub">
+                North Eastern Regional GIS & Early Warning Portal
+              </div>
+            </div>
+          </a>
+
+          <!-- Mobile Toggle -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#govNavbar"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Navigation & Actions -->
+          <div class="collapse navbar-collapse" id="govNavbar">
+            <ul class="navbar-nav gov-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="../index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="risk-map.html">Risk Map</a>
+              </li>
+
+              <!-- Authority-Only Links -->
+              <li class="nav-item auth-only-link d-none">
+                <a class="nav-link" href="dashboard.html">Dashboard</a>
+              </li>
+              <li class="nav-item auth-only-link d-none">
+                <a class="nav-link" href="verification.html">Verification</a>
+              </li>
+              <li class="nav-item auth-only-link d-none">
+                <a class="nav-link" href="alerts.html">Alert Control</a>
+              </li>
+              <li class="nav-item auth-only-link d-none">
+                <a class="nav-link" href="alert-history.html">Alert History</a>
+              </li>
+
+              <!-- Public-Only Links -->
+              <li class="nav-item public-only-link">
+                <a class="nav-link" href="report.html">Report Incident</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="forecast.html">Forecast</a>
+              </li>
+            </ul>
+
+            <!-- Right Side Controls -->
+            <div class="d-flex align-items-center gap-2">
+              <span
+                class="badge bg-white text-navy border font-monospace small shadow-sm py-1 px-2 d-none d-sm-inline"
+                id="live-countdown-badge-map"
+                title="30-minute real-time telemetry cycle"
+              >
+                <i class="bi bi-clock-history me-1 text-primary"></i>Sync:
+                <span class="live-countdown-text fw-bold text-primary"
+                  >30:00</span
+                >
+              </span>
+              <button
+                class="btn btn-outline-light btn-sm py-1 px-2 shadow-sm text-dark bg-white border"
+                style="font-size: 0.72rem"
+                onclick="triggerManualWeatherRefresh()"
+                title="Fetch live weather telemetry now"
+              >
+                <i
+                  class="bi bi-arrow-clockwise me-1 btn-sync-icon"
+                  id="refresh-icon"
+                ></i
+                >Sync
+              </button>
+              <div id="auth-nav-action-container">
+                <button class="btn btn-gov-auth" id="btn-authority-login">
+                  Authority Login
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- MAIN GIS WORKSPACE (SIDEBARS & OPENLAYERS MAP) -->
+      <div class="gis-workspace">
+        <!-- LEFT SIDEBAR: COLLAPSIBLE GIS LAYER TREE & PRIORITY TABLE -->
+        <aside class="gis-sidebar-left" id="sidebar-left">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <i class="bi bi-layers-half text-primary"></i> GIS Layer Control &
+              Triage
+            </h2>
+            <span class="badge bg-secondary small">7 Categories</span>
+          </div>
+
+          <div class="panel-body">
+            <!-- State Jump Quick Navigation Pills -->
+            <div class="mb-3">
+              <label
+                class="form-label small fw-bold text-muted uppercase me-2"
+                style="font-size: 0.68rem"
+                >State Zoom Focus:</label
+              >
+              <div class="d-flex flex-wrap gap-1">
+                <span class="state-jump-pill" onclick="zoomToStateView('all')"
+                  >All NE</span
+                >
+                <span
+                  class="state-jump-pill"
+                  onclick="zoomToStateView('arunachal')"
+                  >Arunachal</span
+                >
+                <span class="state-jump-pill" onclick="zoomToStateView('assam')"
+                  >Assam</span
+                >
+                <span
+                  class="state-jump-pill"
+                  onclick="zoomToStateView('manipur')"
+                  >Manipur</span
+                >
+                <span
+                  class="state-jump-pill"
+                  onclick="zoomToStateView('meghalaya')"
+                  >Meghalaya</span
+                >
+                <span
+                  class="state-jump-pill"
+                  onclick="zoomToStateView('mizoram')"
+                  >Mizoram</span
+                >
+                <span
+                  class="state-jump-pill"
+                  onclick="zoomToStateView('nagaland')"
+                  >Nagaland</span
+                >
+                <span
+                  class="state-jump-pill"
+                  onclick="zoomToStateView('sikkim')"
+                  >Sikkim</span
+                >
+                <span
+                  class="state-jump-pill"
+                  onclick="zoomToStateView('tripura')"
+                  >Tripura</span
+                >
+              </div>
+            </div>
+
+            <!-- Quick Search Filter Box -->
+            <div class="mb-3 position-relative">
+              <div class="input-group input-group-sm">
+                <span class="input-group-text bg-light"
+                  ><i class="bi bi-search text-muted"></i
+                ></span>
+                <input
+                  type="text"
+                  id="search-location-input"
+                  class="form-control"
+                  placeholder="Search town or telemetry station..."
+                  autocomplete="off"
+                />
+              </div>
+              <!-- Search Suggestions Dropdown Box -->
+              <div
+                id="search-results-dropdown"
+                class="search-results-dropdown d-none"
+              ></div>
+            </div>
+
+            <!-- 7-CATEGORY EXPANDABLE GIS LAYER TREE ACCORDION (AUTHORITY ONLY) -->
+            <div class="mb-4 authority-only-section">
+              <div
+                class="d-flex align-items-center justify-content-between mb-2"
+              >
+                <h6 class="fw-bold text-navy mb-0 small text-uppercase">
+                  <i class="bi bi-layers-fill text-primary me-1"></i> Technical
+                  GIS Layer Control
+                </h6>
+                <span
+                  class="badge bg-primary text-white"
+                  style="font-size: 0.65rem"
+                  >AUTHORITY</span
+                >
+              </div>
+
+              <!-- Category 1: Terrain & Hazard Zones -->
+              <div class="layer-tree-category active">
+                <div class="layer-tree-header">
+                  <span
+                    ><i class="bi bi-mountains me-2 text-primary"></i>Terrain &
+                    Hazard Zones</span
+                  >
+                  <i class="bi bi-chevron-right tree-toggle-icon"></i>
+                </div>
+                <div class="layer-tree-body">
+                  <div
+                    class="layer-item-container mb-2 bg-light p-1 rounded border border-success-subtle"
+                  >
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-susc-30m"
+                          checked
+                        />
+                        <span class="fw-bold text-success"
+                          ><i class="bi bi-cpu me-1"></i>30m ML
+                          Susceptibility</span
+                        >
+                      </label>
+                      <span
+                        class="badge bg-success text-white small"
+                        style="font-size: 0.65rem"
+                        >Real ML (4 States)</span
+                      >
+                    </div>
+                    <div class="opacity-slider-row">
+                      <span class="opacity-slider-label">Opacity:</span>
+                      <input
+                        type="range"
+                        class="opacity-slider-input"
+                        data-layer-id="layer-susc-30m"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value="0.75"
+                      />
+                      <span class="opacity-val-badge">75%</span>
+                    </div>
+                  </div>
+
+                  <div class="layer-item-container mb-2">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-landslide-zones"
+                          checked
+                        />
+                        <span class="fw-semibold">Landslide Risk Zones</span>
+                      </label>
+                      <span
+                        class="badge bg-danger text-white small"
+                        style="font-size: 0.65rem"
+                        >Default</span
+                      >
+                    </div>
+                    <div class="opacity-slider-row">
+                      <span class="opacity-slider-label">Opacity:</span>
+                      <input
+                        type="range"
+                        class="opacity-slider-input"
+                        data-layer-id="layer-landslide-zones"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value="0.35"
+                      />
+                      <span class="opacity-val-badge">35%</span>
+                    </div>
+                  </div>
+
+                  <div class="layer-item-container mb-2">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-slope"
+                        />
+                        <span>Slope</span>
+                      </label>
+                    </div>
+                    <div class="opacity-slider-row">
+                      <span class="opacity-slider-label">Opacity:</span>
+                      <input
+                        type="range"
+                        class="opacity-slider-input"
+                        data-layer-id="layer-slope"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value="0.30"
+                      />
+                      <span class="opacity-val-badge">30%</span>
+                    </div>
+                  </div>
+
+                  <div class="layer-item-container mb-2">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-risk-heatmap"
+                        />
+                        <span>Composite Risk Heat Map</span>
+                      </label>
+                      <span
+                        class="badge-simulated-data"
+                        style="font-size: 0.6rem"
+                        >Mock</span
+                      >
+                    </div>
+                    <div class="opacity-slider-row">
+                      <span class="opacity-slider-label">Opacity:</span>
+                      <input
+                        type="range"
+                        class="opacity-slider-input"
+                        data-layer-id="layer-risk-heatmap"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value="0.7"
+                      />
+                      <span class="opacity-val-badge">70%</span>
+                    </div>
+                  </div>
+
+                  <div class="layer-item-container">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-elevation"
+                        />
+                        <span>Elevation</span>
+                      </label>
+                    </div>
+                    <div class="opacity-slider-row">
+                      <span class="opacity-slider-label">Opacity:</span>
+                      <input
+                        type="range"
+                        class="opacity-slider-input"
+                        data-layer-id="layer-elevation"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value="0.30"
+                      />
+                      <span class="opacity-val-badge">30%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Category 2: Weather & Hydrology -->
+              <div class="layer-tree-category">
+                <div class="layer-tree-header">
+                  <span
+                    ><i class="bi bi-cloud-rain me-2 text-info"></i>Weather &
+                    Hydrology</span
+                  >
+                  <i class="bi bi-chevron-right tree-toggle-icon"></i>
+                </div>
+                <div class="layer-tree-body">
+                  <div class="layer-item-container mb-2">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-rainfall"
+                        />
+                        <span>Rainfall</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="layer-item-container">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-soil-moisture"
+                        />
+                        <span>Soil Moisture</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Category 3: Geology & Subsurface -->
+              <div class="layer-tree-category">
+                <div class="layer-tree-header">
+                  <span
+                    ><i class="bi bi-layers-fill me-2 text-warning"></i>Geology
+                    & Subsurface</span
+                  >
+                  <i class="bi bi-chevron-right tree-toggle-icon"></i>
+                </div>
+                <div class="layer-tree-body">
+                  <div class="layer-item-container mb-2">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-lithology"
+                        />
+                        <span>Lithology</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="layer-item-container">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-lineaments"
+                        />
+                        <span>Lineaments</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Category 4: Vegetation & Land Cover -->
+              <div class="layer-tree-category">
+                <div class="layer-tree-header">
+                  <span
+                    ><i class="bi bi-tree me-2 text-success"></i>Vegetation &
+                    Land Cover</span
+                  >
+                  <i class="bi bi-chevron-right tree-toggle-icon"></i>
+                </div>
+                <div class="layer-tree-body">
+                  <div class="layer-item-container mb-2">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-ndvi"
+                        />
+                        <span>NDVI</span>
+                      </label>
+                    </div>
+                    <div class="opacity-slider-row">
+                      <span class="opacity-slider-label">Opacity:</span>
+                      <input
+                        type="range"
+                        class="opacity-slider-input"
+                        data-layer-id="layer-ndvi"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value="0.30"
+                      />
+                      <span class="opacity-val-badge">30%</span>
+                    </div>
+                  </div>
+                  <div class="layer-item-container">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-lulc"
+                        />
+                        <span>Land Use / Land Cover</span>
+                      </label>
+                    </div>
+                    <div class="opacity-slider-row">
+                      <span class="opacity-slider-label">Opacity:</span>
+                      <input
+                        type="range"
+                        class="opacity-slider-input"
+                        data-layer-id="layer-lulc"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value="0.30"
+                      />
+                      <span class="opacity-val-badge">30%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Category 5: Infrastructure & Roads -->
+              <div class="layer-tree-category active">
+                <div class="layer-tree-header">
+                  <span
+                    ><i class="bi bi-building me-2 text-danger"></i
+                    >Infrastructure & Roads</span
+                  >
+                  <i class="bi bi-chevron-right tree-toggle-icon"></i>
+                </div>
+                <div class="layer-tree-body">
+                  <div class="layer-item-container mb-2">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-road-networks"
+                          checked
+                        />
+                        <span class="fw-semibold"
+                          >Vulnerable Road Corridors</span
+                        >
+                      </label>
+                      <span
+                        class="badge bg-success text-white small"
+                        style="font-size: 0.65rem"
+                        >Default</span
+                      >
+                    </div>
+                    <div class="opacity-slider-row">
+                      <span class="opacity-slider-label">Opacity:</span>
+                      <input
+                        type="range"
+                        class="opacity-slider-input"
+                        data-layer-id="layer-road-networks"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value="1.0"
+                      />
+                      <span class="opacity-val-badge">100%</span>
+                    </div>
+                  </div>
+                  <div class="layer-item-container mb-2">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-villages"
+                        />
+                        <span>Villages</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="layer-item-container">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-infrastructure"
+                        />
+                        <span>Critical Infrastructure</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Category 6: Field Reports & Incidents -->
+              <div class="layer-tree-category active">
+                <div class="layer-tree-header">
+                  <span
+                    ><i class="bi bi-exclamation-octagon me-2 text-danger"></i
+                    >Field Reports & Incidents</span
+                  >
+                  <i class="bi bi-chevron-right tree-toggle-icon"></i>
+                </div>
+                <div class="layer-tree-body">
+                  <div class="layer-item-container mb-2">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-citizen-reports"
+                          checked
+                        />
+                        <span>Citizen Reports</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="layer-item-container">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-verified-incidents"
+                          checked
+                        />
+                        <span>Verified Incidents</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="layer-item-container mt-2">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-historical-events"
+                          checked
+                        />
+                        <span
+                          >Historical Landslide Records
+                          <span
+                            class="badge bg-success ms-1"
+                            style="font-size: 9px"
+                            >REAL DATA</span
+                          ></span
+                        >
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Category 7: Earth Movement -->
+              <div class="layer-tree-category">
+                <div class="layer-tree-header">
+                  <span
+                    ><i class="bi bi-globe me-2 text-secondary"></i>Earth
+                    Movement</span
+                  >
+                  <i class="bi bi-chevron-right tree-toggle-icon"></i>
+                </div>
+                <div class="layer-tree-body">
+                  <div class="layer-item-container">
+                    <div class="layer-item-row">
+                      <label class="layer-item-label">
+                        <input
+                          type="checkbox"
+                          class="layer-checkbox"
+                          data-layer-id="layer-insar-displacement"
+                        />
+                        <span>InSAR Ground Displacement</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Jump Town List -->
+            <div class="mb-3">
+              <h6 class="fw-bold text-navy mb-2 small text-uppercase">
+                <i class="bi bi-geo me-1"></i> Quick Jump Locations
+              </h6>
+              <div
+                class="list-group list-group-flush border rounded overflow-hidden"
+                id="quick-location-list"
+              >
+                <button
+                  type="button"
+                  class="list-group-item list-group-item-action py-2 small fw-semibold d-flex justify-content-between align-items-center quick-loc-item"
+                  onclick="highlightLocationMarker(NE_LOCATIONS_DATA[0])"
+                >
+                  <span>📍 Tawang (Arunachal)</span>
+                  <span
+                    class="risk-level-badge badge-risk-severe"
+                    style="font-size: 0.65rem; padding: 2px 6px"
+                    >Severe</span
+                  >
+                </button>
+                <button
+                  type="button"
+                  class="list-group-item list-group-item-action py-2 small fw-semibold d-flex justify-content-between align-items-center quick-loc-item"
+                  onclick="highlightLocationMarker(NE_LOCATIONS_DATA[1])"
+                >
+                  <span>📍 Guwahati (Assam)</span>
+                  <span
+                    class="risk-level-badge badge-risk-low"
+                    style="font-size: 0.65rem; padding: 2px 6px"
+                    >Low</span
+                  >
+                </button>
+                <button
+                  type="button"
+                  class="list-group-item list-group-item-action py-2 small fw-semibold d-flex justify-content-between align-items-center quick-loc-item"
+                  onclick="highlightLocationMarker(NE_LOCATIONS_DATA[4])"
+                >
+                  <span>📍 Imphal (Manipur)</span>
+                  <span
+                    class="risk-level-badge badge-risk-moderate"
+                    style="font-size: 0.65rem; padding: 2px 6px"
+                    >Moderate</span
+                  >
+                </button>
+                <button
+                  type="button"
+                  class="list-group-item list-group-item-action py-2 small fw-semibold d-flex justify-content-between align-items-center quick-loc-item"
+                  onclick="highlightLocationMarker(NE_LOCATIONS_DATA[2])"
+                >
+                  <span>📍 Shillong (Meghalaya)</span>
+                  <span
+                    class="risk-level-badge badge-risk-high"
+                    style="font-size: 0.65rem; padding: 2px 6px"
+                    >High</span
+                  >
+                </button>
+                <button
+                  type="button"
+                  class="list-group-item list-group-item-action py-2 small fw-semibold d-flex justify-content-between align-items-center quick-loc-item"
+                  onclick="highlightLocationMarker(NE_LOCATIONS_DATA[3])"
+                >
+                  <span>📍 Aizawl (Mizoram)</span>
+                  <span
+                    class="risk-level-badge badge-risk-severe"
+                    style="font-size: 0.65rem; padding: 2px 6px"
+                    >Severe</span
+                  >
+                </button>
+                <button
+                  type="button"
+                  class="list-group-item list-group-item-action py-2 small fw-semibold d-flex justify-content-between align-items-center quick-loc-item"
+                  onclick="highlightLocationMarker(NE_LOCATIONS_DATA[5])"
+                >
+                  <span>📍 Kohima (Nagaland)</span>
+                  <span
+                    class="risk-level-badge badge-risk-high"
+                    style="font-size: 0.65rem; padding: 2px 6px"
+                    >High</span
+                  >
+                </button>
+                <button
+                  type="button"
+                  class="list-group-item list-group-item-action py-2 small fw-semibold d-flex justify-content-between align-items-center quick-loc-item"
+                  onclick="highlightLocationMarker(NE_LOCATIONS_DATA[6])"
+                >
+                  <span>📍 Gangtok (Sikkim)</span>
+                  <span
+                    class="risk-level-badge badge-risk-severe"
+                    style="font-size: 0.65rem; padding: 2px 6px"
+                    >Severe</span
+                  >
+                </button>
+                <button
+                  type="button"
+                  class="list-group-item list-group-item-action py-2 small fw-semibold d-flex justify-content-between align-items-center quick-loc-item"
+                  onclick="highlightLocationMarker(NE_LOCATIONS_DATA[7])"
+                >
+                  <span>📍 Agartala (Tripura)</span>
+                  <span
+                    class="risk-level-badge badge-risk-low"
+                    style="font-size: 0.65rem; padding: 2px 6px"
+                    >Low</span
+                  >
+                </button>
+              </div>
+            </div>
+
+            <!-- AUTOMATIC EMERGENCY PRIORITY LIST (AUTHORITY ONLY) -->
+            <div class="mb-3 authority-only-section">
+              <div
+                class="d-flex align-items-center justify-content-between mb-2"
+              >
+                <h6 class="fw-bold text-navy mb-0 small text-uppercase">
+                  <i class="bi bi-shield-exclamation text-danger me-1"></i>
+                  Automatic Emergency Priority
+                </h6>
+                <span
+                  class="badge bg-danger text-white font-monospace"
+                  style="font-size: 0.65rem"
+                  >AUTO RANKED</span
+                >
+              </div>
+
+              <div
+                class="alert alert-info p-2 mb-2 style-hint"
+                style="font-size: 0.7rem"
+              >
+                <i class="bi bi-info-circle me-1"></i> Hover item to view factor
+                breakdown • Click to zoom map.
+              </div>
+
+              <div id="priority-list-container" class="priority-list-container">
+                <!-- Populated dynamically by calculateEmergencyPriority() -->
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- CENTER: OPENLAYERS MAP VIEWPORT -->
+        <main class="gis-map-container">
+          <!-- DATA MODE TOGGLE: separates live/simulated current risk from real historical records -->
+          <div class="map-mode-toggle-bar">
+            <div class="map-mode-toggle-group">
+              <button
+                class="map-mode-btn active"
+                id="btn-mode-current"
+                onclick="setMapMode('current')"
+              >
+                <i class="bi bi-broadcast me-1"></i> Current Risk Monitoring
+                <span class="mode-subtag">Live / Model Output</span>
+              </button>
+              <button
+                class="map-mode-btn"
+                id="btn-mode-historical"
+                onclick="setMapMode('historical')"
+              >
+                <i class="bi bi-clock-history me-1"></i> Historical Records
+                <span class="mode-subtag mode-subtag-real"
+                  >Verified Real Data</span
+                >
+              </button>
+            </div>
+
+            <!-- Year RANGE filter - only shown in Historical mode. Lets a viewer pick any
+               start/end year (not just "up to X") and replay through that window. -->
+            <div
+              class="map-year-slider-container d-none"
+              id="year-slider-container"
+            >
+              <label class="small fw-bold text-muted" style="font-size: 0.72rem"
+                >Range:</label
+              >
+              <select
+                class="year-range-select"
+                id="hist-year-from"
+                title="From year"
+              ></select>
+              <span class="small text-muted">to</span>
+              <select
+                class="year-range-select"
+                id="hist-year-to"
+                title="To year"
+              ></select>
+              <button
+                class="year-range-play-btn"
+                id="hist-range-play-btn"
+                title="Replay through selected years"
+              >
+                <i class="bi bi-play-fill" id="hist-range-play-icon"></i>
+              </button>
+              <span
+                class="fw-bold text-navy ms-1"
+                id="historical-year-label"
+                style="font-size: 0.78rem"
+                >2007–2016</span
+              >
+
+              <div
+                class="form-check form-switch ms-2 mb-0 d-flex align-items-center gap-1"
+                style="padding-left: 2.2em"
+              >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="hist-heatmap-toggle"
+                  style="cursor: pointer"
+                />
+                <label
+                  class="form-check-label small fw-bold text-navy"
+                  for="hist-heatmap-toggle"
+                  style="font-size: 0.72rem; cursor: pointer"
+                >
+                  <i class="bi bi-fire text-danger"></i> Heat Map View
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="btn-toggle-left-sidebar"
+            id="btn-toggle-left"
+            title="Toggle Layer Tree Panel"
+          >
+            <i class="bi bi-chevron-left" id="icon-toggle-left"></i>
+          </button>
+
+          <div id="map"></div>
+
+          <!-- DYNAMIC COLLAPSIBLE MAP LEGEND -->
+          <div id="map-legend-container" class="map-legend-container">
+            <div class="map-legend-header" onclick="toggleMapLegend()">
+              <span
+                ><i class="bi bi-layers text-primary me-1"></i> Active Map
+                Legend</span
+              >
+              <i class="bi bi-chevron-down" id="legend-toggle-icon"></i>
+            </div>
+            <div class="map-legend-body" id="map-legend-body">
+              <!-- Dynamically populated based on active GIS layers -->
+            </div>
+          </div>
+
+          <button
+            class="btn-toggle-right-sidebar"
+            id="btn-toggle-right"
+            title="Toggle Location Details Panel"
+          >
+            <i class="bi bi-chevron-right" id="icon-toggle-right"></i>
+          </button>
+
+          <div id="popup" class="ol-popup">
+            <div id="popup-content"></div>
+          </div>
+        </main>
+
+        <!-- RIGHT SIDEBAR: LOCATION & ROAD DIAGNOSTIC DETAILS PANEL -->
+        <aside class="gis-sidebar-right" id="sidebar-right">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <i class="bi bi-info-circle text-primary"></i> Spatial Inspection
+            </h2>
+          </div>
+
+          <div class="panel-body" id="location-info-content">
+            <!-- Populated dynamically by map.js -->
+          </div>
+        </aside>
+      </div>
+
+      <!-- BOTTOM STATUS & METRICS TOOLBAR -->
+      <footer class="gis-bottom-bar">
+        <div class="status-item">
+          <i class="bi bi-geo-alt-fill text-danger me-1"></i>
+          <span>Coordinates:</span>
+          <strong id="map-coords-display" class="text-white"
+            >26.0000° N, 92.5000° E</strong
+          >
+        </div>
+
+        <span class="status-divider">|</span>
+
+        <div class="status-item">
+          <i class="bi bi-aspect-ratio text-info me-1"></i>
+          <span>Scale:</span>
+          <strong class="text-white">1:500,000</strong>
+        </div>
+
+        <span class="status-divider d-none d-md-inline">|</span>
+
+        <div class="status-item d-none d-md-flex">
+          <i class="bi bi-globe text-primary me-1"></i>
+          <span>Projection:</span>
+          <strong class="text-white">EPSG:3857 (Web Mercator)</strong>
+        </div>
+
+        <span class="status-divider d-none d-lg-inline">|</span>
+
+        <div class="status-item d-none d-lg-flex">
+          <i class="bi bi-hdd-network text-success me-1"></i>
+          <span id="last-sync-time">Last Telemetry Sync: Just Now</span>
+        </div>
+      </footer>
+    </div>
+
+    <!-- CHART.JS DETAILED ANALYSIS MODAL -->
+    <div
+      class="modal fade"
+      id="detailedAnalysisModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+          <div
+            class="modal-header bg-navy text-white"
+            style="background-color: var(--gov-navy)"
+          >
+            <div>
+              <h5 class="modal-title fw-bold" id="modal-loc-name">
+                Tawang, Arunachal Pradesh
+              </h5>
+              <span class="small text-light opacity-75" id="modal-loc-district"
+                >Tawang District • Elevation 3,048 m</span
+              >
+            </div>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body p-4 bg-light">
+            <ul class="nav nav-tabs mb-3" id="analysisTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="tab-overview-btn"
+                  data-bs-toggle="tab"
+                  data-bs-target="#tab-overview"
+                  type="button"
+                  role="tab"
+                >
+                  <i class="bi bi-bar-chart-line me-1"></i>Overview
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="tab-prevention-btn"
+                  data-bs-toggle="tab"
+                  data-bs-target="#tab-prevention"
+                  type="button"
+                  role="tab"
+                >
+                  <i class="bi bi-shield-fill-check me-1"></i>Prevention Plan
+                </button>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <div
+                class="tab-pane fade show active"
+                id="tab-overview"
+                role="tabpanel"
+              >
+                <div class="row g-3 mb-4">
+                  <div class="col-md-3">
+                    <div class="card p-3 border-0 shadow-sm h-100 bg-white">
+                      <div class="metric-label">Composite Risk Index</div>
+                      <div class="fs-2 fw-extrabold" id="modal-risk-score">
+                        88
+                      </div>
+                      <span
+                        class="risk-level-badge badge-risk-severe mt-1"
+                        id="modal-risk-badge"
+                        >Severe Risk</span
+                      >
+                    </div>
+                  </div>
+
+                  <div class="col-md-9">
+                    <div class="card p-3 border-0 shadow-sm h-100 bg-white">
+                      <div class="metric-label mb-1">
+                        Geotechnical Telemetry Diagnostics
+                      </div>
+                      <div class="row g-2 small">
+                        <div class="col-sm-4">
+                          Piezometer: <strong id="modal-piezo">42.1 kPa</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          Inclinometer Creep:
+                          <strong id="modal-inclinometer">4.2 mm/hr</strong>
+                        </div>
+                        <div class="col-sm-4">
+                          24h Rainfall:
+                          <strong id="modal-rain">142.5 mm</strong>
+                        </div>
+                        <div class="col-12 border-top pt-2 mt-1">
+                          Geology Lithology:
+                          <strong id="modal-geology"
+                            >Mica Schist Formations</strong
+                          >
+                        </div>
+                        <div class="col-12">
+                          Historical Slips:
+                          <strong id="modal-history">14 incidents</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                  <div class="col-lg-6">
+                    <div class="chart-container-card">
+                      <h6 class="fw-bold text-navy mb-3">
+                        <i class="bi bi-diagram-3-fill me-2"></i> Hazard
+                        Contributing Factor Weights (%)
+                      </h6>
+                      <div style="height: 260px">
+                        <canvas id="chart-risk-factors"></canvas>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="chart-container-card">
+                      <h6 class="fw-bold text-navy mb-3">
+                        <i class="bi bi-graph-down me-2"></i> 6-Month InSAR
+                        Ground Deformation Trend (mm)
+                      </h6>
+                      <div style="height: 260px">
+                        <canvas id="chart-insar-timeline"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="alert alert-danger p-3 mb-0 small">
+                  <div class="fw-bold mb-1">
+                    <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                    Official Disaster Advisory:
+                  </div>
+                  <div id="modal-advisory">
+                    High landslide probability along road corridor. Heavy
+                    precipitation expected to continue.
+                  </div>
+                </div>
+              </div>
+
+              <!-- PREVENTION TAB: auto-generated from this location's riskFactorWeights -->
+              <div class="tab-pane fade" id="tab-prevention" role="tabpanel">
+                <div
+                  class="d-flex align-items-center justify-content-between mb-3"
+                >
+                  <div class="small text-muted">
+                    <i class="bi bi-info-circle me-1"></i> Generated
+                    automatically from this location's contributing risk-factor
+                    weights.
+                  </div>
+                  <span class="badge-simulated-data"
+                    ><i class="bi bi-cpu me-1"></i>Rule-based
+                    (illustrative)</span
+                  >
+                </div>
+
+                <div
+                  class="alert p-3 mb-3 small"
+                  id="prevention-urgency-banner"
+                >
+                  <div class="fw-bold" id="prevention-urgency-title"></div>
+                  <div id="prevention-urgency-text"></div>
+                </div>
+
+                <h6 class="fw-bold text-navy mb-2" style="font-size: 0.85rem">
+                  <i class="bi bi-exclamation-octagon-fill text-danger me-1"></i
+                  >Priority Interventions (top contributing factors)
+                </h6>
+                <div id="prevention-primary-list" class="mb-3"></div>
+
+                <h6 class="fw-bold text-navy mb-2" style="font-size: 0.85rem">
+                  <i class="bi bi-eye-fill text-secondary me-1"></i>Secondary /
+                  Monitoring Measures
+                </h6>
+                <div id="prevention-secondary-list" class="mb-0"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer bg-white p-3">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              data-bs-dismiss="modal"
+            >
+              Close Analysis
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENT REPLAY MODAL: "3-day buildup" leading up to a selected historical landslide -->
+    <div
+      class="modal fade"
+      id="eventReplayModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+          <div
+            class="modal-header bg-navy text-white"
+            style="background-color: var(--gov-navy)"
+          >
+            <div>
+              <h5 class="modal-title fw-bold mb-1" id="replay-event-title">
+                Event Replay
+              </h5>
+              <div class="d-flex align-items-center gap-2">
+                <span
+                  class="small text-light opacity-75"
+                  id="replay-event-subtitle"
+                  >Location • Date</span
+                >
+                <span class="badge bg-success" style="font-size: 9px"
+                  >VERIFIED EVENT</span
+                >
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onclick="closeEventReplay()"
+            ></button>
+          </div>
+
+          <div class="modal-body p-4 bg-light">
+            <div
+              class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2"
+            >
+              <div class="small text-muted">
+                <i class="bi bi-info-circle me-1"></i> Showing meteorological
+                escalation over the 3 days preceding this verified landslide.
+              </div>
+              <span
+                class="badge bg-success-subtle text-success border border-success px-2 py-1"
+                id="replay-data-badge"
+                style="font-size: 0.72rem"
+              >
+                <i class="bi bi-patch-check-fill me-1"></i>Real ECMWF ERA5
+                Reanalysis Archive
+              </span>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <button
+                class="replay-play-toggle-btn"
+                id="replay-play-btn"
+                onclick="toggleReplayPlayback()"
+                title="Play/Pause"
+              >
+                <i class="bi bi-play-fill" id="replay-play-icon"></i>
+              </button>
+              <div class="replay-day-stepper" id="replay-day-stepper">
+                <!-- 4 day buttons populated by JS -->
+              </div>
+            </div>
+
+            <div class="row g-2 mb-3">
+              <div class="col-3">
+                <div class="replay-stat-card">
+                  <div class="replay-stat-label">Real Rainfall (24h)</div>
+                  <div class="replay-stat-value" id="replay-stat-rain">--</div>
+                  <div
+                    class="small text-muted fw-semibold"
+                    id="replay-stat-ari"
+                    style="font-size: 0.65rem"
+                  >
+                    7d ARI: --
+                  </div>
+                  <div class="replay-stat-trend" id="replay-trend-rain"></div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="replay-stat-card">
+                  <div class="replay-stat-label">Soil Saturation</div>
+                  <div class="replay-stat-value" id="replay-stat-soil">--</div>
+                  <div
+                    class="small text-muted fw-semibold"
+                    style="font-size: 0.65rem"
+                  >
+                    Antecedent pore water
+                  </div>
+                  <div class="replay-stat-trend" id="replay-trend-soil"></div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="replay-stat-card">
+                  <div class="replay-stat-label">Slope Displacement</div>
+                  <div class="replay-stat-value" id="replay-stat-slope">--</div>
+                  <div
+                    class="small text-muted fw-semibold"
+                    style="font-size: 0.65rem"
+                  >
+                    Sub-surface creep rate
+                  </div>
+                  <div class="replay-stat-trend" id="replay-trend-slope"></div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="replay-stat-card">
+                  <div class="replay-stat-label">LHASA Risk Score</div>
+                  <div class="replay-stat-value" id="replay-stat-risk">--</div>
+                  <div
+                    class="small text-muted fw-semibold"
+                    style="font-size: 0.65rem"
+                  >
+                    Nowcast severity
+                  </div>
+                  <div class="replay-stat-trend" id="replay-trend-risk"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-container-card mb-3">
+              <h6 class="fw-bold text-navy mb-2" style="font-size: 0.85rem">
+                <i class="bi bi-graph-up me-2"></i>Real 4-Day Precipitation &
+                Risk Trend (ECMWF ERA5)
+              </h6>
+              <div style="height: 200px">
+                <canvas id="chart-replay-trend"></canvas>
+              </div>
+            </div>
+
+            <div class="replay-narrative-box" id="replay-narrative">
+              Loading…
+            </div>
+          </div>
+
+          <div class="modal-footer bg-white p-3">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              data-bs-dismiss="modal"
+              onclick="closeEventReplay()"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ol@v9.1.0/dist/ol.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/model_data.js"></script>
+    <script src="../js/data.js?v=6"></script>
+    <script src="../js/historical-events.js?v=1"></script>
+    <script src="../js/historical_buildup_real.js?v=1"></script>
+    <script src="../js/weather_realtime.js?v=2"></script>
+    <script src="../js/map.js?v=10"></script>
+    <script src="../js/main.js?v=7"></script>
+  </body>
+</html>
