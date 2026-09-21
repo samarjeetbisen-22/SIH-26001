@@ -665,17 +665,35 @@
     </div>
 
     <!-- MODEL FEATURE & DRIVERS MODAL -->
-    <div class="modal fade" id="modelFeatureModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div
+      class="modal fade"
+      id="modelFeatureModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+      >
         <div class="modal-content border-0 shadow-lg">
-          <div class="modal-header bg-navy text-white" style="background-color: var(--gov-navy)">
+          <div
+            class="modal-header bg-navy text-white"
+            style="background-color: var(--gov-navy)"
+          >
             <div>
               <h5 class="modal-title fw-bold" id="mfm-state-title">
-                <i class="bi bi-cpu-fill me-2"></i>30m XGBoost Empirical Model Architecture
+                <i class="bi bi-cpu-fill me-2"></i>30m XGBoost Empirical Model
+                Architecture
               </h5>
-              <div class="small text-white-50" id="mfm-model-file">Model File Metadata</div>
+              <div class="small text-white-50" id="mfm-model-file">
+                Model File Metadata
+              </div>
             </div>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
 
           <div class="modal-body p-4 bg-light">
@@ -683,41 +701,66 @@
             <div class="row g-2 mb-3 text-center">
               <div class="col-4 col-md-2">
                 <div class="p-2 bg-white rounded border shadow-sm">
-                  <div class="small text-muted" style="font-size: 0.7rem;">Test ROC-AUC</div>
-                  <div class="fw-bold text-success fs-6" id="mfm-test-auc">--%</div>
+                  <div class="small text-muted" style="font-size: 0.7rem">
+                    Test ROC-AUC
+                  </div>
+                  <div class="fw-bold text-success fs-6" id="mfm-test-auc">
+                    --%
+                  </div>
                 </div>
               </div>
               <div class="col-4 col-md-2">
                 <div class="p-2 bg-white rounded border shadow-sm">
-                  <div class="small text-muted" style="font-size: 0.7rem;">5-Fold CV AUC</div>
-                  <div class="fw-bold text-primary fs-6" id="mfm-cv-auc">--%</div>
+                  <div class="small text-muted" style="font-size: 0.7rem">
+                    5-Fold CV AUC
+                  </div>
+                  <div class="fw-bold text-primary fs-6" id="mfm-cv-auc">
+                    --%
+                  </div>
                 </div>
               </div>
               <div class="col-4 col-md-2">
                 <div class="p-2 bg-white rounded border shadow-sm">
-                  <div class="small text-muted" style="font-size: 0.7rem;">Accuracy</div>
-                  <div class="fw-bold text-dark fs-6" id="mfm-accuracy">--%</div>
+                  <div class="small text-muted" style="font-size: 0.7rem">
+                    Accuracy
+                  </div>
+                  <div class="fw-bold text-dark fs-6" id="mfm-accuracy">
+                    --%
+                  </div>
                 </div>
               </div>
               <div class="col-6 col-md-3">
                 <div class="p-2 bg-white rounded border shadow-sm">
-                  <div class="small text-muted" style="font-size: 0.7rem;">Training Inventory</div>
+                  <div class="small text-muted" style="font-size: 0.7rem">
+                    Training Inventory
+                  </div>
                   <div class="fw-bold text-navy fs-6" id="mfm-events">--</div>
                 </div>
               </div>
               <div class="col-6 col-md-3">
                 <div class="p-2 bg-white rounded border shadow-sm">
-                  <div class="small text-muted" style="font-size: 0.7rem;">Geometry Type</div>
-                  <div class="fw-bold text-secondary fs-6" id="mfm-event-type">--</div>
+                  <div class="small text-muted" style="font-size: 0.7rem">
+                    Geometry Type
+                  </div>
+                  <div class="fw-bold text-secondary fs-6" id="mfm-event-type">
+                    --
+                  </div>
                 </div>
               </div>
             </div>
 
             <!-- Dominant Terrain Drivers Section -->
             <div class="card border-0 shadow-sm rounded mb-3">
-              <div class="card-header bg-white py-2 px-3 border-bottom d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-navy small"><i class="bi bi-bar-chart-steps me-1 text-primary"></i>Empirical Feature Importance (Terrain Drivers)</span>
-                <span class="badge bg-secondary-subtle text-secondary small">XGBoost Gain</span>
+              <div
+                class="card-header bg-white py-2 px-3 border-bottom d-flex justify-content-between align-items-center"
+              >
+                <span class="fw-bold text-navy small"
+                  ><i class="bi bi-bar-chart-steps me-1 text-primary"></i
+                  >Empirical Feature Importance (Terrain Drivers)</span
+                >
+                <span class="badge bg-secondary-subtle text-secondary small"
+                  >XGBoost Gain</span
+                >
               </div>
               <div class="card-body p-3" id="mfm-features-bars">
                 <!-- Injected dynamically by showModelFeatureModal() -->
@@ -727,10 +770,16 @@
             <!-- Dynamic Scenarios Breakdown -->
             <div class="card border-0 shadow-sm rounded mb-2">
               <div class="card-header bg-white py-2 px-3 border-bottom">
-                <span class="fw-bold text-navy small"><i class="bi bi-cloud-rain-heavy me-1 text-primary"></i>NASA LHASA Nowcast Scenario Calibrations</span>
+                <span class="fw-bold text-navy small"
+                  ><i class="bi bi-cloud-rain-heavy me-1 text-primary"></i>NASA
+                  LHASA Nowcast Scenario Calibrations</span
+                >
               </div>
               <div class="table-responsive bg-white">
-                <table class="table table-sm table-hover mb-0 text-center" style="font-size: 0.8rem;">
+                <table
+                  class="table table-sm table-hover mb-0 text-center"
+                  style="font-size: 0.8rem"
+                >
                   <thead class="table-light">
                     <tr>
                       <th class="text-start">Precipitation Scenario</th>
@@ -748,17 +797,29 @@
                   </tbody>
                 </table>
               </div>
-              <div class="card-footer bg-white p-2 text-muted small" id="mfm-extreme-context">
+              <div
+                class="card-footer bg-white p-2 text-muted small"
+                id="mfm-extreme-context"
+              >
                 <!-- Context text -->
               </div>
             </div>
           </div>
 
           <div class="modal-footer bg-white p-3 d-flex justify-content-between">
-            <a href="risk-map.html" class="btn btn-outline-navy btn-sm fw-semibold" id="mfm-view-map-btn">
-              <i class="bi bi-geo-alt-fill me-1"></i> View Spatial Susceptibility on GIS Map
+            <a
+              href="risk-map.html"
+              class="btn btn-outline-navy btn-sm fw-semibold"
+              id="mfm-view-map-btn"
+            >
+              <i class="bi bi-geo-alt-fill me-1"></i> View Spatial
+              Susceptibility on GIS Map
             </a>
-            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              data-bs-dismiss="modal"
+            >
               Close
             </button>
           </div>
