@@ -842,6 +842,11 @@ function saveNewAlert(newAlert) {
     const existing = getStoredAlerts();
     existing.unshift(newAlert);
     localStorage.setItem(LOCAL_STORAGE_ALERTS_KEY, JSON.stringify(existing));
+
+    // Async push to live backend if online
+    if (window.NER_API && typeof window.NER_API.createAlert === 'function') {
+      window.NER_API.createAlert(newAlert).catch(e => console.warn('[NER API] Async alert save error:', e));
+    }
     return true;
   } catch (e) {
     return false;
@@ -867,6 +872,15 @@ function saveNewReport(newReport) {
     const existing = getStoredReports();
     existing.unshift(newReport);
     localStorage.setItem(LOCAL_STORAGE_REPORTS_KEY, JSON.stringify(existing));
+
+    // Async push to live backend if online
+    if (window.NER_API && typeof window.NER_API.submitReport === 'function') {
+      window.NER_API.submitReport(newReport).catch(e => console.warn('[NER API] Async save error:', e));
+    }
+
+    if (window.refreshMapReportLayers) {
+      window.refreshMapReportLayers();
+    }
     return true;
   } catch (e) {
     return false;
@@ -884,6 +898,15 @@ function updateReportStatus(reportId, newStatus, remarks = "") {
       
       if (window.appendAuditLog) {
         window.appendAuditLog(newStatus, reportId, remarks);
+      }
+
+      // Async push verification to live backend if online
+      if (window.NER_API && typeof window.NER_API.verifyReport === 'function') {
+        window.NER_API.verifyReport(reportId, newStatus, remarks).catch(e => console.warn('[NER API] Async verify error:', e));
+      }
+
+      if (window.refreshMapReportLayers) {
+        window.refreshMapReportLayers();
       }
       return true;
     }

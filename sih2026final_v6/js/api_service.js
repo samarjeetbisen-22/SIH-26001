@@ -98,6 +98,64 @@
       } catch (e) {
         console.warn('[NER API] Station sync failed:', e);
       }
+
+      await this.syncReportsFromBackend();
+      await this.syncAlertsFromBackend();
+    },
+
+    /**
+     * Pulls persistent alerts from backend and syncs with frontend tables and localStorage.
+     */
+    async syncAlertsFromBackend() {
+      try {
+        const resp = await fetch(`${API_BASE_URL}/api/alerts`);
+        if (resp.ok) {
+          const backendAlerts = await resp.json();
+          if (Array.isArray(backendAlerts) && backendAlerts.length > 0) {
+            localStorage.setItem('NER_EMERGENCY_ALERTS', JSON.stringify(backendAlerts));
+            console.log(`[NER API] Synchronized ${backendAlerts.length} alerts from persistent backend database.`);
+            if (window.renderAlertHistoryTable) window.renderAlertHistoryTable();
+            if (window.renderActiveAlerts) window.renderActiveAlerts();
+          }
+        }
+      } catch (e) {
+        console.warn('[NER API] Alerts sync failed:', e);
+      }
+    },
+
+    /**
+     * Pulls persistent reports & audit logs from backend and syncs with frontend tables and GIS map.
+     */
+    async syncReportsFromBackend() {
+      try {
+        const [repResp, logResp] = await Promise.all([
+          fetch(`${API_BASE_URL}/api/reports`),
+          fetch(`${API_BASE_URL}/api/audit-logs`)
+        ]);
+
+        if (repResp.ok) {
+          const backendReports = await repResp.json();
+          if (Array.isArray(backendReports) && backendReports.length > 0) {
+            localStorage.setItem('NER_CITIZEN_REPORTS', JSON.stringify(backendReports));
+            console.log(`[NER API] Synchronized ${backendReports.length} reports from persistent backend database.`);
+          }
+        }
+
+        if (logResp.ok) {
+          const backendLogs = await logResp.json();
+          if (Array.isArray(backendLogs) && backendLogs.length > 0) {
+            localStorage.setItem('NER_AUTHORITY_AUDIT_LOGS', JSON.stringify(backendLogs));
+            console.log(`[NER API] Synchronized ${backendLogs.length} audit entries from persistent backend log.`);
+          }
+        }
+
+        // Re-render UI tables if present
+        if (window.renderVerificationTable) window.renderVerificationTable('ALL');
+        if (window.renderAuditLogTable) window.renderAuditLogTable();
+        if (window.refreshMapReportLayers) window.refreshMapReportLayers();
+      } catch (e) {
+        console.warn('[NER API] Reports/Audit sync failed:', e);
+      }
     },
 
     /**
@@ -288,6 +346,31 @@
         window.updateReportStatus(reportId, newStatus, remarks);
       }
       return { status: 'success', reportId, newStatus };
+    },
+
+    /**
+     * Dispatches emergency alert to backend (or localStorage fallback).
+     */
+    async createAlert(alertData) {
+      if (this.isBackendConnected) {
+        try {
+          const resp = await fetch(`${API_BASE_URL}/api/alerts`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(alertData)
+          });
+          if (resp.ok) {
+            const res = await resp.json();
+            return res.alert;
+          }
+        } catch (e) {
+          console.warn('[NER API] Backend alert dispatch failed, falling back to localStorage:', e);
+        }
+      }
+      if (window.saveNewAlert) {
+        return window.saveNewAlert(alertData);
+      }
+      return alertData;
     }
   };
 
@@ -298,3 +381,4 @@
   });
 
 })();
+

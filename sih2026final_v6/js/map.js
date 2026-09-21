@@ -490,6 +490,34 @@ function initOpenLayersMap() {
   });
   GIS_LAYERS_REGISTRY['layer-verified-incidents'] = verifiedIncidentLayer;
 
+  // Global helper to dynamically refresh report layers on OpenLayers map canvas without page reload
+  window.refreshMapReportLayers = function() {
+    if (!citizenReportSource || !verifiedIncidentSource) return;
+    const currentReports = window.getStoredReports ? window.getStoredReports() : [];
+    
+    // Refresh citizen reports
+    citizenReportSource.clear();
+    currentReports.filter(r => r.status !== 'VERIFIED' && r.status !== 'REJECTED' && r.status !== 'DISMISSED').forEach(report => {
+      const feature = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([report.lon, report.lat])),
+        reportData: report,
+        layerType: 'citizen-report'
+      });
+      citizenReportSource.addFeature(feature);
+    });
+
+    // Refresh verified incidents
+    verifiedIncidentSource.clear();
+    currentReports.filter(r => r.status === 'VERIFIED').forEach(report => {
+      const feature = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([report.lon, report.lat])),
+        reportData: report,
+        layerType: 'verified-incident'
+      });
+      verifiedIncidentSource.addFeature(feature);
+    });
+  };
+
   // 14b. HISTORICAL LANDSLIDE RECORDS - REAL DATA (layer-historical-events)
   // Source: cleaned public landslide inventory, 368 verified events across NER, 2007-2016
   const historicalEventsSource = new ol.source.Vector();
