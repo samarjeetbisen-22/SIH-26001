@@ -45,6 +45,46 @@ const REALTIME_STATIONS = {
     lon: 93.0163,
     corridor: "NH-27 Haflong section & Lumding–Badarpur railway, Barak Valley",
     suscDist: { vlow: 82.4, low: 5.9, mod: 4.3, high: 4.3, vhigh: 3.1 }
+  },
+  arunachal: {
+    name: "Arunachal Pradesh",
+    stateKey: "arunachal",
+    station: "Tawang Sela Pass Met",
+    locationId: "loc-tawang",
+    lat: 27.5861,
+    lon: 91.8594,
+    corridor: "NH-13 Sela Pass Military Tunnel & Tawang corridor",
+    suscDist: { vlow: 40.0, low: 20.0, mod: 18.0, high: 14.0, vhigh: 8.0 }
+  },
+  manipur: {
+    name: "Manipur",
+    stateKey: "manipur",
+    station: "Tupul / Noney Rail Met",
+    locationId: "loc-imphal",
+    lat: 24.7083,
+    lon: 93.6333,
+    corridor: "Jiribam–Imphal Railway Line & NH-37 Corridor",
+    suscDist: { vlow: 45.0, low: 20.0, mod: 15.0, high: 12.0, vhigh: 8.0 }
+  },
+  mizoram: {
+    name: "Mizoram",
+    stateKey: "mizoram",
+    station: "Aizawl Hunthar Met",
+    locationId: "loc-aizawl",
+    lat: 23.7271,
+    lon: 92.7176,
+    corridor: "NH-54 Aizawl–Lunglei Ridge & Hunthar sinking zone",
+    suscDist: { vlow: 43.0, low: 22.0, mod: 16.0, high: 12.0, vhigh: 7.0 }
+  },
+  tripura: {
+    name: "Tripura",
+    stateKey: "tripura",
+    station: "Jampui Hills Met",
+    locationId: "loc-agartala",
+    lat: 23.9500,
+    lon: 92.2800,
+    corridor: "Jampui Anticlinal Ridge & NH-8 Corridor",
+    suscDist: { vlow: 75.0, low: 12.0, mod: 7.0, high: 4.0, vhigh: 2.0 }
   }
 };
 
@@ -166,10 +206,9 @@ async function fetchAllRealtimeWeather() {
       };
     } catch (err) {
       console.warn(`[Realtime Weather] Failed for ${st.name}:`, err);
-      // Fallback deterministic estimation based on recent monsoon conditions
-      const fallbackAri = { sikkim: 118.3, nagaland: 72.9, meghalaya: 15.1, assam: 18.8 }[key] || 25.0;
-      const fallback24h = { sikkim: 39.7, nagaland: 4.7, meghalaya: 3.6, assam: 0.7 }[key] || 5.0;
-      const fallback7d = { sikkim: 187.8, nagaland: 130.1, meghalaya: 32.4, assam: 54.7 }[key] || 35.0;
+      const fallbackAri = { sikkim: 67.2, nagaland: 47.5, meghalaya: 24.2, assam: 21.8, arunachal: 85.4, manipur: 42.0, mizoram: 38.5, tripura: 16.2 }[key] || 35.0;
+      const fallback24h = { sikkim: 4.6, nagaland: 2.7, meghalaya: 3.2, assam: 5.5, arunachal: 1.0, manipur: 3.8, mizoram: 2.1, tripura: 0.8 }[key] || 3.0;
+      const fallback7d = { sikkim: 165.9, nagaland: 88.2, meghalaya: 42.4, assam: 48.7, arunachal: 68.0, manipur: 54.0, mizoram: 49.0, tripura: 28.0 }[key] || 45.0;
       const nowcast = evaluateLhasaRealtimeMatrix(st.suscDist, fallbackAri);
 
       return {

@@ -82,29 +82,38 @@
       </div>
     </div>
 
-    <!-- FORECAST METRICS GRID -->
+    <!-- FORECAST METRICS GRID (DYNAMIC OPEN-METEO TELEMETRY) -->
     <div class="row g-3 mb-4">
       <div class="col-md-4">
-        <div class="card p-3 border-0 shadow-sm h-100 bg-white border-left-navy" style="border-left: 4px solid var(--risk-severe) !important;">
-          <div class="metric-label">Arunachal & Sikkim Belt</div>
-          <div class="fs-4 fw-extrabold text-danger mt-1">Extreme Heavy Rainfall (140 - 180 mm)</div>
-          <p class="small text-muted mb-0 mt-2">Next 24h: High likelihood of debris flow along Sela Pass and Dikchu corridors.</p>
+        <div class="card p-3 border-0 shadow-sm h-100 bg-white border-left-navy" id="card-belt-arunachal-sikkim" style="border-left: 4px solid var(--risk-severe) !important;">
+          <div class="metric-label d-flex justify-content-between align-items-center">
+            <span>Arunachal & Sikkim Alpine Belt</span>
+            <span class="badge bg-danger-subtle text-danger border" id="badge-belt-arunachal-sikkim">High Alert</span>
+          </div>
+          <div class="fs-4 fw-extrabold text-danger mt-1" id="forecast-val-arunachal-sikkim">Loading QPF...</div>
+          <p class="small text-muted mb-0 mt-2" id="forecast-sub-arunachal-sikkim">Connecting to live high-altitude meteorological feeds...</p>
         </div>
       </div>
 
       <div class="col-md-4">
-        <div class="card p-3 border-0 shadow-sm h-100 bg-white border-left-navy" style="border-left: 4px solid var(--risk-severe) !important;">
-          <div class="metric-label">Mizoram & Nagaland Ridge</div>
-          <div class="fs-4 fw-extrabold text-danger mt-1">Severe Precipitation (150 - 200 mm)</div>
-          <p class="small text-muted mb-0 mt-2">Next 48h: Accelerated ground creep predicted on Hunthar & Phesama ridges.</p>
+        <div class="card p-3 border-0 shadow-sm h-100 bg-white border-left-navy" id="card-belt-nagaland-mizoram" style="border-left: 4px solid var(--risk-high) !important;">
+          <div class="metric-label d-flex justify-content-between align-items-center">
+            <span>Mizoram & Nagaland Ridge</span>
+            <span class="badge bg-warning-subtle text-dark border" id="badge-belt-nagaland-mizoram">Watch</span>
+          </div>
+          <div class="fs-4 fw-extrabold text-warning text-dark mt-1" id="forecast-val-nagaland-mizoram">Loading QPF...</div>
+          <p class="small text-muted mb-0 mt-2" id="forecast-sub-nagaland-mizoram">Connecting to ridge telemetry stations...</p>
         </div>
       </div>
 
       <div class="col-md-4">
-        <div class="card p-3 border-0 shadow-sm h-100 bg-white border-left-navy" style="border-left: 4px solid var(--risk-high) !important;">
-          <div class="metric-label">Meghalaya Plateau</div>
-          <div class="fs-4 fw-extrabold text-warning mt-1 text-dark">Moderate to Heavy (90 - 120 mm)</div>
-          <p class="small text-muted mb-0 mt-2">Next 72h: Increased rockfall risk along NH-6 Shillong-Jowai route.</p>
+        <div class="card p-3 border-0 shadow-sm h-100 bg-white border-left-navy" id="card-belt-meghalaya-assam" style="border-left: 4px solid var(--risk-moderate) !important;">
+          <div class="metric-label d-flex justify-content-between align-items-center">
+            <span>Meghalaya Plateau & Assam Basin</span>
+            <span class="badge bg-success-subtle text-success border" id="badge-belt-meghalaya-assam">Advisory</span>
+          </div>
+          <div class="fs-4 fw-extrabold text-primary mt-1" id="forecast-val-meghalaya-assam">Loading QPF...</div>
+          <p class="small text-muted mb-0 mt-2" id="forecast-sub-meghalaya-assam">Connecting to plateau & valley gauges...</p>
         </div>
       </div>
     </div>
@@ -198,6 +207,7 @@
   <script src="../js/model_data.js"></script>
   <script src="../js/data.js"></script>
   <script src="../js/weather_realtime.js"></script>
+  <script src="../js/api_service.js"></script>
   <script src="../js/main.js"></script>
 
   <script>
@@ -205,8 +215,58 @@
       nagaland: "NH-29 Kohima–Dimapur bypass, Phesama Subsidence corridor",
       meghalaya: "NH-6 Shillong–Jowai lifeline, Cherrapunji / Mawsynram escarpment",
       assam: "NH-27 Dima Hasao hill section, Lumding–Badarpur railway, Barak Valley",
-      sikkim: "NH-10 Gangtok–Siliguri corridor, Dikchu & 9th Mile active slips"
+      sikkim: "NH-10 Gangtok–Siliguri corridor, Dikchu & 9th Mile active slips",
+      arunachal: "NH-13 Sela Pass Military Tunnel & Tawang corridor",
+      manipur: "Jiribam–Imphal Railway Line & NH-37 Corridor",
+      mizoram: "NH-54 Aizawl–Lunglei Ridge & Hunthar sinking zone",
+      tripura: "Jampui Anticlinal Ridge & NH-8 Corridor"
     };
+
+    function updateForecastMetricCards(liveMap) {
+      if (!liveMap) return;
+      const sik = liveMap.sikkim || {};
+      const aru = liveMap.arunachal || {};
+      const nag = liveMap.nagaland || {};
+      const miz = liveMap.mizoram || {};
+      const meg = liveMap.meghalaya || {};
+      const asm = liveMap.assam || {};
+
+      // Belt 1: Arunachal & Sikkim
+      const b1Rain = Math.max(sik.todayRain || 0, aru.todayRain || 0);
+      const b1Ari = Math.max(sik.ari || 0, aru.ari || 0);
+      const b1ValEl = document.getElementById('forecast-val-arunachal-sikkim');
+      const b1SubEl = document.getElementById('forecast-sub-arunachal-sikkim');
+      const b1Badge = document.getElementById('badge-belt-arunachal-sikkim');
+      if (b1ValEl) {
+        b1ValEl.textContent = `${b1Rain.toFixed(1)} mm/24h (ARI: ${b1Ari.toFixed(1)} mm)`;
+        b1SubEl.textContent = b1Ari > 80 ? 'Next 24h: High debris flow probability along Sela Pass and Dikchu corridors.' : 'Next 24h: Normal mountain drainage; key arterial corridors operational.';
+        if (b1Badge) b1Badge.textContent = b1Ari > 80 ? 'High Alert' : b1Ari > 40 ? 'Watch' : 'Advisory';
+      }
+
+      // Belt 2: Mizoram & Nagaland Ridge
+      const b2Rain = Math.max(nag.todayRain || 0, miz.todayRain || 0);
+      const b2Ari = Math.max(nag.ari || 0, miz.ari || 0);
+      const b2ValEl = document.getElementById('forecast-val-nagaland-mizoram');
+      const b2SubEl = document.getElementById('forecast-sub-nagaland-mizoram');
+      const b2Badge = document.getElementById('badge-belt-nagaland-mizoram');
+      if (b2ValEl) {
+        b2ValEl.textContent = `${b2Rain.toFixed(1)} mm/24h (ARI: ${b2Ari.toFixed(1)} mm)`;
+        b2SubEl.textContent = b2Ari > 60 ? 'Next 48h: Accelerated ground creep predicted on Hunthar & Phesama ridges.' : 'Next 48h: Stable ridge creep rate below critical shear limit.';
+        if (b2Badge) b2Badge.textContent = b2Ari > 60 ? 'Warning' : b2Ari > 35 ? 'Watch' : 'Safe';
+      }
+
+      // Belt 3: Meghalaya & Assam Basin
+      const b3Rain = Math.max(meg.todayRain || 0, asm.todayRain || 0);
+      const b3Ari = Math.max(meg.ari || 0, asm.ari || 0);
+      const b3ValEl = document.getElementById('forecast-val-meghalaya-assam');
+      const b3SubEl = document.getElementById('forecast-sub-meghalaya-assam');
+      const b3Badge = document.getElementById('badge-belt-meghalaya-assam');
+      if (b3ValEl) {
+        b3ValEl.textContent = `${b3Rain.toFixed(1)} mm/24h (ARI: ${b3Ari.toFixed(1)} mm)`;
+        b3SubEl.textContent = b3Ari > 60 ? 'Next 72h: Increased rockfall risk along NH-6 Shillong-Jowai and Dima Hasao.' : 'Next 72h: Low to moderate runoff along NH-6 and Lumding-Badarpur route.';
+        if (b3Badge) b3Badge.textContent = b3Ari > 60 ? 'Warning' : b3Ari > 30 ? 'Watch' : 'Advisory';
+      }
+    }
 
     async function switchLhasaScenario(scenKey) {
       // Update buttons
@@ -260,6 +320,8 @@
         if (!liveMap && window.fetchAllRealtimeWeather) {
           tbody.innerHTML = '<tr><td colspan="9" class="text-center py-4"><div class="spinner-border spinner-border-sm text-primary me-2"></div>Connecting to Open-Meteo live weather telemetry...</td></tr>';
           liveMap = await window.fetchAllRealtimeWeather();
+        if (liveMap) {
+          updateForecastMetricCards(liveMap);
         }
 
         let html = '';

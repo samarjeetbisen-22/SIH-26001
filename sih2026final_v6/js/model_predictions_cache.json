@@ -1,0 +1,300 @@
+{
+  "generated_at": "2026-09-21T17:15:00+05:30",
+  "system": "NER Landslide 30m XGBoost & NASA LHASA v2",
+  "model_metrics": {
+    "sikkim": {
+      "state": "Sikkim",
+      "roc_auc": 93.8,
+      "accuracy": 86.16,
+      "f1_score": 86.48,
+      "top_feature": "Lithology (25.2%)",
+      "extreme_ari": 233.0,
+      "inventory_events": 172
+    },
+    "assam": {
+      "state": "Assam",
+      "roc_auc": 95.18,
+      "accuracy": 89.59,
+      "f1_score": 89.7,
+      "top_feature": "TWI (29.1%)",
+      "extreme_ari": 212.1,
+      "inventory_events": 105
+    },
+    "meghalaya": {
+      "state": "Meghalaya",
+      "roc_auc": 95.07,
+      "accuracy": 89.09,
+      "f1_score": 89.65,
+      "top_feature": "Elevation (34.8%)",
+      "extreme_ari": 298.6,
+      "inventory_events": 39
+    },
+    "nagaland": {
+      "state": "Nagaland",
+      "roc_auc": 93.63,
+      "accuracy": 87.86,
+      "f1_score": 88.5,
+      "top_feature": "Lithology (41.3%)",
+      "extreme_ari": 193.3,
+      "inventory_events": 101
+    }
+  },
+  "stations": {
+    "sikkim": {
+      "id": "loc-gangtok",
+      "name": "Sikkim",
+      "station": "Gangtok Met Station",
+      "lat": 27.3389,
+      "lon": 88.6065,
+      "corridor": "NH-10 Gangtok\u2013Siliguri lifeline corridor & Dikchu active slips",
+      "live_weather": {
+        "today_rain": 4.6,
+        "sum_7d": 165.9,
+        "ari": 67.2,
+        "status_level": "Level 3: Warning (High Hazard)"
+      },
+      "ml_prediction": {
+        "model_used": "sikkim",
+        "is_real_model": true,
+        "susceptibility_probability": 0.9961,
+        "susceptibility_percentage": 99.6,
+        "susceptibility_category": "Very High",
+        "composite_risk_score": 79,
+        "risk_level": "High",
+        "lhasa_hazard_tier": "Level 3: Warning",
+        "sensor_readings": {
+          "piezometer_kpa": 15.3,
+          "inclinometer_mm_hr": 1.12,
+          "soil_moisture_pct": 54.3,
+          "piezometer_str": "15.3 kPa (Normal)",
+          "inclinometer_str": "1.12 mm/hr creep",
+          "insar_displacement_str": "-3.8 mm/yr (Active Subsidence)"
+        }
+      }
+    },
+    "nagaland": {
+      "id": "loc-kohima",
+      "name": "Nagaland",
+      "station": "Kohima Met Station",
+      "lat": 25.6751,
+      "lon": 94.1086,
+      "corridor": "NH-29 Kohima\u2013Dimapur bypass & Phesama sinking zone",
+      "live_weather": {
+        "today_rain": 2.7,
+        "sum_7d": 112.9,
+        "ari": 47.5,
+        "status_level": "Level 3: Warning (High Hazard)"
+      },
+      "ml_prediction": {
+        "model_used": "nagaland",
+        "is_real_model": true,
+        "susceptibility_probability": 0.6505,
+        "susceptibility_percentage": 65.1,
+        "susceptibility_category": "High",
+        "composite_risk_score": 53,
+        "risk_level": "Moderate",
+        "lhasa_hazard_tier": "Level 2: Watch",
+        "sensor_readings": {
+          "piezometer_kpa": 11.6,
+          "inclinometer_mm_hr": 0.71,
+          "soil_moisture_pct": 47.2,
+          "piezometer_str": "11.6 kPa (Normal)",
+          "inclinometer_str": "0.71 mm/hr creep",
+          "insar_displacement_str": "-1.2 mm/yr (Slow Creep)"
+        }
+      }
+    },
+    "meghalaya": {
+      "id": "loc-shillong",
+      "name": "Meghalaya",
+      "station": "Shillong Peak Met",
+      "lat": 25.5788,
+      "lon": 91.8933,
+      "corridor": "NH-6 Shillong\u2013Jowai route & Cherrapunji escarpment",
+      "live_weather": {
+        "today_rain": 1.7,
+        "sum_7d": 25.3,
+        "ari": 11.5,
+        "status_level": "Level 1: Advisory (Low Hazard)"
+      },
+      "ml_prediction": {
+        "model_used": "meghalaya",
+        "is_real_model": true,
+        "susceptibility_probability": 0.0816,
+        "susceptibility_percentage": 8.2,
+        "susceptibility_category": "Very Low",
+        "composite_risk_score": 8,
+        "risk_level": "Low",
+        "lhasa_hazard_tier": "Level 0 / 1: Safe / Advisory",
+        "sensor_readings": {
+          "piezometer_kpa": 6.1,
+          "inclinometer_mm_hr": 0.43,
+          "soil_moisture_pct": 34.2,
+          "piezometer_str": "6.1 kPa (Normal)",
+          "inclinometer_str": "0.43 mm/hr creep",
+          "insar_displacement_str": "-1.2 mm/yr (Slow Creep)"
+        }
+      }
+    },
+    "assam": {
+      "id": "loc-guwahati",
+      "name": "Assam",
+      "station": "Dima Hasao / Haflong Met",
+      "lat": 25.1685,
+      "lon": 93.0163,
+      "corridor": "NH-27 Haflong section & Lumding\u2013Badarpur railway",
+      "live_weather": {
+        "today_rain": 5.5,
+        "sum_7d": 32.8,
+        "ari": 21.8,
+        "status_level": "Level 0: Safe"
+      },
+      "ml_prediction": {
+        "model_used": "assam",
+        "is_real_model": true,
+        "susceptibility_probability": 0.0078,
+        "susceptibility_percentage": 0.8,
+        "susceptibility_category": "Very Low",
+        "composite_risk_score": 5,
+        "risk_level": "Low",
+        "lhasa_hazard_tier": "Level 0 / 1: Safe / Advisory",
+        "sensor_readings": {
+          "piezometer_kpa": 7.5,
+          "inclinometer_mm_hr": 0.4,
+          "soil_moisture_pct": 37.9,
+          "piezometer_str": "7.5 kPa (Normal)",
+          "inclinometer_str": "0.4 mm/hr creep",
+          "insar_displacement_str": "-1.2 mm/yr (Slow Creep)"
+        }
+      }
+    },
+    "arunachal": {
+      "id": "loc-tawang",
+      "name": "Arunachal Pradesh",
+      "station": "Tawang Sela Pass Met",
+      "lat": 27.5861,
+      "lon": 91.8594,
+      "corridor": "NH-13 Sela Pass Military Tunnel & Tawang corridor",
+      "live_weather": {
+        "today_rain": 1.0,
+        "sum_7d": 13.4,
+        "ari": 6.2,
+        "status_level": "Level 1: Advisory (Low Hazard)"
+      },
+      "ml_prediction": {
+        "model_used": "sikkim",
+        "is_real_model": true,
+        "susceptibility_probability": 0.9228,
+        "susceptibility_percentage": 92.3,
+        "susceptibility_category": "Very High",
+        "composite_risk_score": 61,
+        "risk_level": "High",
+        "lhasa_hazard_tier": "Level 3: Warning",
+        "sensor_readings": {
+          "piezometer_kpa": 5.4,
+          "inclinometer_mm_hr": 0.43,
+          "soil_moisture_pct": 32.2,
+          "piezometer_str": "5.4 kPa (Normal)",
+          "inclinometer_str": "0.43 mm/hr creep",
+          "insar_displacement_str": "-1.2 mm/yr (Slow Creep)"
+        }
+      }
+    },
+    "manipur": {
+      "id": "loc-imphal",
+      "name": "Manipur",
+      "station": "Tupul / Noney Rail Station",
+      "lat": 24.7083,
+      "lon": 93.6333,
+      "corridor": "Jiribam\u2013Imphal Railway Line & NH-37 Corridor",
+      "live_weather": {
+        "today_rain": 1.0,
+        "sum_7d": 24.6,
+        "ari": 11.6,
+        "status_level": "Level 1: Advisory (Low Hazard)"
+      },
+      "ml_prediction": {
+        "model_used": "nagaland",
+        "is_real_model": true,
+        "susceptibility_probability": 0.2222,
+        "susceptibility_percentage": 22.2,
+        "susceptibility_category": "Low",
+        "composite_risk_score": 17,
+        "risk_level": "Low",
+        "lhasa_hazard_tier": "Level 0 / 1: Safe / Advisory",
+        "sensor_readings": {
+          "piezometer_kpa": 6.1,
+          "inclinometer_mm_hr": 0.4,
+          "soil_moisture_pct": 34.2,
+          "piezometer_str": "6.1 kPa (Normal)",
+          "inclinometer_str": "0.4 mm/hr creep",
+          "insar_displacement_str": "-1.2 mm/yr (Slow Creep)"
+        }
+      }
+    },
+    "mizoram": {
+      "id": "loc-aizawl",
+      "name": "Mizoram",
+      "station": "Aizawl Hunthar Met",
+      "lat": 23.7271,
+      "lon": 92.7176,
+      "corridor": "NH-54 Aizawl\u2013Lunglei Ridge & Hunthar sinking zone",
+      "live_weather": {
+        "today_rain": 1.7,
+        "sum_7d": 30.2,
+        "ari": 15.9,
+        "status_level": "Level 1: Advisory (Low Hazard)"
+      },
+      "ml_prediction": {
+        "model_used": "nagaland",
+        "is_real_model": true,
+        "susceptibility_probability": 0.2388,
+        "susceptibility_percentage": 23.9,
+        "susceptibility_category": "Low",
+        "composite_risk_score": 19,
+        "risk_level": "Low",
+        "lhasa_hazard_tier": "Level 0 / 1: Safe / Advisory",
+        "sensor_readings": {
+          "piezometer_kpa": 6.6,
+          "inclinometer_mm_hr": 0.45,
+          "soil_moisture_pct": 35.7,
+          "piezometer_str": "6.6 kPa (Normal)",
+          "inclinometer_str": "0.45 mm/hr creep",
+          "insar_displacement_str": "-1.2 mm/yr (Slow Creep)"
+        }
+      }
+    },
+    "tripura": {
+      "id": "loc-agartala",
+      "name": "Tripura",
+      "station": "Jampui Hills Met",
+      "lat": 23.95,
+      "lon": 92.28,
+      "corridor": "Jampui Anticlinal Ridge & NH-8 Corridor",
+      "live_weather": {
+        "today_rain": 3.3,
+        "sum_7d": 46.7,
+        "ari": 26.6,
+        "status_level": "Level 0: Safe"
+      },
+      "ml_prediction": {
+        "model_used": "assam",
+        "is_real_model": true,
+        "susceptibility_probability": 0.0082,
+        "susceptibility_percentage": 0.8,
+        "susceptibility_category": "Very Low",
+        "composite_risk_score": 6,
+        "risk_level": "Low",
+        "lhasa_hazard_tier": "Level 0 / 1: Safe / Advisory",
+        "sensor_readings": {
+          "piezometer_kpa": 8.2,
+          "inclinometer_mm_hr": 0.34,
+          "soil_moisture_pct": 39.6,
+          "piezometer_str": "8.2 kPa (Normal)",
+          "inclinometer_str": "0.34 mm/hr creep",
+          "insar_displacement_str": "-1.2 mm/yr (Slow Creep)"
+        }
+      }
+    }
+  }
+}
