@@ -124,13 +124,16 @@
             >
               <div>
                 <span class="badge bg-warning text-dark mb-2">
-                  <i class="bi bi-shield-exclamation me-1"></i> Public Hazard Reporting Portal
+                  <i class="bi bi-shield-exclamation me-1"></i> Public Hazard
+                  Reporting Portal
                 </span>
                 <h3 class="fw-extrabold text-navy mb-1">
                   SUBMIT FIELD INCIDENT / LANDSLIDE REPORT
                 </h3>
                 <p class="text-secondary small mb-0">
-                  Help state disaster authorities identify active slope failures, rockfalls, and road blockages across North Eastern India.
+                  Help state disaster authorities identify active slope
+                  failures, rockfalls, and road blockages across North Eastern
+                  India.
                 </p>
               </div>
               <span class="badge bg-light text-muted border">
@@ -145,7 +148,8 @@
               <!-- Step 1: Select Incident Category -->
               <div class="mb-4">
                 <label class="form-label fw-bold text-navy mb-2">
-                  <i class="bi bi-1-circle-fill text-primary me-1"></i> Select Hazard Category:
+                  <i class="bi bi-1-circle-fill text-primary me-1"></i> Select
+                  Hazard Category:
                 </label>
                 <input
                   type="hidden"
@@ -223,7 +227,8 @@
               <!-- Step 2: Location Information -->
               <div class="mb-4">
                 <label class="form-label fw-bold text-navy mb-2">
-                  <i class="bi bi-2-circle-fill text-primary me-1"></i> Incident Location:
+                  <i class="bi bi-2-circle-fill text-primary me-1"></i> Incident
+                  Location:
                 </label>
                 <div class="row g-3">
                   <div class="col-md-6">
@@ -238,14 +243,18 @@
                       <option value="Nagaland">Nagaland</option>
                       <option value="Meghalaya">Meghalaya</option>
                       <option value="Assam" selected>Assam</option>
-                      <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                      <option value="Arunachal Pradesh">
+                        Arunachal Pradesh
+                      </option>
                       <option value="Manipur">Manipur</option>
                       <option value="Mizoram">Mizoram</option>
                       <option value="Tripura">Tripura</option>
                     </select>
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label small text-muted">District / Area:</label>
+                    <label class="form-label small text-muted"
+                      >District / Area:</label
+                    >
                     <input
                       type="text"
                       class="form-control form-control-sm"
@@ -265,7 +274,9 @@
                   </div>
 
                   <div class="col-md-6">
-                    <label class="form-label small text-muted">Latitude (°N):</label>
+                    <label class="form-label small text-muted"
+                      >Latitude (°N):</label
+                    >
                     <input
                       type="number"
                       step="any"
@@ -276,7 +287,9 @@
                     />
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label small text-muted">Longitude (°E):</label>
+                    <label class="form-label small text-muted"
+                      >Longitude (°E):</label
+                    >
                     <input
                       type="number"
                       step="any"
@@ -293,7 +306,8 @@
                       class="btn btn-outline-primary btn-sm"
                       onclick="getUserCurrentGPSLocation()"
                     >
-                      <i class="bi bi-geo-alt-fill me-1"></i> Use Device GPS Location
+                      <i class="bi bi-geo-alt-fill me-1"></i> Use Device GPS
+                      Location
                     </button>
                     <button
                       type="button"
@@ -310,7 +324,8 @@
               <!-- Step 3: Photo / Evidence Upload -->
               <div class="mb-4">
                 <label class="form-label fw-bold text-navy mb-2">
-                  <i class="bi bi-3-circle-fill text-primary me-1"></i> Photographic Evidence:
+                  <i class="bi bi-3-circle-fill text-primary me-1"></i>
+                  Photographic Evidence:
                 </label>
                 <div class="p-3 bg-light rounded border text-center">
                   <input
@@ -323,12 +338,15 @@
                   <button
                     type="button"
                     class="btn btn-outline-navy btn-sm mb-2"
-                    onclick="document.getElementById('input-image-file').click()"
+                    onclick="
+                      document.getElementById('input-image-file').click()
+                    "
                   >
                     <i class="bi bi-camera-fill me-1"></i> Upload Evidence Photo
                   </button>
                   <p class="small text-muted mb-0" style="font-size: 0.75rem">
-                    Supports JPG, PNG up to 10 MB. High-resolution photos assist ground survey teams.
+                    Supports JPG, PNG up to 10 MB. High-resolution photos assist
+                    ground survey teams.
                   </p>
 
                   <div
@@ -360,7 +378,8 @@
               <!-- Step 4: Incident Description -->
               <div class="mb-4">
                 <label class="form-label fw-bold text-navy mb-2">
-                  <i class="bi bi-4-circle-fill text-primary me-1"></i> Incident Observation Details:
+                  <i class="bi bi-4-circle-fill text-primary me-1"></i> Incident
+                  Observation Details:
                 </label>
                 <textarea
                   class="form-control form-control-sm"
@@ -374,7 +393,8 @@
               <!-- Step 5: Reporter Contact -->
               <div class="mb-4">
                 <label class="form-label fw-bold text-navy mb-2">
-                  <i class="bi bi-5-circle-fill text-primary me-1"></i> Reporter Identity:
+                  <i class="bi bi-5-circle-fill text-primary me-1"></i> Reporter
+                  Identity:
                 </label>
                 <div class="row g-3">
                   <div class="col-md-6">
@@ -405,7 +425,8 @@
                   class="btn btn-primary fw-bold py-2 shadow-sm"
                   style="background-color: var(--gov-navy); border: none"
                 >
-                  <i class="bi bi-send-fill me-1"></i> SUBMIT HAZARD REPORT FOR TRIAGE
+                  <i class="bi bi-send-fill me-1"></i> SUBMIT HAZARD REPORT FOR
+                  TRIAGE
                 </button>
               </div>
             </form>
@@ -441,7 +462,8 @@
               REP-2026-XXXX
             </h5>
             <p class="text-secondary small mb-3">
-              Your field incident report has been securely registered with the state disaster operations center.
+              Your field incident report has been securely registered with the
+              state disaster operations center.
             </p>
 
             <div class="bg-light p-3 rounded border text-start small mb-3">
@@ -450,14 +472,22 @@
               </div>
               <div>
                 Coordinates:
-                <strong id="success-report-coords">25.1685° N, 93.0163° E</strong>
+                <strong id="success-report-coords"
+                  >25.1685° N, 93.0163° E</strong
+                >
               </div>
-              <div>Status: <span class="badge bg-warning text-dark">PENDING VERIFICATION</span></div>
+              <div>
+                Status:
+                <span class="badge bg-warning text-dark"
+                  >PENDING VERIFICATION</span
+                >
+              </div>
               <div>Timestamp: <strong>Just Now</strong></div>
             </div>
 
             <p class="small text-secondary mb-0">
-              Your report is immediately visible on the GIS map as a pending triage marker and logged into the authority review queue.
+              Your report is immediately visible on the GIS map as a pending
+              triage marker and logged into the authority review queue.
             </p>
           </div>
           <div class="modal-footer bg-light">
@@ -494,7 +524,8 @@
             style="background-color: var(--gov-navy)"
           >
             <h5 class="modal-title fw-bold">
-              <i class="bi bi-geo-alt-fill me-2"></i> Click Map to Select Coordinates
+              <i class="bi bi-geo-alt-fill me-2"></i> Click Map to Select
+              Coordinates
             </h5>
             <button
               type="button"
@@ -504,7 +535,8 @@
           </div>
           <div class="modal-body p-3">
             <div class="alert alert-warning p-2 small mb-2">
-              <i class="bi bi-hand-index-thumb me-1"></i> Click anywhere on the map to set Latitude and Longitude.
+              <i class="bi bi-hand-index-thumb me-1"></i> Click anywhere on the
+              map to set Latitude and Longitude.
             </div>
             <div
               id="picker-map"
