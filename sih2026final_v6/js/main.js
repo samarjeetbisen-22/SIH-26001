@@ -803,13 +803,33 @@ function initAlertControlCenter() {
   const selectDistrict = document.getElementById('alert-select-district');
   if (!selectDistrict) return;
 
+  // Visual card selection sync for channel checkboxes
+  document.querySelectorAll('.channel-chk').forEach(chk => {
+    chk.addEventListener('change', () => {
+      const card = chk.closest('.channel-card');
+      if (card) {
+        if (chk.checked) card.classList.add('selected');
+        else card.classList.remove('selected');
+      }
+      if (window.refreshCapPreview) window.refreshCapPreview();
+    });
+  });
+
   updateTargetAreaMetadata();
 }
 
 function updateTargetAreaMetadata() {
-  const districtKey = document.getElementById('alert-select-district').value || 'tawang';
-  const metadataMap = window.MOCK_ALERT_AREAS_DATA || {};
-  const meta = metadataMap[districtKey] || metadataMap['tawang'];
+  const districtSelect = document.getElementById('alert-select-district');
+  if (!districtSelect) return;
+  const districtKey = districtSelect.value || 'tawang';
+  const metadataMap = window.MOCK_ALERT_AREAS_DATA || (typeof MOCK_ALERT_AREAS_DATA !== 'undefined' ? MOCK_ALERT_AREAS_DATA : {});
+  const meta = metadataMap[districtKey] || metadataMap['tawang'] || {
+    district: "Tawang District, Arunachal Pradesh",
+    riskLevel: "Severe",
+    nearbyVillages: "Jang, Kiting, Lhou, Lumla, Mukto",
+    affectedRoads: "Sela Pass South Approach Road (NH-13)",
+    estPopulation: 14850
+  };
 
   const nameEl = document.getElementById('meta-target-name');
   const badgeEl = document.getElementById('meta-risk-badge');
@@ -817,14 +837,15 @@ function updateTargetAreaMetadata() {
   const roadEl = document.getElementById('meta-roads');
   const popEl = document.getElementById('meta-population');
 
-  if (nameEl) nameEl.innerText = meta.district;
+  if (nameEl) nameEl.innerText = meta.district || "Target District";
   if (badgeEl) {
-    badgeEl.className = `risk-level-badge ${getRiskBadgeClass(meta.riskLevel)}`;
-    badgeEl.innerText = `${meta.riskLevel} Risk`;
+    const rClass = typeof getRiskBadgeClass === 'function' ? getRiskBadgeClass(meta.riskLevel) : 'badge-risk-severe';
+    badgeEl.className = `risk-level-badge ${rClass}`;
+    badgeEl.innerText = `${meta.riskLevel || 'High'} Risk`;
   }
-  if (vilEl) vilEl.innerText = meta.nearbyVillages;
-  if (roadEl) roadEl.innerText = meta.affectedRoads;
-  if (popEl) popEl.innerText = `${meta.estPopulation.toLocaleString('en-IN')} Residents`;
+  if (vilEl) vilEl.innerText = meta.nearbyVillages || "--";
+  if (roadEl) roadEl.innerText = meta.affectedRoads || "--";
+  if (popEl) popEl.innerText = `${(meta.estPopulation || 15000).toLocaleString('en-IN')} Residents`;
 
   // Empirical ML Model Insight
   const mlEl = document.getElementById('meta-ml-insight');
@@ -902,8 +923,8 @@ function generateAutoAlertTemplate() {
 
 function triggerAlertConfirmationModal() {
   const districtKey = document.getElementById('alert-select-district')?.value || 'gangtok';
-  const metadataMap = window.MOCK_ALERT_AREAS_DATA || {};
-  const meta = metadataMap[districtKey] || { district: "Gangtok Urban Belt", riskLevel: "Severe", estPopulation: 42000 };
+  const metadataMap = window.MOCK_ALERT_AREAS_DATA || (typeof MOCK_ALERT_AREAS_DATA !== 'undefined' ? MOCK_ALERT_AREAS_DATA : {});
+  const meta = metadataMap[districtKey] || metadataMap['gangtok'] || { district: "Gangtok Urban Belt", riskLevel: "Severe", estPopulation: 42000 };
 
   const category = document.getElementById('selected-alert-type')?.value || 'Severe Emergency Alert';
   const message = (document.getElementById('alert-message-text')?.value || "").trim();
@@ -913,12 +934,17 @@ function triggerAlertConfirmationModal() {
   const scaledPop = Math.round((meta.estPopulation || 42000) * radiusOpt.basePopMultiplier);
 
   const langKey = document.getElementById('selected-alert-language')?.value || 'english';
-  const selectedChannels = [];
+  let selectedChannels = [];
   document.querySelectorAll('.channel-chk:checked').forEach(chk => selectedChannels.push(chk.value));
 
+  // If no channel is checked, re-check primary channels
   if (selectedChannels.length === 0) {
-    alert("Please select at least one notification channel (Cell Broadcast, LoRa Mesh, or SMS).");
-    return;
+    document.querySelectorAll('.channel-chk').forEach(chk => {
+      chk.checked = true;
+      const card = chk.closest('.channel-card');
+      if (card) card.classList.add('selected');
+      selectedChannels.push(chk.value);
+    });
   }
 
   if (!message) {
@@ -949,15 +975,18 @@ function triggerAlertConfirmationModal() {
 
   const modalEl = document.getElementById('alertConfirmModal');
   if (modalEl && window.bootstrap) {
-    const modal = new bootstrap.Modal(modalEl);
+    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
     modal.show();
+  } else if (modalEl) {
+    modalEl.classList.add('show');
+    modalEl.style.display = 'block';
   }
 }
 
 function executeEmergencyAlertDispatch() {
   const districtKey = document.getElementById('alert-select-district')?.value || 'gangtok';
-  const metadataMap = window.MOCK_ALERT_AREAS_DATA || {};
-  const meta = metadataMap[districtKey] || { district: "Gangtok Urban Belt", riskLevel: "Severe", estPopulation: 42000 };
+  const metadataMap = window.MOCK_ALERT_AREAS_DATA || (typeof MOCK_ALERT_AREAS_DATA !== 'undefined' ? MOCK_ALERT_AREAS_DATA : {});
+  const meta = metadataMap[districtKey] || metadataMap['gangtok'] || { district: "Gangtok Urban Belt", riskLevel: "Severe", estPopulation: 42000 };
 
   const category = document.getElementById('selected-alert-type')?.value || 'Severe Emergency Alert';
   const message = (document.getElementById('alert-message-text')?.value || "").trim();
@@ -967,8 +996,12 @@ function executeEmergencyAlertDispatch() {
   const scaledPop = Math.round((meta.estPopulation || 42000) * radiusOpt.basePopMultiplier);
 
   const langKey = document.getElementById('selected-alert-language')?.value || 'english';
-  const selectedChannels = [];
+  let selectedChannels = [];
   document.querySelectorAll('.channel-chk:checked').forEach(chk => selectedChannels.push(chk.value));
+
+  if (selectedChannels.length === 0) {
+    selectedChannels.push("Cell Broadcast (CBS)", "LoRaWAN Siren Mesh", "Online Multi-Lingual SMS");
+  }
 
   const session = window.getAuthoritySession ? window.getAuthoritySession() : null;
   const officer = session ? `${session.user} (${session.role})` : "NDMA Command Duty Officer";
@@ -1013,7 +1046,7 @@ function executeEmergencyAlertDispatch() {
     modelTriggered: false,
     recipients: scaledPop,
     status: "DISPATCHED (LIVE SIMULATION)",
-    message: message,
+    message: message || "Emergency Landslide Broadcast",
     lat: coords.lat,
     lon: coords.lon
   };
@@ -1026,24 +1059,44 @@ function executeEmergencyAlertDispatch() {
     window.saveNewAlert(newAlertObj);
   }
 
-  const confirmModalEl = document.getElementById('alertConfirmModal');
-  if (confirmModalEl && window.bootstrap) {
-    const bsModal = bootstrap.Modal.getInstance(confirmModalEl);
-    if (bsModal) bsModal.hide();
-  }
-
   const succIdEl = document.getElementById('success-alert-id');
   if (succIdEl) succIdEl.innerText = alertId;
 
   const succAreaEl = document.getElementById('success-alert-area');
   if (succAreaEl) succAreaEl.innerText = `${meta.district} (${radiusKm} km Circle)`;
 
+  const confirmModalEl = document.getElementById('alertConfirmModal');
   const successModalEl = document.getElementById('alertSuccessModal');
-  if (successModalEl && window.bootstrap) {
-    const modal = new bootstrap.Modal(successModalEl);
-    modal.show();
+
+  function openSuccessModal() {
+    if (successModalEl && window.bootstrap) {
+      const succModal = bootstrap.Modal.getOrCreateInstance(successModalEl);
+      succModal.show();
+    } else {
+      alert(`OPERATIONAL BROADCAST: Multi-Channel Alert ${alertId} dispatched successfully across ${radiusKm}km radius!`);
+    }
+  }
+
+  if (confirmModalEl && window.bootstrap) {
+    const bsConfirmModal = bootstrap.Modal.getInstance(confirmModalEl) || bootstrap.Modal.getOrCreateInstance(confirmModalEl);
+    let transitionDone = false;
+    const onHidden = () => {
+      confirmModalEl.removeEventListener('hidden.bs.modal', onHidden);
+      if (!transitionDone) {
+        transitionDone = true;
+        openSuccessModal();
+      }
+    };
+    confirmModalEl.addEventListener('hidden.bs.modal', onHidden);
+    bsConfirmModal.hide();
+    setTimeout(() => {
+      if (!transitionDone) {
+        transitionDone = true;
+        openSuccessModal();
+      }
+    }, 350);
   } else {
-    alert(`PROTOTYPE MODE: Multi-Channel Alert ${alertId} dispatched successfully across ${radiusKm}km radius!`);
+    openSuccessModal();
   }
 }
 
@@ -1980,6 +2033,13 @@ window.selectAlertCategory = selectAlertCategory;
 window.generateAutoAlertTemplate = generateAutoAlertTemplate;
 window.triggerAlertConfirmationModal = triggerAlertConfirmationModal;
 window.executeEmergencyAlertDispatch = executeEmergencyAlertDispatch;
+function zoomToPriorityLocation(lat, lon, zoom = 12) {
+  if (window.focusMapOnCoordinates) {
+    window.focusMapOnCoordinates(lat, lon, zoom);
+  } else if (window.map && window.ol) {
+    window.map.getView().animate({ center: window.ol.proj.fromLonLat([lon, lat]), zoom: zoom, duration: 800 });
+  }
+}
 window.zoomToPriorityLocation = zoomToPriorityLocation;
 window.renderDashboardMLModelsTable = renderDashboardMLModelsTable;
 window.showModelFeatureModal = showModelFeatureModal;

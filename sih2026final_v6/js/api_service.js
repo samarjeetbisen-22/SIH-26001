@@ -8,7 +8,9 @@
 (function () {
   'use strict';
 
-  const API_BASE_URL = window.location.origin;
+  const API_BASE_URL = (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin !== 'null') 
+    ? window.location.origin 
+    : 'http://localhost:8080';
 
   const NER_API = {
     isBackendConnected: false,
