@@ -376,7 +376,22 @@ const POLLING_INTERVAL_SECONDS = 30 * 60; // 30 minutes (1800s)
 let pollingSecondsRemaining = POLLING_INTERVAL_SECONDS;
 let countdownIntervalHandle = null;
 let isFetchingRealtime = false;
-let lastAlertEmittedState = {};
+const LOCAL_STORAGE_LAST_ALERT_KEY = 'NER_LAST_ALERT_EMITTED_STATE';
+
+function getLastAlertEmittedState() {
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_LAST_ALERT_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function setLastAlertEmittedState(stateObj) {
+  try {
+    localStorage.setItem(LOCAL_STORAGE_LAST_ALERT_KEY, JSON.stringify(stateObj));
+  } catch (e) {}
+}
 
 /**
  * Initializes continuous background polling and a 1-second countdown ticker
@@ -465,6 +480,7 @@ function evaluateContinuousRiskAlerts(weatherMap) {
   if (!weatherMap) return;
 
   const now = Date.now();
+  const lastAlertEmittedState = getLastAlertEmittedState();
   const alertThresholds = [
     { key: 'sikkim', name: 'Sikkim (East Sikkim / NH-10)', thresholdAri: 100, level: 'Severe', corridor: 'NH-10 Gangtok–Siliguri corridor' },
     { key: 'nagaland', name: 'Nagaland (Kohima / NH-29)', thresholdAri: 65, level: 'Warning', corridor: 'NH-29 Kohima–Dimapur bypass' },
@@ -476,9 +492,10 @@ function evaluateContinuousRiskAlerts(weatherMap) {
     const data = weatherMap[t.key];
     if (data && data.ari >= t.thresholdAri) {
       const lastEmitted = lastAlertEmittedState[t.key] || 0;
-      // Emit alert once every 60 minutes per state to prevent spamming
-      if (now - lastEmitted > 60 * 60 * 1000) {
+      // Emit alert once every 6 hours per state to prevent spamming
+      if (now - lastEmitted > 6 * 60 * 60 * 1000) {
         lastAlertEmittedState[t.key] = now;
+        setLastAlertEmittedState(lastAlertEmittedState);
 
         // Check if autonomous dispatch is enabled
         const isAutoEnabled = localStorage.getItem('NER_AUTO_DISPATCH_ENABLED') !== 'false';
@@ -516,9 +533,10 @@ function evaluateContinuousRiskAlerts(weatherMap) {
         const radiusKm = t.level === 'Severe' ? 15 : 25;
         const cbsTowers = radiusKm === 15 ? 8 : 18;
         const loraGateways = radiusKm === 15 ? 11 : 24;
+        const dateCode = new Date().toISOString().slice(0, 10).replace(/-/g, '');
 
         const autoAlert = {
-          id: `ALT-AUTO-${Date.now().toString().slice(-4)}`,
+          id: `ALT-AUTO-${t.key.toUpperCase()}-${dateCode}`,
           timestamp: new Date().toLocaleDateString('en-CA') + ' ' + new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) + ' IST',
           authority: "🤖 NASA LHASA v2 + 30m XGBoost Model (Autonomous)",
           targetArea: t.name,

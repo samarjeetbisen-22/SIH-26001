@@ -281,9 +281,84 @@ def init_persistent_dbs():
         with open(AUDIT_LOG_DB_PATH, "w", encoding="utf-8") as f:
             json.dump(initial_logs, f, indent=2)
 
-    if not os.path.exists(ALERTS_DB_PATH):
+    INITIAL_ALERTS = [
+        {
+            "id": "ALT-NER-2026-001",
+            "timestamp": "2026-09-19 01:15 IST",
+            "authority": "🤖 NASA LHASA v2 + 30m XGBoost AI Model (Autonomous)",
+            "targetArea": "Gangtok Urban Belt & NH-10 Corridor (Sikkim)",
+            "riskLevel": "Severe",
+            "alertType": "Severe Emergency Alert",
+            "channels": ["Cell Broadcast (CBS - Offline Handset Push)", "LoRaWAN & VHF Radio Siren Mesh", "Online Multilingual SMS", "CAP-CP NDMA Gateway Push"],
+            "geoRadiusKm": 15,
+            "cbsTowers": 8,
+            "loraGateways": 11,
+            "language": "nepali",
+            "langName": "नेपाली (Nepali)",
+            "modelTriggered": True,
+            "recipients": 42000,
+            "status": "DISPATCHED (LIVE SIMULATION)",
+            "message": "आपतकालीन निर्देशन: अत्यधिक वर्षाका कारण पूर्वी सिक्किमको एनएच-१० र डिक्चु क्षेत्रमा जमिन भासिने र ठूलो पहिरो जाने उच्च जोखिम उत्पन्न भएको छ। भिरालो र जोखिमयुक्त ठाउँबाट तुरुन्त सुरक्षित स्थानमा जानुहोस्।"
+        },
+        {
+            "id": "ALT-NER-2026-002",
+            "timestamp": "2026-09-18 20:30 IST",
+            "authority": "admin (Senior Operations Officer)",
+            "targetArea": "Kohima Phesama Sinking Sector (Nagaland)",
+            "riskLevel": "High",
+            "alertType": "Warning",
+            "channels": ["Cell Broadcast (CBS - Offline Handset Push)", "Online Multilingual SMS"],
+            "geoRadiusKm": 15,
+            "cbsTowers": 8,
+            "loraGateways": 11,
+            "language": "nagamese",
+            "langName": "Nagamese / English",
+            "modelTriggered": False,
+            "recipients": 28000,
+            "status": "DISPATCHED (LIVE SIMULATION)",
+            "message": "HOSHIYAR THAKIBI: Bishi borokh pori ase, Kohima NH-29 aru Phesama sinking zone te mati dhori jabo laga bishi risk ase. Gari loi jabo naparibo, safe jaka te thakibi."
+        },
+        {
+            "id": "ALT-NER-2026-003",
+            "timestamp": "2026-09-18 16:45 IST",
+            "authority": "🤖 30m Real-Time Monitor (Autonomous)",
+            "targetArea": "Shillong Plateau & NH-6 Route (Meghalaya)",
+            "riskLevel": "Moderate",
+            "alertType": "Warning",
+            "channels": ["Cell Broadcast (CBS - Offline Handset Push)", "Online Multilingual SMS"],
+            "geoRadiusKm": 25,
+            "cbsTowers": 18,
+            "loraGateways": 24,
+            "language": "khasi",
+            "langName": "Ka Ktien Khasi (Khasi)",
+            "modelTriggered": True,
+            "recipients": 55000,
+            "status": "DISPATCHED (LIVE SIMULATION)",
+            "message": "KA JINGMA JUR: Ka jingther u slap ka la pynlong ka jingma kaba khraw ha NH-6 Shillong-Jowai bad ki thain Cherrapunji. Ki paidbah kiba shong ha ki jaka riat ki dei ban phet noh sha ki jaka ba shngain."
+        },
+        {
+            "id": "ALT-NER-2026-004",
+            "timestamp": "2026-09-18 11:20 IST",
+            "authority": "admin (Senior Operations Officer)",
+            "targetArea": "Dima Hasao Hills / Haflong (Assam)",
+            "riskLevel": "Severe",
+            "alertType": "Road Closure",
+            "channels": ["Cell Broadcast (CBS - Offline Handset Push)", "LoRaWAN & VHF Radio Siren Mesh", "Online Multilingual SMS"],
+            "geoRadiusKm": 15,
+            "cbsTowers": 8,
+            "loraGateways": 11,
+            "language": "assamese",
+            "langName": "অসমীয়া (Assamese)",
+            "modelTriggered": False,
+            "recipients": 35000,
+            "status": "DISPATCHED (LIVE SIMULATION)",
+            "message": "ভূমিস্খলনৰ সতৰ্কবাৰ্তা: ধাৰাসাৰ বৰষুণৰ বাবে ডিমা হাছাওৰ পাহাৰীয়া এলেকা আৰু এন এইচ-২৭ হাফলং সংযোগী পথত ভূমিস্খলনৰ আশংকা। পাহাৰীয়া পথত সাৱধানে চলাচল কৰক।"
+        }
+    ]
+
+    if not os.path.exists(ALERTS_DB_PATH) or os.path.getsize(ALERTS_DB_PATH) <= 4:
         with open(ALERTS_DB_PATH, "w", encoding="utf-8") as f:
-            json.dump([], f, indent=2)
+            json.dump(INITIAL_ALERTS, f, indent=2)
 
 
 def evaluate_lhasa_percentages(susc, ari):
@@ -770,21 +845,26 @@ class NerApiAndStaticHandler(SimpleHTTPRequestHandler):
             except Exception:
                 alerts = []
 
-            new_alert_id = f"ALERT-2026-{len(alerts) + 1:03d}"
-            alert_item = {
-                "id": new_alert_id,
-                "state": body.get("state", "NER"),
-                "severity": body.get("severity", "High"),
-                "headline": body.get("headline", "Landslide Warning"),
-                "regionalLanguage": body.get("regionalLanguage", "English"),
-                "dispatchedAt": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S IST"),
-                "offlineRadiusKm": body.get("offlineRadiusKm", 15),
-                "capXml": body.get("capXml", "")
-            }
-            alerts.insert(0, alert_item)
+            alert_id = body.get("id") or f"ALT-NER-2026-{len(alerts) + 1:03d}"
+            target_area = body.get("targetArea") or body.get("state") or "NER Regional Corridor"
+            message = body.get("message") or body.get("headline") or "Landslide Warning"
 
-            with open(ALERTS_DB_PATH, "w", encoding="utf-8") as f:
-                json.dump(alerts, f, indent=2)
+            dup_found = False
+            for a in alerts:
+                if a.get("id") == alert_id or (a.get("targetArea") == target_area and a.get("message") == message):
+                    dup_found = True
+                    alert_item = a
+                    break
+
+            if not dup_found:
+                alert_item = dict(body)
+                alert_item["id"] = alert_id
+                if "timestamp" not in alert_item:
+                    alert_item["timestamp"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M IST")
+                alerts.insert(0, alert_item)
+
+                with open(ALERTS_DB_PATH, "w", encoding="utf-8") as f:
+                    json.dump(alerts, f, indent=2)
 
             self.send_json({"status": "success", "alert": alert_item}, status_code=201)
             return

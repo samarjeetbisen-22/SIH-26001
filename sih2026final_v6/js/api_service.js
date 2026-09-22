@@ -114,10 +114,23 @@
         if (resp.ok) {
           const backendAlerts = await resp.json();
           if (Array.isArray(backendAlerts) && backendAlerts.length > 0) {
-            localStorage.setItem('NER_EMERGENCY_ALERTS', JSON.stringify(backendAlerts));
-            console.log(`[NER API] Synchronized ${backendAlerts.length} alerts from persistent backend database.`);
-            if (window.renderAlertHistoryTable) window.renderAlertHistoryTable();
-            if (window.renderActiveAlerts) window.renderActiveAlerts();
+            const localAlerts = window.getStoredAlerts ? window.getStoredAlerts() : [];
+            const seen = new Set(localAlerts.map(a => a.id));
+            let hasNew = false;
+            backendAlerts.forEach(ba => {
+              if (ba && ba.id && !seen.has(ba.id)) {
+                localAlerts.unshift(ba);
+                seen.add(ba.id);
+                hasNew = true;
+              }
+            });
+            if (hasNew) {
+              localStorage.setItem('NER_EMERGENCY_ALERTS', JSON.stringify(localAlerts));
+            }
+            console.log(`[NER API] Synchronized alerts from persistent backend database.`);
+            if (window.initAlertHistoryPage && document.getElementById('alert-history-table-body')) {
+              window.initAlertHistoryPage();
+            }
           }
         }
       } catch (e) {
@@ -317,10 +330,7 @@
         }
       }
 
-      // Fallback
-      if (window.saveReport) {
-        return window.saveReport(reportData);
-      }
+      // Data was already committed to local persistence by caller
       return reportData;
     },
 
@@ -343,10 +353,7 @@
         }
       }
 
-      // Fallback
-      if (window.updateReportStatus) {
-        window.updateReportStatus(reportId, newStatus, remarks);
-      }
+      // Status was already committed to local persistence by caller
       return { status: 'success', reportId, newStatus };
     },
 
@@ -369,9 +376,7 @@
           console.warn('[NER API] Backend alert dispatch failed, falling back to localStorage:', e);
         }
       }
-      if (window.saveNewAlert) {
-        return window.saveNewAlert(alertData);
-      }
+      // CRITICAL FIX: Do NOT call window.saveNewAlert here to prevent infinite mutual recursion
       return alertData;
     }
   };

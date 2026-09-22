@@ -827,29 +827,97 @@ const LOCAL_STORAGE_ALERTS_KEY = 'NER_EMERGENCY_ALERTS';
 function getStoredAlerts() {
   try {
     const raw = localStorage.getItem(LOCAL_STORAGE_ALERTS_KEY);
-    if (!raw) {
-      localStorage.setItem(LOCAL_STORAGE_ALERTS_KEY, JSON.stringify(INITIAL_EMERGENCY_ALERTS));
-      return INITIAL_EMERGENCY_ALERTS;
+    let alerts = [];
+    if (raw) {
+      alerts = JSON.parse(raw);
     }
-    return JSON.parse(raw);
+    if (!Array.isArray(alerts) || alerts.length === 0) {
+      localStorage.setItem(LOCAL_STORAGE_ALERTS_KEY, JSON.stringify(INITIAL_EMERGENCY_ALERTS));
+      return [...INITIAL_EMERGENCY_ALERTS];
+    }
+
+    // Strict deduplication: remove any repeated identical alerts
+    const seenIds = new Set();
+    const seenContent = new Set();
+    const cleanAlerts = [];
+
+    for (const alt of alerts) {
+      if (!alt) continue;
+      const idKey = alt.id ? String(alt.id).trim().toLowerCase() : '';
+      const contentKey = `${(alt.targetArea || '').trim()}___${(alt.message || '').trim().slice(0, 80)}`.toLowerCase();
+
+      // Check for duplicate ID or duplicate content
+      if (idKey && seenIds.has(idKey)) continue;
+      if (contentKey.length > 5 && seenContent.has(contentKey)) continue;
+
+      if (idKey) seenIds.add(idKey);
+      if (contentKey.length > 5) seenContent.add(contentKey);
+      cleanAlerts.push(alt);
+    }
+
+    // Ensure all 4 canonical alerts for Sikkim, Nagaland, Meghalaya, and Assam are available
+    INITIAL_EMERGENCY_ALERTS.forEach(initAlt => {
+      const exists = cleanAlerts.some(a => 
+        (a.id && a.id === initAlt.id) || 
+        (a.targetArea && a.targetArea === initAlt.targetArea)
+      );
+      if (!exists) {
+        cleanAlerts.push(initAlt);
+      }
+    });
+
+    // Heal localStorage if duplicates were cleaned up
+    if (cleanAlerts.length !== alerts.length) {
+      console.log(`[Alert Storage] Sanitized duplicates: reduced from ${alerts.length} to ${cleanAlerts.length} unique alerts.`);
+      localStorage.setItem(LOCAL_STORAGE_ALERTS_KEY, JSON.stringify(cleanAlerts));
+    }
+
+    return cleanAlerts;
   } catch (e) {
-    return INITIAL_EMERGENCY_ALERTS;
+    return [...INITIAL_EMERGENCY_ALERTS];
   }
 }
 
 function saveNewAlert(newAlert) {
   try {
+    if (!newAlert) return false;
     const existing = getStoredAlerts();
+
+    // Deduplication check: reject if alert with same ID or same area & message already exists
+    const newIdKey = newAlert.id ? String(newAlert.id).trim().toLowerCase() : '';
+    const newContentKey = `${(newAlert.targetArea || '').trim()}___${(newAlert.message || '').trim().slice(0, 80)}`.toLowerCase();
+
+    const isDuplicate = existing.some(a => {
+      const aId = a.id ? String(a.id).trim().toLowerCase() : '';
+      const aContent = `${(a.targetArea || '').trim()}___${(a.message || '').trim().slice(0, 80)}`.toLowerCase();
+      return (newIdKey && aId === newIdKey) || (newContentKey.length > 5 && aContent === newContentKey);
+    });
+
+    if (isDuplicate) {
+      console.warn('[Alert Storage] Duplicate alert ignored:', newAlert.id || newAlert.targetArea);
+      return false;
+    }
+
     existing.unshift(newAlert);
     localStorage.setItem(LOCAL_STORAGE_ALERTS_KEY, JSON.stringify(existing));
 
-    // Async push to live backend if online
+    // Async push to live backend if online (Do NOT recurse back!)
     if (window.NER_API && typeof window.NER_API.createAlert === 'function') {
       window.NER_API.createAlert(newAlert).catch(e => console.warn('[NER API] Async alert save error:', e));
     }
     return true;
   } catch (e) {
     return false;
+  }
+}
+
+function resetStoredAlerts() {
+  try {
+    localStorage.setItem(LOCAL_STORAGE_ALERTS_KEY, JSON.stringify(INITIAL_EMERGENCY_ALERTS));
+    console.log('[Alert Storage] Alert history reset to default canonical 4-state records.');
+    return [...INITIAL_EMERGENCY_ALERTS];
+  } catch (e) {
+    return [...INITIAL_EMERGENCY_ALERTS];
   }
 }
 
@@ -991,6 +1059,7 @@ window.setAuthoritySession = setAuthoritySession;
 window.clearAuthoritySession = clearAuthoritySession;
 window.getStoredAlerts = getStoredAlerts;
 window.saveNewAlert = saveNewAlert;
+window.resetStoredAlerts = resetStoredAlerts;
 window.MOCK_HAZARD_ZONES = typeof MOCK_HAZARD_ZONES !== 'undefined' ? MOCK_HAZARD_ZONES : [];
 window.MOCK_SLOPE_ZONES = typeof MOCK_SLOPE_ZONES !== 'undefined' ? MOCK_SLOPE_ZONES : [];
 window.MOCK_ELEVATION_ZONES = typeof MOCK_ELEVATION_ZONES !== 'undefined' ? MOCK_ELEVATION_ZONES : [];

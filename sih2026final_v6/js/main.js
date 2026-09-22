@@ -1106,6 +1106,22 @@ function initAlertHistoryPage() {
 
   const alerts = window.getStoredAlerts ? window.getStoredAlerts() : [];
 
+  // Update Dynamic Metric KPI Cards if present on page
+  const totalEl = document.getElementById('kpi-total-broadcasts');
+  if (totalEl) totalEl.innerText = `${alerts.length} Active Logs`;
+
+  const aiCount = alerts.filter(a => a.modelTriggered || (a.authority && (a.authority.includes('AI Model') || a.authority.includes('SYSTEM') || a.authority.includes('Autonomous')))).length;
+  const aiEl = document.getElementById('kpi-ai-model-triggered');
+  if (aiEl) aiEl.innerText = `${aiCount} Autonomous`;
+
+  const langSet = new Set();
+  alerts.forEach(a => {
+    const l = a.langName || a.language;
+    if (l) langSet.add(l.toLowerCase());
+  });
+  const langEl = document.getElementById('kpi-regional-languages');
+  if (langEl) langEl.innerText = `${Math.max(langSet.size, 4)} Languages`;
+
   if (alerts.length === 0) {
     tableBody.innerHTML = `<tr><td colspan="7" class="text-center text-muted py-4">No emergency alert history recorded.</td></tr>`;
     return;
@@ -1182,6 +1198,16 @@ function initAlertHistoryPage() {
     `;
   }).join('');
 }
+
+function resetAlertHistoryUI() {
+  if (confirm("Reset alert history archive to canonical multi-state operational baseline?")) {
+    if (window.resetStoredAlerts) {
+      window.resetStoredAlerts();
+    }
+    initAlertHistoryPage();
+  }
+}
+window.resetAlertHistoryUI = resetAlertHistoryUI;
 
 /* ==========================================================================
    REPORT VERIFICATION CENTER & AUDIT LOG (PART 5)

@@ -130,6 +130,14 @@
         </div>
 
         <div class="d-flex align-items-center gap-2">
+          <button
+            type="button"
+            class="btn btn-outline-secondary btn-sm fw-bold shadow-sm"
+            onclick="resetAlertHistoryUI()"
+            title="Reset history to canonical multi-state operational baseline"
+          >
+            <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Archive
+          </button>
           <a
             href="alerts.html"
             class="btn btn-danger text-white btn-sm fw-bold shadow-sm"
@@ -147,10 +155,9 @@
               <span class="text-muted small fw-bold">TOTAL BROADCASTS</span>
               <i class="bi bi-broadcast-pin text-primary fs-5"></i>
             </div>
-            <h3 class="fw-extrabold text-navy mb-0">4 Active Logs</h3>
+            <h3 class="fw-extrabold text-navy mb-0" id="kpi-total-broadcasts">4 Active Logs</h3>
             <div class="small text-success mt-1" style="font-size: 0.75rem">
-              <i class="bi bi-check-circle me-1"></i>All channels confirmed
-              queued
+              <i class="bi bi-check-circle me-1"></i>All channels confirmed queued
             </div>
           </div>
         </div>
@@ -161,7 +168,7 @@
               <span class="text-muted small fw-bold">AI MODEL TRIGGERED</span>
               <i class="bi bi-cpu-fill text-success fs-5"></i>
             </div>
-            <h3 class="fw-extrabold text-navy mb-0">2 Autonomous</h3>
+            <h3 class="fw-extrabold text-navy mb-0" id="kpi-ai-model-triggered">2 Autonomous</h3>
             <div class="small text-muted mt-1" style="font-size: 0.75rem">
               Direct from LHASA v2 + 30m XGBoost
             </div>
@@ -174,7 +181,7 @@
               <span class="text-muted small fw-bold">OFFLINE CHANNELS</span>
               <i class="bi bi-phone-fill text-danger fs-5"></i>
             </div>
-            <h3 class="fw-extrabold text-navy mb-0">CBS & LoRa Mesh</h3>
+            <h3 class="fw-extrabold text-navy mb-0" id="kpi-offline-channels">CBS & LoRa Mesh</h3>
             <div class="small text-danger mt-1" style="font-size: 0.75rem">
               Zero-internet handset & siren broadcast
             </div>
@@ -187,7 +194,7 @@
               <span class="text-muted small fw-bold">REGIONAL LANGUAGES</span>
               <i class="bi bi-translate text-warning fs-5"></i>
             </div>
-            <h3 class="fw-extrabold text-navy mb-0">6 Languages</h3>
+            <h3 class="fw-extrabold text-navy mb-0" id="kpi-regional-languages">4 Languages</h3>
             <div class="small text-muted mt-1" style="font-size: 0.75rem">
               Nepali • Assamese • Khasi • Nagamese
             </div>
